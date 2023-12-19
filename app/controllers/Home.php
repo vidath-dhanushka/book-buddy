@@ -1,8 +1,9 @@
 <?php
 
-class Home {
+class Home extends Controller{
     function index(){
-        echo "home page";
+        $data['title'] = 'Home';
+        $this->view('home', $data);
     }
 
     function edit(){

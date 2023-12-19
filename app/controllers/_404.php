@@ -1,12 +1,10 @@
 <?php
 
-final class _404 
+class _404 extends Controller 
 {
     function index(){
-        echo "page not found";
+        $data['title'] = '404';
+        $this->view('home', $data);
     }
 
-    function delete(){
-        echo "this is the delete func in 404";
-    }
 }

@@ -39,7 +39,7 @@
                         <input type="text" name="pswd" id="password" required>
                     </div>
                     <div class="submit">
-                        <button type="submit">Create Account</button>
+                        <button type="submit">Log In</button>
                     </div>
 
                 </div>

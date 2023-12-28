@@ -6,6 +6,7 @@ class App{
     function __construct()
     {
         $arr = $this->getURL();
+        // show($arr);
         
 
         $filename = '../app/controllers/'. ucfirst($arr[0]) . '.php';

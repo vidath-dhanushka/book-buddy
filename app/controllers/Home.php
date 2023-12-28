@@ -2,7 +2,7 @@
 
 class Home extends Controller{
     function index(){
-        $db = new Database();
+        // $db = new Database();
         // $users = new user();
         // $users->insert($data);
 

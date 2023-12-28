@@ -32,17 +32,24 @@ class Database
     }
 
     public function create_tables(){
-        $query = "
-        CREATE TABLE IF NOT EXISTS users (
-            id INT(11) NOT NULL AUTO_INCREMENT,
-            email VARCHAR(100) NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            date_created date DEFAULT NULL,
-            PRIMARY KEY (id),
-            KEY email (email),
-            KEY date_created (date_created)
-            )
-        ";
+        $query = "CREATE TABLE IF NOT EXISTS `users` (
+                `id` INT(11) NOT NULL AUTO_INCREMENT,
+                `firstname` VARCHAR(30) NOT NULL,
+                `lastname` VARCHAR(30) NOT NULL,
+                `username` VARCHAR(60) NOT NULL,
+                `email` VARCHAR(100) NOT NULL,
+                `phone` VARCHAR(10) NOT NULL,
+                `address` VARCHAR(255) NOT NULL,
+                `password` VARCHAR(255) NOT NULL,
+                `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIME,
+                PRIMARY KEY (id),
+                KEY firstname (firstname),
+                KEY lastname (lastname),
+                KEY username (username),
+                KEY email (email),
+                KEY date_created (date_created)
+                ) 
+            ";
 
         $this->query($query);
     }

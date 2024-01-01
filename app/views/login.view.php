@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
+    <title>Login</title>
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/login.css">
 
 </head>
@@ -27,17 +27,27 @@
             </div>
         </div>
         <div class="subcontainer-right">
+
+            <?php if(message()):?>
+                <div class="alert"><?=message('', true)?></div>
+            <?php endif;?>
+
             <h2>Login</h2>
-            <form action="">
+            <form method="post">
                 <div class="inner-subcontainer">
                     <div class="details">
-                        <label for="username">Username</label>
-                        <input type="text" name="usrname" id="uname" required>
+                        <label for="uname">Username</label>
+                        <input value="<?=set_value('username')?>" type="text" name="username" id="uname" class="<?=!empty($errors['password']) ? 'err-border':'';?>" required1>
                     </div>
                     <div class="details">
-                        <label for="pswd">password</label>
-                        <input type="text" name="pswd" id="password" required>
+                        <label for="password">password</label>
+                        <input value="<?=set_value('password')?>" type="password" name="password" id="password" class="<?=!empty($errors['password']) ? 'err-border':'';?>" required1>
+
+                        <?php if(!empty($errors['password'])):?>
+                            <small class="err-msg"><?=$errors['password']?></small>
+                        <?php endif;?>
                     </div>
+                    
                     <div class="submit">
                         <button type="submit">Log In</button>
                     </div>

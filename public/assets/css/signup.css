@@ -53,7 +53,7 @@ body {
 
 h2 {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .details {
@@ -132,4 +132,29 @@ button {
 
 button:hover {
     background-color: #818af9;
+}
+
+.err-msg{
+    color: red;
+}
+
+.err-border {
+    border: 1px solid red;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    text-align: center;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }

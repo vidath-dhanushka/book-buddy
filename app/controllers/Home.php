@@ -1,8 +1,9 @@
 <?php
 
 class Home extends Controller{
-    function index(){
+    public function index(){
         // $db = new Database();
+        // $db->create_tables();
         // $users = new user();
         // $users->insert($data);
 

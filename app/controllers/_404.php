@@ -2,7 +2,7 @@
 
 class _404 extends Controller
 {
-    function index(){
+    public function index(){
         $data['title'] = '404';
         $this->view('404', $data);
     }

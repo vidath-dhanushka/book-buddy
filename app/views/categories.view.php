@@ -1,65 +1,20 @@
 <?php $this->view('includes/header') ?>
 <?php $this->view('includes/nav')?>
 <main>
-    <section class="banner">
-        <div class="banner-content">Unlock the power <br> of knowledge with <br> <span>Bookbuddy</span></div>
-        <img src="<?=ROOT?>/assets/images/bannar-img.png" alt="home-img">
+    <section class="categories">
+        <a href="all">All</a>
+        <a href="fiction">Fiction</a>
+        <a href="thriller">Thriller</a>
+        <a href="Fantasy">Fantasy</a>
+        <a href="adventure">Adventure</a>
+        <a href="romance">Romance</a>
+        <a href="horror">Horror</a>
     </section>
-    <section class="top-rated-books">
-        <h1>Top Rated Books</h1>
-        <div class="top-rated-book-box">
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?=ROOT?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?=ROOT?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?=ROOT?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?=ROOT?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-        </div>    
-    </section>
+    <div class="container-hr">
+        <hr>
+    </div>
     <section class="arrivals">
-        <h1>New Arrivals</h1>
+        <!-- <h1>New Arrivals</h1> -->
         <div class="arrivals-box">
             <div class="arrivals-card">
                 <div class="arrivals-img">
@@ -224,4 +179,4 @@
         </div>
     </section>
 </main>
-<?php $this->view('includes/footer') ?>
+<?php $this->view('includes/footer')?>

@@ -41,6 +41,7 @@ class Database
                 `phone` VARCHAR(10) NOT NULL,
                 `address` VARCHAR(255) NOT NULL,
                 `password` VARCHAR(255) NOT NULL,
+                `role` VARCHAR(20)  NOT NULL,
                 `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIME,
                 PRIMARY KEY (id),
                 KEY firstname (firstname),

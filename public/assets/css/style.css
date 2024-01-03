@@ -1,3 +1,7 @@
+@import url(./sidenav.styles.css);
+@import url(./member/profile.styles.css);
+@import url(./member/dashboard.styles.css);
+
 * {
     margin: 0;
     padding: 0;

@@ -1,6 +1,11 @@
 <?php $this->view('includes/header') ?>
 <?php $this->view('includes/nav')?>
 <main>
+    <section class="searchbar">
+        <form action="">
+            <input type="text" name="search" id="search" placeholder="search here....">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </section>
     <section class="categories">
         <a href="all">All</a>
         <a href="fiction">Fiction</a>

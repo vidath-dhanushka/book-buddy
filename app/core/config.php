@@ -13,7 +13,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost'){
     define('DBPASS', '');
     define('DBDRIVER', 'mysql');
 
-    define('ROOT', 'http://localhost/bookbuddy/public');
+    define('ROOT', 'http://localhost/book-buddy/public');
 }else{
     define('DBHOST', 'localhost');
     define('DBNAME', 'bookbuddy_db');

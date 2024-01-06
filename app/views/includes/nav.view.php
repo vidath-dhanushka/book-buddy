@@ -2,7 +2,7 @@
     <div class="header-1">
         <div class="flex">
             <div class="logo">
-                <a href="home"><img src="<?=ROOT?>/assets/images/logo.svg" alt="logo"></a>
+                <a href="<?=ROOT?>/home"><img src="<?=ROOT?>/assets/images/logo.svg" alt="logo"></a>
             </div>
             <div class="account">
                 <?php if(!Auth::logged_in()):?>

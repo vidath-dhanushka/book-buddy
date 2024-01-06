@@ -36,8 +36,8 @@
             <form method="post">
                 <div class="inner-subcontainer">
                     <div class="details">
-                        <label for="uname">Username</label>
-                        <input value="<?=set_value('username')?>" type="text" name="username" id="uname" class="<?=!empty($errors['password']) ? 'err-border':'';?>" required1>
+                        <label for="uname">email</label>
+                        <input value="<?=set_value('email')?>" type="email" name="email" id="email" class="<?=!empty($errors['password']) ? 'err-border':'';?>" required1>
                     </div>
                     <div class="details">
                         <label for="password">password</label>

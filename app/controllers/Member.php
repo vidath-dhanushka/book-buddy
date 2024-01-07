@@ -13,6 +13,19 @@ class Member extends Controller{
 
     }
 
+    public function books($action = null, $id = null){
+        if(!Auth::logged_in()){
+            message('please login to view the books');
+            redirect('login');
+        }
+
+        $data = [];
+        $data['action'] = $action;
+        $data['id'] = $id;
+
+        $this->view('member/books', $data);
+    }
+
   
 
     

@@ -53,5 +53,25 @@ class Database
             ";
 
         $this->query($query);
+
+
+        $query = "CREATE TABLE IF NOT EXISTS `books` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `title` VARCHAR(255) NOT NULL,
+            `description` text DEFAULT NULL,
+            `category` VARCHAR(100) NOT NULL,
+            `book_image` VARCHAR(1024) NOT NULL,
+            `user_id` INT NOT NULL,
+            `author_id` INT NOT NULL, 
+            `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIME,
+            PRIMARY KEY (id),
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+            KEY title (title),
+            KEY category (category)
+            )
+        ";
+
+        $this->query($query);
+        
     }
 }

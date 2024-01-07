@@ -20,14 +20,18 @@ class User extends Model{
 
         if(empty($data['firstname'])){
             $this->errors['firstname'] = "Please enter the first name";
+        }else
+        if(!preg_match("/^[a-zA-Z ]+$/",$data['firstname'])){
+            $this->errors['firstname'] = "first name can only have letters";
         }
         if(empty($data['lastname'])){
             $this->errors['lastname'] = "Please enter the last name";
+        }else
+        if(!preg_match("/^[a-zA-Z]+$/",$data['lastname'])){
+            $this->errors['lastname'] = "last name can only have letters without spaces";
         }
         if(empty($data['username'])){
             $this->errors['username'] = "Please enter the username";
-        }elseif($this->where(['username' =>$data['username']])){
-            $this->errors['username'] = "username already exists";
         }
         
         if(!filter_var($data['email'],  FILTER_VALIDATE_EMAIL)){
@@ -37,6 +41,9 @@ class User extends Model{
         }
         if(empty($data['phone'])){
             $this->errors['phone'] = "Please enter the phone number";
+        }else
+        if(!preg_match('/^\+[0-9]{11}$/',$data['phone'])){
+            $this->errors['phone'] = "please enter the number in international standards";
         }
         if(empty($data['address'])){
             $this->errors['address'] = "Please enter the address";

@@ -1,99 +1,151 @@
-<?php $this->view('includes/header') ?>
-<?php $this->view('includes/nav')?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/navbar.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/profile.css">
+   <link rel="stylesheet" href="<?=ROOT?>/assets/css/sidenav.css">
+   <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/dropdown.css">
+   <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/profiletable.css">
+   <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/tabmenu.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
-<div class="profile-box">
-        <div class="cardBox col-1-3">
-          <div class="profile col-1-1">
+<div class="profile-container">
+        <div class="profile-box">
+            <div class="dropdown-action">
+                <div class="icon" onclick="menuToggle()" id="toggle">
+                    <img src="<?=ROOT?>/assets/images/member/setting.png"  class="setting-icon">
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li><img src="<?=ROOT?>/assets/images/member/edit-info.png" alt=""><a href="<?=ROOT?>/member/edit">Edit Profile</a></li>
+                        <li><img src="<?=ROOT?>/assets/images/member/reset-password.png" alt=""><a href="<?=ROOT?>/member/change_password">Change Password</a></li>
+                        <!-- <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li>
+                        <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li>
+                        <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li>
+                        <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li> -->
+                    </ul>
+                </div>
+            </div>
             
-            <div class="col-1"> <b> My Account</b></div>
-
-              <div class="col-2">
-              <form method="post" class="registration-form">
-    <div class="profile-pic-container full-width">
-        <img id="profile-pic" src="<?= ROOT ?>/assets/images/Avatar.png" alt="Profile Picture">
-        <div class="overlay">
-            <img id="camera-icon" src="<?= ROOT ?>/assets/images/camera.png" alt="Upload">
-            <input type="file" id="fileInput" name="profilePic">
-        </div>
-    </div>
-    <button id="removeBtn" style="display:none;">Remove</button>
-              </from>
+            <img src="<?=ROOT?>/assets/images/Avatar.png"  class="profile-pic">
+            <h3>A . Perera</h3>
+            <p>someonr@gmail.com</p>
+            
+            <button type="button">BASIC</button>
+            <div class="profile-buttom">
                 
-              </div>
-              <div class="col-3">A. Perera <br> <span>Someone@gmail.com</span></div>
-              <div class="col-4">Basic</div>
-              <div class="col-5">Change Subscription</div> 
-          </div>
+            </div>
+        </div>
 
-          <div class="box">
-    <h2>Change password</h2>
-    <form action="/change-password" method="post">
-        <label for="current-password">Current password</label>
-        <input type="password" id="current-password" name="currentPassword" required>
-
-        <label for="new-password">New password</label>
-        <input type="password" id="new-password" name="newPassword" required>
-
-        <label for="confirm-new-password">Confirm new password</label>
-        <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
-
-        <input type="submit">
-    </form>
-</div>
-
-        </div> 
-      </div>
-      <div class="form-section box ">
-      <form method="post" class="reset-form grid-3">
+        <div class="layout">
+            <input name="nav" type="radio" class="nav personal-radio" id="personal" checked="checked" />
+            <div class="page personal-page">
+                <div class="page-contents">
+                    <main class="table" id="details_table">
     
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" name="firstName">
-        <!-- <span class="form-invalid">Error</span> -->
-
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" name="lastName">
-        <!-- <span class="form-invalid">Error</span> -->
-   
-        <label for="nicNumber">NIC Number</label>
-        <input type="text" id="nicNumber" name="nicNumber">
-        <!-- <span class="form-invalid">Error</span> -->
-    </div>
-    <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address">
-        <!-- <span class="form-invalid">Error</span> -->
- 
-  
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username">
-        <!-- <span class="form-invalid">Error</span> -->
-
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email">
-        <!-- <span class="form-invalid">Error</span> -->
-    </div>
-    <div class="form-group">
-        <label for="dob">Date of Birth</label>
-        <input type="date" id="dob" name="dob">
-        <!-- <span class="form-invalid">Error</span> -->
-  
+                        <section class="table__body">
+                            <table>
+                                
+                                <tbody>
+                                    <tr>
+                                        <td> First Name </td>
+                                        <td> John</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Last Name </td>
+                                        <td> Doe</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Phone Number </td>
+                                        <td> +1-234-567-8901</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Birth Date </td>
+                                        <td> 1998-08-11</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Username </td>
+                                        <td> johndoe123</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Email </td>
+                                        <td> johndoe123@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td> NIC Number </td>
+                                        <td> 0000000000</td>
+                                    </tr>
+                                    
+                                </tbody>
+                                
+                            </table>
+                        </section>
+                    </main>
+                </div>
+            </div>
+            <label class="nav" for="personal">
+                <span>
+                
+                    Personal Details
+                </span>
+            </label>
+        
+            <input name="nav" type="radio" class="postal-radio" id="postal" />
+            <div class="page postal-page">
+                <div class="page-contents">
+                    <main class="table" id="details_table">
     
-        <label for="phoneNumber">Phone Number</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber">
-        <!-- <span class="form-invalid">Error</span> -->
-   
-  
-    <div class="profile-btn">
-    <input type="submit" value="Save Changes">
-    <input type="button" value="Cancel">
-    </div>
-    
-    </div>
-</form>
-
+                        <section class="table__body">
+                            <table>
+                                
+                                <tbody>
+                                    <tr>
+                                        <td>Address </td>
+                                        <td> 19, 1st Floor, Battaramulla</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Province </td>
+                                        <td> Western</td>
+                                    </tr>
+                                    <tr>
+                                        <td> District </td>
+                                        <td> Colombo</td>
+                                    </tr>
+                                    <tr>
+                                        <td> City </td>
+                                        <td> Battaramulla</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Postal Code </td>
+                                        <td> 10120</td>
+                                    </tr>
+                                    
+                                </tbody>
+                                
+                            </table>
+                        </section>
+                    </main>
+                </div>
+            </div>
+            <label class="nav" for="postal">
+                <span>
+                    Postal Details
+                </span>
+            </label>
+        
+            
+            </div>
+   </div>
 </section>
-<script src="<?= ROOT ?>/assets/js/profile.js"></script>
+
+<script src="<?= ROOT ?>/assets/js/dropdown.js"></script>
+
+</body>
+</html>

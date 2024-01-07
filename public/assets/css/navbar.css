@@ -1,0 +1,55 @@
+nav{
+    height: 70px;
+    background: white;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top:0px;
+    right: 0px;
+    z-index: 1;
+    box-shadow: 0 .2em 3px rgba(129, 138, 249, 1);
+}
+.logo img{
+   height: 6vh;   
+}
+
+nav .notification{
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+nav ul{
+    width: 100%;
+    text-align: center;
+}
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+nav ul li a{
+    color: black;
+    text-decoration: none;
+}
+
+nav ul li a:hover{
+    color: #818AF9;
+}
+#user-btn {
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+#user-btn:hover {
+    color: #818af9;
+}
+
+
+

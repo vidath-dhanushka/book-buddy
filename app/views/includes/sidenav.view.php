@@ -92,7 +92,7 @@
           >
         </li>
         <li>
-          <a href="<?= ROOT ?>/404"
+          <a href="<?= ROOT ?>/member/books/add"
             >Add Book</a
           >
         </li>

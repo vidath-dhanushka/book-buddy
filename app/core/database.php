@@ -59,15 +59,35 @@ class Database
             `id` INT(11) NOT NULL AUTO_INCREMENT,
             `title` VARCHAR(255) NOT NULL,
             `description` text DEFAULT NULL,
-            `category` VARCHAR(100) NOT NULL,
             `book_image` VARCHAR(1024) NOT NULL,
             `user_id` INT NOT NULL,
             `author_id` INT NOT NULL, 
             `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIME,
             PRIMARY KEY (id),
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-            KEY title (title),
-            KEY category (category)
+            KEY title (title)
+            )
+        ";
+
+        $this->query($query);
+        $query = "CREATE TABLE IF NOT EXISTS `categories` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `category_name` VARCHAR(255) NOT NULL, 
+            `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIME,
+            PRIMARY KEY (id)
+            )
+        ";
+
+        $this->query($query);
+
+
+        $query = "CREATE TABLE IF NOT EXISTS `book_category` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `book_id` INT NOT NULL, 
+            `category_id` INT NOT NULL,
+            PRIMARY KEY (id),
+            FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+            FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
             )
         ";
 

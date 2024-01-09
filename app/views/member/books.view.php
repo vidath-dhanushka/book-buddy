@@ -5,29 +5,6 @@
 
 <?php if($action == 'add'):?>
     <br>
-    <!-- <div class="profile-box">
-        <div class="cardBox col-1-3">
-            <div class="profile col-1-1">
-                
-                <div class="col-1"> <b> My Account</b></div>
-
-                <div class="col-2">
-                <form method="post" class="registration-form">
-        <div class="profile-pic-container full-width">
-            <img id="profile-pic" src="<?= ROOT ?>/assets/images/Avatar.png" alt="Profile Picture">
-            <div class="overlay">
-                <img id="camera-icon" src="<?= ROOT ?>/assets/images/camera.png" alt="Upload">
-                <input type="file" id="fileInput" name="profilePic">
-            </div>
-        </div>
-        <button id="removeBtn" style="display:none;">Remove</button>
-                </from>
-                    
-                </div>
-                <div class="col-3">A. Perera <br> <span>Someone@gmail.com</span></div>
-                <div class="col-4">Basic</div>
-                <div class="col-5">Change Subscription</div> 
-            </div> -->
     <section class="home-section">
         <div class="box">
             <h2>Add new Book to share</h2>
@@ -49,8 +26,6 @@
                 <label for="author">Author</label>
                 <input type="text" id="author" name="author" value="<?=set_value('')?>" required>
 
-                <!-- <label for="category">Author</label>
-                <input type="text" id="author" name="author" value="<?=set_value('')?> -->
                 <label for="category">Category</label>
                 <select id="category">    
                 <?php foreach ($data['categories'] as $category ):?>

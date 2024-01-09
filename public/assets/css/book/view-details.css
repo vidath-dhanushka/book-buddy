@@ -1,0 +1,81 @@
+.main-container {
+    display: flex;
+    margin: 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #3333;
+}
+
+.container-left {
+    width: 50%;
+    background-color: #ddd;
+    border-radius: 15px 0 0 15px;
+    padding: 20px;
+}
+
+.container-right {
+    padding: 10px 20px;
+}
+
+.container-left img {
+    width: 300px;
+    height: 400px;
+    margin: 10px 50px;
+    object-fit: cover;
+    background-color: #707070;
+}
+
+.container-right p i {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+
+.container-right .book-title {
+    font-size: 3rem;
+}
+
+.container-right h2 {
+    font-size: 1.5rem;
+    color: rgb(77, 74, 74);
+}
+
+.description {
+    font-size: 1.4rem;
+    color: #0009;
+    /* line-break: anywhere; */
+}
+
+.container-right h3 {
+    font-size: 1.3rem;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.container-right .tags span {
+    border-radius: 15px;
+    padding: 7px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    background-color: rgba(133, 251, 255, 0.596);
+}
+
+.container-right button {
+    height: 55px;
+    width: 300px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgb(130, 106, 251);
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.container-right button:hover {
+    background-color: #fff;
+    border: 1px solid #818AF9;
+    color: #818AF9;
+}

@@ -1,7 +1,7 @@
 <div class="hero">
   <nav>
     <div class="logo">
-      <img src="<?= ROOT ?>/assets/images/logo.svg" alt="logo" />
+      <a href="<?=ROOT?>/home"><img src="<?=ROOT?>/assets/images/logo.svg" alt="logo"></a>
     </div>
     
     <div class="account">

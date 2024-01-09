@@ -15,6 +15,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost'){
 
     define('ROOT', 'http://localhost/book-buddy/public');
 }else{
+    define('ROOT', '/book-buddy/public');
     define('DBHOST', 'localhost');
     define('DBNAME', 'bookbuddy_db');
     define('DBUSER', 'root');

@@ -58,10 +58,4 @@ class Model extends Database{
         return false;
     }
 
-    public function categories(){
-        $query = "SELECT id, category_name FROM categories ORDER BY category_name";
-        $res = $this->query($query);
-        return $res;
-    }
-
 }

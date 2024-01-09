@@ -6,10 +6,19 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+.container{
+  margin-top: rem;
+}
+.home-section{
+  margin-top: 5rem;
+}
+a{
+  text-decoration: none;
+}
 
 .sidebar{
   position: fixed;
-  top: 119px;
+  top: 72px;
   left: 0;
   height: 90%;
   width: 260px;
@@ -20,7 +29,6 @@
   
 }
 .sidebar.close{
- 
   width: 78px;
 }
 .sidebar .logo-details{
@@ -248,7 +256,6 @@
 
 .home-section{
   position: relative;
- 
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -258,6 +265,9 @@
 .sidebar.close ~ .home-section{
   left: 78px;
   width: calc(100% - 78px);
+}
+.sidebar.close ~ .home-section > .profile-container{
+  left: -35px;
 }
 .home-content{
   display: flex;
@@ -276,7 +286,7 @@
    /* Position the button */
    transition: all 0.5s ease;
     position: fixed;
-    top: 110px;
+    top: 100px;
     left: 60px;
     z-index: 1;
     transform: rotate(180deg);

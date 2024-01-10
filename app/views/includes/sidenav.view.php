@@ -36,27 +36,27 @@
     </li>
 
     <li>
-      <a href="<?= ROOT ?>/book/search">
+      <a href="<?= ROOT ?>/member/borrowing">
         <div class="icon">
           <img
-            src="<?= ROOT ?>/assets/images/sidenav/explore.png"
+            src="<?= ROOT ?>/assets/images/sidenav/borrowing.png"
             alt="icon"
           />
         </div>
 
-        <span class="link_name">Book Explorer</span>
+        <span class="link_name">My Borrowing</span>
       </a>
       <ul class="sub-menu blank">
         <li>
           <a
             class="link_name"
-            href="<?= ROOT ?>/book/search"
-            >Book Explorer</a
+            href="<?= ROOT ?>/member/borrowing"
+            >My Borrowing</a
           >
         </li>
       </ul>
     </li>
-    <li>
+    <!-- <li>
       <div class="iocn-link">
         <a href="<?= ROOT ?>/404">
           <div class="icon">
@@ -135,7 +135,7 @@
           >
         </li>
       </ul>
-    </li>
+    </li> -->
     <hr>
     <li id="log-out">
       <a href="<?=ROOT?>/logout">

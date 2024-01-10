@@ -4,7 +4,6 @@ class Member extends Controller{
     public function index(){
         $data['title'] = 'Dashboard';
         $this->view('404', $data);
-
     }
 
     public function profile(){
@@ -29,7 +28,10 @@ class Member extends Controller{
         $this->view('member/dashboard', $data);
     }
 
-
+    public function borrowing(){
+        $data['title'] = 'My Borrowing';
+        $this->view('member/borrowing', $data);
+    }
 
 
     public function books($action = null, $id = null){
@@ -62,8 +64,5 @@ class Member extends Controller{
 
         $this->view('member/books', $data);
     }
-
   
-
-    
 }

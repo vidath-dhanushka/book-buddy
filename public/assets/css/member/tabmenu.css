@@ -15,7 +15,7 @@
     margin-top: 100px;
     display: grid;
     height: 100%;
-    width: 100%;
+    width: 98%;
     overflow: hidden;
     grid-template-rows: 50px 1fr;
     grid-template-columns: 1fr 1fr;

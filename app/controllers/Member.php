@@ -49,7 +49,7 @@ class Member extends Controller{
                             $destination = $folder.time().$_FILES['image']['name'];
                             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
                             $_POST['user_image'] = $destination;
-                            if(file_exists($row->user_image)){
+                            if(file_exists($row->user_image != 'uploads/default.png' && $row->user_image)){
                                 unlink($row->user_image);
                             }
                         }else{

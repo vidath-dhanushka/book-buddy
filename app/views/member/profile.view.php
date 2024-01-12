@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
+<?php if(!empty($row)):?>
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
@@ -34,11 +35,11 @@
             </div>
         </div>
         
-        <img src="<?=ROOT?>/assets/images/Avatar.png"  class="profile-pic">
-        <h3>A . Perera</h3>
-        <p>someonr@gmail.com</p>
+        <img src="<?=ROOT?>/<?=($row->user_image)?>"  class="profile-pic">
+        <h3><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>
+        <p><?=esc($row->email)?></p>
         
-        <button type="button">BASIC</button>
+        <!-- <button type="button">BASIC</button> -->
         <div class="profile-buttom">
             
         </div>
@@ -56,32 +57,32 @@
                             <tbody>
                                 <tr>
                                     <td> First Name </td>
-                                    <td> John</td>
+                                    <td> <?=esc($row->firstname)?></td>
                                 </tr>
                                 <tr>
                                     <td> Last Name </td>
-                                    <td> Doe</td>
+                                    <td> <?=esc($row->lastname)?></td>
                                 </tr>
                                 <tr>
                                     <td> Phone Number </td>
-                                    <td> +1-234-567-8901</td>
+                                    <td><?=esc($row->phone)?></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td> Birth Date </td>
                                     <td> 1998-08-11</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td> Username </td>
-                                    <td> johndoe123</td>
+                                    <td> <?=esc($row->username)?></td>
                                 </tr>
                                 <tr>
                                     <td> Email </td>
-                                    <td> johndoe123@example.com</td>
+                                    <td> <?=esc($row->email)?></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td> NIC Number </td>
                                     <td> 0000000000</td>
-                                </tr>
+                                </tr> -->
                                 
                             </tbody>
                             
@@ -108,9 +109,9 @@
                             <tbody>
                                 <tr>
                                     <td>Address </td>
-                                    <td> 19, 1st Floor, Battaramulla</td>
+                                    <td> <?=esc($row->address)?></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td> Province </td>
                                     <td> Western</td>
                                 </tr>
@@ -125,7 +126,7 @@
                                 <tr>
                                     <td> Postal Code </td>
                                     <td> 10120</td>
-                                </tr>
+                                </tr> -->
                                 
                             </tbody>
                             
@@ -146,6 +147,10 @@
 </section>
 
 <script src="<?= ROOT ?>/assets/js/dropdown.js"></script>
-
+<?php else:?>
+    <div>
+       Profile is not found..
+    </div>
+<?php endif;?>
 </body>
 </html>

@@ -2,12 +2,12 @@
   <a href="<?= ROOT ?>/member/profile">
     <div class="logo-details">
       <img
-        src="<?= ROOT ?>/assets/images/sidenav/Avatar.png"
-        alt="profile-imgage"
+        src="<?=ROOT?>/<?=($row->user_image)?>"
+        alt="profile-image"
       />
 
       <span class="logo_name"
-        ><span class="profile-title">Member</span><br />A. Perera
+        ><span class="profile-title"><?=($row->role)?></span><br /><?=esc($row->username)?>
       </span>
     </div>
   </a>

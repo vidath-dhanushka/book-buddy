@@ -11,161 +11,178 @@
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/profile-pic.css">
 </head>
 <body>
+<?php if(!empty($row)):?>
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 
 <section class="home-section">
+
 <section class="container">
+<?php if(message()):?>
+    <div class="alert"><?=message('', true)?></div>
+  <?php endif;?>
       <header>Profile Information</header>
-      <form action="#" class="form" enctype="multipart/form-data">
-          <h3>Personal Details</h3>
-          <div class="column">
-            <div class="input-box">
-              <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-              <div class="upload">
-                <img src="img/<?php echo $user['image']; ?>" id = "image">
-                <div class="rightRound" id = "upload">
-                  <input type="file" name="fileImg" id = "fileImg" accept=".jpg, .jpeg, .png">
-                  <i class = "fa fa-camera"></i>
-                </div>
-        
-                <div class="leftRound" id = "cancel" style = "display: none;">
-                  <i class = "fa fa-times"></i>
-                </div>
-                
-              </div>
-            </div>
-            
+      <form method="post" class="form" enctype="multipart/form-data" id="upload-form">
+     
+  <h3>Personal Details</h3>
+  <div class="column">
+      <div class="input-box">
+        <div class="upload">
+          <img src="<?=ROOT?>/<?=($row->user_image)?>" id = "image">
+          <div class="rightRound" id = "upload">
+            <input onchange="load_image(this.files[0])" type="file" name="image" id = "fileImg" accept=".jpg, .jpeg, .png">
+           
+            <i class = "fa fa-camera"></i>
           </div>
-        
+          
+          <div class="leftRound" id = "cancel" style = "display: none;">
+            <i class = "fa fa-times"></i>
+          </div>
+          
+        </div>
+        <?php if(!empty($errors['user_image'])):?>
+              <small class="err-msg" id="centered-error"><?=$errors['user_image']?></small>
+           <?php endif;?>
+      </div>
+      
+  </div>
   <div class="column">
     <div class="input-box">
       <label>First Name</label>
-      <input type="text" placeholder="Enter First Name" value="John" required />
+      <input type="text" id="firstname" name="firstname" placeholder="Enter First Name" value="<?=set_value('firstname',$row->firstname)?>" required />
+      <?php if(!empty($errors['firstname'])):?>
+        <small class="err-msg"><?=$errors['firstname']?></small>
+      <?php endif;?>
     </div>
     <div class="input-box">
       <label>Last Name</label>
-      <input type="text" placeholder="Enter Last Name" value="Doe" required />
+      <input type="text" id="lastname" name="lastname" placeholder="Enter Last Name" value="<?=set_value('lastname',$row->lastname)?>" required />
+      <?php if(!empty($errors['lastname'])):?>
+        <small class="err-msg"><?=$errors['lastname']?></small>
+      <?php endif;?>
     </div>
   </div>
   <div class="column">
     <div class="input-box">
       <label>Phone Number</label>
-      <input type="number" placeholder="Enter phone number" value="1234567890" required />
+      <input type="tel" id="phone" name="phone" placeholder="Enter phone number" value="<?=set_value('Phone',$row->phone)?>" required />
+      <?php if(!empty($errors['phone'])):?>
+        <small class="err-msg"><?=$errors['phone']?></small>
+      <?php endif;?>
     </div>
-    <div class="input-box">
+    <!-- <div class="input-box">
       <label>Birth Date</label>
-      <input type="date" placeholder="Enter birth date" value="1990-01-01" required />
-    </div>
-    <div class="input-box">
+      <input type="date" id="birthdate" name="birthdate" placeholder="Enter birth date" value="1990-01-01" required />
+      
+    </div> -->
+    <!-- <div class="input-box">
       <label>NIC Number</label>
-      <input type="text" placeholder="Enter NIC number" value="123456789V" required />
-    </div>
+      <input type="text" id="nic" name="nic" placeholder="Enter NIC number" value="123456789V" required />
+    </div> -->
   </div>
-  
+
   <div class="column">
-  <div class="input-box">
-    <label>Username</label>
-    <input type="text" placeholder="Enter username" value="johndoe" required />
-  </div>
+    <div class="input-box">
+      <label>Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" value="<?=set_value('username',$row->username)?>" required />
+      <?php if(!empty($errors['username'])):?>
+        <small class="err-msg"><?=$errors['username']?></small>
+      <?php endif;?>
+    </div>
     <div class="input-box">
       <label>Email</label>
-      <input type="email" placeholder="Enter email" value="johndoe@example.com" required />
+      <input type="email" id="email" name="email" placeholder="Enter email" value="<?=set_value('email',$row->email)?>" required />
+      <?php if(!empty($errors['email'])):?>
+        <small class="err-msg"><?=$errors['email']?></small>
+      <?php endif;?>
     </div>
-    
   </div>
-  
   <h3>Postal Details</h3>
   <div class="input-box">
     <label>Address</label>
-    <input type="text" placeholder="Enter Address" value="123 Main St" required />
+    <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" required />
+    <?php if(!empty($errors['address'])):?>
+      <small class="err-msg"><?=$errors['address']?></small>
+    <?php endif;?>
   </div>
-  <div class="column">
+  <!-- <div class="column">
     <div class="input-box">
       <label>City</label>
-      <input type="text" placeholder="Enter City" value="Colombo" required />
+      <input type="text" id="city" name="city" placeholder="Enter City" value="Colombo" required />
     </div>
     <div class="input-box">
       <label>Postal Code</label>
-      <input type="number" placeholder="Postal Code" value="12345" required />
+      <input type="number" id="postalcode" name="postalcode" placeholder="Postal Code" value="12345" required />
     </div>
-  </div>
-  <div class="column">
-              <div class="select-box"> 
-                <select>
-                  <option hidden>Province</option>
-                  <!-- <option>America</option>
-                  <option>Japan</option>
-                  <option>India</option>
-                  <option>Nepal</option> -->
-                </select>
-              </div>
-              <div class="select-box">
-                <select>
-                  <option hidden>District</option>
-                  <!-- <option>America</option>
-                  <option>Japan</option>
-                  <option>India</option>
-                  <option>Nepal</option> -->
-                </select>
-              </div>
-            </div>
-  <div class="column">
+  </div> -->
+  <!-- <div class="column">
+    <div class="select-box"> 
+      <select id="province" name="province">
+        <option hidden>Province</option>
+        <option>America</option>
+        <option>Japan</option>
+        <option>India</option>
+        <option>Nepal</option>
+      </select>
+    </div>
+    <div class="select-box">
+      <select id="district" name="district">
+        <option hidden>District</option>
+        <option>America</option>
+        <option>Japan</option>
+        <option>India</option>
+        <option>Nepal</option>
+      </select>
+    </div> -->
+  <!-- </div> -->
+  <!-- <div class="column">
     <div class="input-box">
       <label>City</label>
-      <input type="text" placeholder="Enter City" value="Colombo" required />
+      <input type="text" id="city2" name="city2" placeholder="Enter City" value="Colombo" required />
     </div>
     <div class="input-box">
       <label>Postal Code</label>
-      <input type="number" placeholder="Postal Code" value="12345" required />
+      <input type="number" id="postalcode2" name="postalcode2" placeholder="Postal Code" value="12345" required />
     </div>
-  </div>
+  </div> -->
 
   <div class="column">
     <button>Cancel</button>
-    <button>Update Profile</button>
+    <button type='submit'>Update Profile</button>
   </div>
-      </form>
+</form>
+
     </section>
     </section>
-    <script type="text/javascript">
-      document.getElementById("fileImg").onchange = function(){
-        document.getElementById("image").src = URL.createObjectURL(fileImg.files[0]); // Preview new image
+<script>
+   
+  function load_image(file){
+    var mylink = window.URL.createObjectURL(file);
 
-        document.getElementById("cancel").style.display = "block";
-        document.getElementById("confirm").style.display = "block";
+    document.querySelector('#image').src = mylink;
+    console.log(mylink);
+  }
 
-        document.getElementById("upload").style.display = "none";
-      }
 
-      var userImage = document.getElementById('image').src;
-      document.getElementById("cancel").onclick = function(){
-        document.getElementById("image").src = userImage; // Back to previous image
-
-        document.getElementById("cancel").style.display = "none";
-        document.getElementById("confirm").style.display = "none";
-
-        document.getElementById("upload").style.display = "block";
-      }
-    </script>
-    
-
-    <?php
-    if(isset($_FILES["fileImg"]["name"])){
-      $id = $_POST["id"];
-
-      $src = $_FILES["fileImg"]["tmp_name"];
-      $imageName = uniqid() . $_FILES["fileImg"]["name"];
-
-      $target = "img/" . $imageName;
-
-      move_uploaded_file($src, $target);
-
-      $query = "UPDATE tb_user SET image = '$imageName' WHERE id = $id";
-      mysqli_query($conn, $query);
-
-      header("Location: index.php");
+  document.getElementById('fileImg').addEventListener('change', function(e){
+    var fileInput = document.getElementById('fileImg');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if(!allowedExtensions.exec(filePath)){
+        document.getElementsByClassName('err-msg')[0].innerHTML = 'Please upload file having extensions .jpeg/.jpg/.png only.';
+        fileInput.value = '';
+    } else {
+        document.getElementsByClassName('err-msg')[0].innerHTML = '';
     }
-    ?>
+});
+</script>
 
+    
+</script>
+
+<?php else:?>
+    <div>
+       Profile is not found..
+    </div>
+<?php endif;?>
 <?php $this->view('includes/footer') ?>

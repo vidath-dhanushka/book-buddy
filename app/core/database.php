@@ -49,10 +49,11 @@ class Database
                 `lastname` VARCHAR(30) NOT NULL,
                 `username` VARCHAR(60) NOT NULL,
                 `email` VARCHAR(100) NOT NULL,
-                `phone` VARCHAR(10) NOT NULL,
+                `phone` VARCHAR(12) NOT NULL,
                 `address` VARCHAR(255) NOT NULL,
                 `password` VARCHAR(255) NOT NULL,
                 `role` VARCHAR(20)  NOT NULL,
+                `user_image` VARCHAR(1024) DEFAULT 'uploads/default.png',
                 `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIME,
                 PRIMARY KEY (id),
                 KEY firstname (firstname),
@@ -102,6 +103,8 @@ class Database
         ";
 
         $this->query($query);
+
+
 
         $query = "CREATE TABLE IF NOT EXISTS `authors` (
             `id` INT(11) NOT NULL AUTO_INCREMENT,

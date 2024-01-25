@@ -30,6 +30,35 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 
 }
+.err-msg{
+  color: red;
+}
+
+.err-border {
+  border: 1px solid red;
+}
+@keyframes fadeOut {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  text-align: center;
+  animation-name: fadeOut;
+  animation-duration: 1.5s;
+  animation-delay: .5s; 
+  animation-fill-mode: forwards; 
+}
+#centered-error {
+  text-align: center;
+}
+
 
 .container header {
   font-size: 1.2rem;

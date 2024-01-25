@@ -1,13 +1,9 @@
 <div class="sidebar close">
   <a href="<?= ROOT ?>/member/profile">
     <div class="logo-details">
-      <img
-        src="<?=ROOT?>/<?=($row->user_image)?>"
-        alt="profile-image"
-      />
+      <img src="<?= ROOT ?>/<?= ($row->user_image) ?>" alt="profile-image" />
 
-      <span class="logo_name"
-        ><span class="profile-title"><?=($row->role)?></span><br /><?=esc($row->username)?>
+      <span class="logo_name"><span class="profile-title"><?= ($row->role) ?></span><br /><?= esc($row->username) ?>
       </span>
     </div>
   </a>
@@ -16,21 +12,14 @@
     <li>
       <a href="<?= ROOT ?>/member/dashboard">
         <div class="icon">
-          <img
-            src="<?= ROOT ?>/assets/images/sidenav/dashboard.png"
-            alt="icon"
-          />
+          <img src="<?= ROOT ?>/assets/images/sidenav/dashboard.png" alt="icon" />
         </div>
 
         <span class="link_name">Dashboard</span>
       </a>
       <ul class="sub-menu blank">
         <li>
-          <a
-            class="link_name"
-            href="<?= ROOT ?>/member/dashboard"
-            >Dashboard</a
-          >
+          <a class="link_name" href="<?= ROOT ?>/member/dashboard">Dashboard</a>
         </li>
       </ul>
     </li>
@@ -38,21 +27,14 @@
     <li>
       <a href="<?= ROOT ?>/member/borrowing">
         <div class="icon">
-          <img
-            src="<?= ROOT ?>/assets/images/sidenav/borrowing.png"
-            alt="icon"
-          />
+          <img src="<?= ROOT ?>/assets/images/sidenav/borrowing.png" alt="icon" />
         </div>
 
         <span class="link_name">My Borrowing</span>
       </a>
       <ul class="sub-menu blank">
         <li>
-          <a
-            class="link_name"
-            href="<?= ROOT ?>/member/borrowing"
-            >My Borrowing</a
-          >
+          <a class="link_name" href="<?= ROOT ?>/member/borrowing">My Borrowing</a>
         </li>
       </ul>
     </li>
@@ -138,28 +120,18 @@
     </li> -->
     <hr>
     <li id="log-out">
-      <a href="<?=ROOT?>/logout">
+      <a href="<?= ROOT ?>/logout">
         <div class="icon">
-          <img
-            src="<?= ROOT ?>/assets/images/sidenav/logout.png"
-            alt="icon"
-          />
+          <img src="<?= ROOT ?>/assets/images/sidenav/logout.png" alt="icon" />
         </div>
         <span class="link_name">Log-out</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" href="<?=ROOT?>/logout">Log-out</a></li>
+        <li><a class="link_name" href="<?= ROOT ?>/logout">Log-out</a></li>
       </ul>
     </li>
   </ul>
 
-  <img
-    src="<?= ROOT ?>/assets/images/sidenav/Button.png"
-    alt="Button"
-    class="menu-button"
-    onclick="changePosition()"
-  />
+  <img src="<?= ROOT ?>/assets/images/sidenav/Button.png" alt="Button" class="menu-button" onclick="changePosition()" />
 </div>
 <script src="<?= ROOT ?>/assets/js/sidenav.js"></script>
-
-

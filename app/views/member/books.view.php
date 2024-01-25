@@ -17,6 +17,7 @@
 <body>
     <?php $this->view('includes/navbar') ?>
     <?php $this->view('includes/sidenav', $data) ?>
+
     <?php if ($action == 'add') : ?>
         <br>
         <section class="home-section">
@@ -80,12 +81,12 @@
                 <header>Edit Book Details</header>
                 <form action="#" class="form" method="post" enctype="multipart/form-data">
 
-                    <img onclick="document.getElementById('book_upload').click()" src="<?= ($data['row']->book_image) ? (ROOT . "/" . $data['row']->book_image) : "/assets/images/books/book_image.jpg" ?>" id="thumb" class="img-book" alt="">
+                    <img onclick="document.getElementById('book_upload').click()" src="<?= ($data['book_details']->book_image) ? (ROOT . "/" . $data['book_details']->book_image) : "/assets/images/books/book_image.jpg" ?>" id="thumb" class="img-book" alt="">
                     <input type="file" onchange="change_img(this)" id="book_upload" accept="image/*" name="book_image">
 
                     <div class="input-box">
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title" value="<?= $data['row']->title; ?>" required>
+                        <input type="text" id="title" name="title" value="<?= $data['book_details']->title; ?>" required>
 
                         <?php if (!empty($errors['title'])) : ?>
                             <small class="err-msg"><?= $errors['title'] ?></small>
@@ -94,7 +95,7 @@
 
                     <div class="input-box">
                         <label for="description">Description</label>
-                        <textarea id="description" name="description" required><?= $data['row']->description; ?></textarea>
+                        <textarea id="description" name="description" required><?= $data['book_details']->description; ?></textarea>
 
                         <?php if (!empty($errors['description'])) : ?>
                             <small class="err-msg"><?= $errors['description'] ?></small>
@@ -104,7 +105,7 @@
 
                     <div class="input-box">
                         <label for="author">Author</label>
-                        <input type="text" id="author" name="author" value="<?= camelCaseToWords($data['row']->author_name); ?>" required>
+                        <input type="text" id="author" name="author" value="<?= camelCaseToWords($data['book_details']->author_name); ?>" required>
                     </div>
                     <br>
                     <label for="category">Category</label>
@@ -112,7 +113,7 @@
                     <!-- <div class="select-box"> -->
                     <!-- <select id="category" multiple>     -->
                     <?php foreach ($data['categories'] as $category) : ?>
-                        <input name="category[]" type="checkbox" value="<?= $category->id; ?>" <?= in_array($category->id, $data['row']->cats) ? 'checked' : '' ?> />
+                        <input name="category[]" type="checkbox" value="<?= $category->id; ?>" <?= in_array($category->id, $data['book_details']->cats) ? 'checked' : '' ?> />
                         <label style="margin-right: 15px; text-transform: capitalize"><?= $category->category_name; ?></label>
                     <?php endforeach; ?>
                     <!-- </select> -->

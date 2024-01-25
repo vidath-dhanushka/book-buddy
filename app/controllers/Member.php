@@ -141,10 +141,17 @@ class Member extends Controller
 
     public function books($action = null, $id = null)
     {
+        $data = [];
+
         if (!Auth::logged_in()) {
             message('please login to view the books');
             redirect('login');
         }
+
+        $user = new User();
+        $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        // show($data['row']);
+        // die;
 
         $book = new Book;
 
@@ -152,7 +159,7 @@ class Member extends Controller
 
         $book_categ = new Book_category;
 
-        $data = [];
+
         $data['action'] = $action;
         $data['id'] = $id;
 
@@ -247,7 +254,7 @@ class Member extends Controller
             }
         } elseif ($action == 'edit') {
 
-            $data['row'] = $book->view_book_details(['b.id' => $id]);
+            $data['book_details'] = $book->view_book_details(['b.id' => $id]);
             // show($data['row']);
             // die;
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {

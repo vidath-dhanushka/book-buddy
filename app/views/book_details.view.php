@@ -3,15 +3,15 @@
 
 <div class="main-container">
     <section class="container-left">
-        <img src="<?= ROOT ?>/assets/images/books/arrival_1.jpg">
+        <img src="<?= ROOT . '/' . $data['row']->book_image; ?>">
     </section>
     <section class="container-right">
         <br>
-        <p class="book-title">The Giver</p>
-        <p>By <i>Thinuk Kabril</i></p>
+        <p class="book-title"><?= $data['row']->title; ?></p>
+        <p>By <i><?= $data['row']->author_name; ?></i></p>
         <br>
         <!-- <h2>Description:</h2> -->
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae doloremque sed itaque, similique esse dicta alias odio commodi deleniti vel quas soluta odit voluptatem earum nemo nam? Sunt, quod. Unde.</p><br>
+        <p class="description"><?= $data['row']->description; ?></p><br>
         <br>
         <div class="tags">
             <span>Fiction</span>

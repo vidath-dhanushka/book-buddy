@@ -1,37 +1,48 @@
 <?php
 
-class Database 
+class Database
 {
-    private function connect(){
+    private function connect()
+    {
 
-        $str = DBDRIVER.':host='.DBHOST.';dbname='.DBNAME;
+        $str = DBDRIVER . ':host=' . DBHOST . ';dbname=' . DBNAME;
         return new PDO($str, DBUSER, DBPASS);
-
     }
 
-    public function query($query, $data = [], $type = 'object'){
-
+    public function query($query, $data = [], $type = 'object')
+    {
         $con = $this->connect();
+
         $stm = $con->prepare($query);
-        if($stm){
+        if ($stm) {
+            foreach ($data as $key => $value) {
+                $newKey = str_replace('.', '', $key);
+
+                // Remove the old key and set the value with the new key
+                unset($data[$key]);
+                $data[$newKey] = $value;
+            }
+
             $check = $stm->execute($data);
-            if($check){
-                if($type != 'object'){
+            if ($check) {
+                if ($type != 'object') {
                     $type = PDO::FETCH_ASSOC;
-                }else{
+                } else {
                     $type = PDO::FETCH_OBJ;
                 }
                 $result = $stm->fetchAll($type);
 
-                if(is_array($result) && count($result) > 0){
+                if (is_array($result) && count($result) > 0) {
                     return $result;
                 }
+                return $con->lastInsertId();
             }
         }
         return false;
     }
 
-    public function create_tables(){
+    public function create_tables()
+    {
         $query = "CREATE TABLE IF NOT EXISTS `users` (
                 `id` INT(11) NOT NULL AUTO_INCREMENT,
                 `firstname` VARCHAR(30) NOT NULL,
@@ -73,7 +84,6 @@ class Database
         $query = "CREATE TABLE IF NOT EXISTS `categories` (
             `id` INT(11) NOT NULL AUTO_INCREMENT,
             `category_name` VARCHAR(255) NOT NULL, 
-            `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIME,
             PRIMARY KEY (id)
             )
         ";
@@ -92,6 +102,15 @@ class Database
         ";
 
         $this->query($query);
-        
+
+        $query = "CREATE TABLE IF NOT EXISTS `authors` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `author_name` VARCHAR(255) NOT NULL, 
+            `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIME,
+            PRIMARY KEY (id)
+            )
+        ";
+
+        $this->query($query);
     }
 }

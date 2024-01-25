@@ -35,6 +35,9 @@ body {
 .subcontainer-right {
 
     position: relative;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
 
     width: 50%;
 
@@ -44,6 +47,7 @@ body {
     display: flex;
     /* justify-content: center; */
     align-items: center;
+    /* justify-content: center; */
     flex-direction: column;
     /* border: 1px solid black; */
     width: 100%;
@@ -55,14 +59,15 @@ body {
 } */
 
 h2 {
+    margin-top: 50px;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .details {
     position: relative;
     display: block;
-    width: calc(49% - 6px);
+    width: 100%;
     margin-left: 3px;
     margin-bottom: 5px;
     padding: 0;
@@ -73,8 +78,13 @@ h2 {
 } */
 
 .details input {
-    width: 100%;
+    position: relative;
+    width: 95%;
+    padding: 8px 20px;
     border-radius: 0.3em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -137,7 +147,7 @@ button:hover {
     background-color: #818af9;
 }
 
-.err-msg{
+.err-msg {
     color: red;
 }
 
@@ -161,3 +171,13 @@ button:hover {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 } */
+
+.subcontainer-right .inner-subcontainer div {
+    /* padding-right: 10px; */
+    padding-left: 15px;
+}
+
+form {
+    padding-top: 100px;
+    /* margin-top: 50px; */
+}

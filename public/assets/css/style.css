@@ -382,3 +382,22 @@ hr {
 .searchbar form button i {
     cursor: pointer;
 }
+
+.err-msg {
+    color: red;
+}
+
+.err-border {
+    border: 1px solid red;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    text-align: center;
+}

@@ -8,7 +8,7 @@
     <section class="container-right">
         <br>
         <p class="book-title"><?= $data['row']->title; ?></p>
-        <p>By <i><?= $data['row']->author_name; ?></i></p>
+        <p>By <i><?= camelCaseToWords($data['row']->author_name); ?></i></p>
         <br>
         <!-- <h2>Description:</h2> -->
         <p class="description"><?= $data['row']->description; ?></p><br>

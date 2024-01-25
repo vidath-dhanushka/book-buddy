@@ -108,4 +108,10 @@ class Model extends Database
 
         return false;
     }
+
+    public function delete($id)
+    {
+        $query = "delete from " . $this->table . " where id=" . $id;
+        $this->query($query);
+    }
 }

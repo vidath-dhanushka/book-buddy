@@ -104,7 +104,7 @@
 
                     <div class="input-box">
                         <label for="author">Author</label>
-                        <input type="text" id="author" name="author" value="<?= $data['row']->author_name; ?>" required>
+                        <input type="text" id="author" name="author" value="<?= camelCaseToWords($data['row']->author_name); ?>" required>
                     </div>
                     <br>
                     <label for="category">Category</label>
@@ -155,19 +155,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($data['books'] as $book) : ?>
+                                        <?php if (!empty($data['books'])) : ?>
+                                            <?php foreach ($data['books'] as $book) : ?>
+                                                <tr>
+                                                    <td><?= $book->title ?></td>
+                                                    <td><?= $book->description ?></td>
+                                                    <td><?= camelCaseToWords($book->author_name) ?></td>
+                                                    <td><?= date('Y-m-d', strtotime($book->date_added)) ?></td>
+                                                    <td>
+                                                        <a href="<?= ROOT . '/member/books/edit/' . $book->id; ?>"><i class="fa-regular fa-pen-to-square" style="color:blue"></i></a>
+                                                        <a href="<?= ROOT . '/member/books/delete/' . $book->id; ?>"><i class="fa-solid fa-trash" style="color:red; margin-left:5px"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
                                             <tr>
-                                                <td><?= $book->title ?></td>
-                                                <td><?= $book->description ?></td>
-                                                <td><?= camelCaseToWords($book->author_name) ?></td>
-                                                <td><?= date('Y-m-d', strtotime($book->date_added)) ?></td>
-                                                <td>
-                                                    <a href="<?= ROOT . '/member/books/edit/' . $book->id; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
-                                                    <a href=""><i class="fa-solid fa-trash"></i></a>
-                                                </td>
+                                                <td colspan="7">No records found!</td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </tbody>
+
                                 </table>
                             </section>
                         </main>

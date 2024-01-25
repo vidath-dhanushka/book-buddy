@@ -228,6 +228,10 @@ class Member extends Controller
                     }
                 }
             }
+        } elseif ($action == 'delete') {
+            $book->delete($id);
+            message("book deleted successfully");
+            redirect('member/books');
         } else {
             $user_books = [];
             $user_books['user_id'] = $_SESSION['USER_DATA']->id;

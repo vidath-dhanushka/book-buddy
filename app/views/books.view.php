@@ -21,10 +21,8 @@
     <div class="container-hr">
         <hr>
     </div>
-    <section class="arrivals">
-        <!-- <h1>New Arrivals</h1> -->
-        <div class="arrivals-box">
-            <!-- <div class="arrivals-card">
+
+    <!-- <div class="arrivals-card">
                 <div class="arrivals-img">
                     <img src="<?= ROOT ?>/assets/images/books/arrival_1.jpg">
                 </div>
@@ -40,7 +38,7 @@
                     <a href="<?= ROOT ?>/books/view_book/" class="arrivals-btn">Learn More</a>
                 </div>
             </div> -->
-            <!-- <div class="arrivals-card">
+    <!-- <div class="arrivals-card">
                 <div class="arrivals-img">
                     <img src="<?= ROOT ?>/assets/images/books/arrival_2.jpg">
                 </div>
@@ -88,27 +86,35 @@
                     <a href="#" class="arrivals-btn">Learn More</a>
                 </div>
             </div> -->
-
-            <?php foreach ($data['books'] as $book) : ?>
-                <div class="arrivals-card">
-                    <div class="arrivals-img">
-                        <img src="<?= ROOT . '/' . $book->book_image ?>">
-                    </div>
-                    <div class="arrivals-tag">
-                        <p><?= $book->title ?></p>
-                        <div class="arrivals-icon">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+    <?php if (!empty($data['books'])) : ?>
+        <section class="arrivals">
+            <!-- <h1>New Arrivals</h1> -->
+            <div class="arrivals-box">
+                <?php foreach ($data['books'] as $book) : ?>
+                    <div class="arrivals-card">
+                        <div class="arrivals-img">
+                            <img src="<?= ROOT . '/' . $book->book_image ?>">
                         </div>
-                        <a href="<?= ROOT ?>/books/view_book/<?= $book->id ?>" class="arrivals-btn">Learn More</a>
+                        <div class="arrivals-tag">
+                            <p><?= $book->title ?></p>
+                            <div class="arrivals-icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <a href="<?= ROOT ?>/books/view_book/<?= $book->id ?>" class="arrivals-btn">Learn More</a>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    <?php else : ?>
+        <h2 style="text-align: center; font-size:15px; margin-top:20px;">No books found for this category!</h2 style="text-align: center;">
+    <?php endif; ?>
 
-            <!-- <div class="arrivals-card">
+    <!-- <div class="arrivals-card">
                 <div class="arrivals-img">
                     <img src="<?= ROOT ?>/assets/images/books/arrival_6.jpg">
                 </div>
@@ -156,7 +162,7 @@
                     <a href="#" class="arrivals-btn">Learn More</a>
                 </div>
             </div> -->
-            <!-- <div class="arrivals-card">
+    <!-- <div class="arrivals-card">
                 <div class="arrivals-img">
                     <img src="<?= ROOT ?>/assets/images/books/arrival_9.jpg">
                 </div>
@@ -188,7 +194,6 @@
                     <a href="#" class="arrivals-btn">Learn More</a>
                 </div>
             </div> -->
-        </div>
-    </section>
+
 </main>
 <?php $this->view('includes/footer') ?>

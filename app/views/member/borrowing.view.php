@@ -18,8 +18,7 @@
 <body>
     <?php $this->view('includes/navbar')  ?>
     <?php $this->view('includes/sidenav', $data) ?>
-    <!-- <?= show($data);
-            die; ?> -->
+    
     <section class="home-section">
         <div class="layout">
             <input name="nav" type="radio" class="nav book-radio" id="book" checked="checked" />
@@ -64,7 +63,7 @@
                                         <td>
                                             <p class="status returned">Returned</p>
                                         </td>
-                                        <td><a href="#" class="action btn">View </a></td>
+                                        <td><a href="<?= ROOT ?>/member/review_book" class="action btn">View </a></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>

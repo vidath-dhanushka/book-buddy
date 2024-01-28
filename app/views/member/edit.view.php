@@ -11,19 +11,25 @@
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/profile-pic.css">
 </head>
 <body>
+
 <?php if(!empty($row)):?>
+ 
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 
 <section class="home-section">
 
 <section class="container">
-<?php if(message()):?>
-    <div class="alert"><?=message('', true)?></div>
-  <?php endif;?>
+<?php 
+  $message = message('', true);
+  if($message): 
+    $class = empty($errors) ? 'alert' : 'error';  
+  ?>
+    <div class="<?= $class; ?>"><?= $message; ?></div>
+<?php endif; ?>
       <header>Profile Information</header>
       <form method="post" class="form" enctype="multipart/form-data" id="upload-form">
-     
+    
   <h3>Personal Details</h3>
   <div class="column">
       <div class="input-box">
@@ -34,6 +40,9 @@
            
             <i class = "fa fa-camera"></i>
           </div>
+          <div class="leftRound" id = "cancel" style = "display: none;">
+          <i class = "fa fa-times"></i>
+        </div>
           
           <div class="leftRound" id = "cancel" style = "display: none;">
             <i class = "fa fa-times"></i>
@@ -62,24 +71,7 @@
       <?php endif;?>
     </div>
   </div>
-  <div class="column">
-    <div class="input-box">
-      <label>Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="Enter phone number" value="<?=set_value('Phone',$row->phone)?>" required />
-      <?php if(!empty($errors['phone'])):?>
-        <small class="err-msg"><?=$errors['phone']?></small>
-      <?php endif;?>
-    </div>
-    <!-- <div class="input-box">
-      <label>Birth Date</label>
-      <input type="date" id="birthdate" name="birthdate" placeholder="Enter birth date" value="1990-01-01" required />
-      
-    </div> -->
-    <!-- <div class="input-box">
-      <label>NIC Number</label>
-      <input type="text" id="nic" name="nic" placeholder="Enter NIC number" value="123456789V" required />
-    </div> -->
-  </div>
+  
 
   <div class="column">
     <div class="input-box">
@@ -97,63 +89,100 @@
       <?php endif;?>
     </div>
   </div>
-  <h3>Postal Details</h3>
-  <div class="input-box">
-    <label>Address</label>
-    <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" required />
-    <?php if(!empty($errors['address'])):?>
-      <small class="err-msg"><?=$errors['address']?></small>
-    <?php endif;?>
+  <div class="column">
+    <div class="input-box">
+      <label>Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter phone number" value="<?=set_value('Phone',$row->phone)?>" required />
+      <?php if(!empty($errors['phone'])):?>
+        <small class="err-msg"><?=$errors['phone']?></small>
+      <?php endif;?>
+    </div>
+    <div class="input-box"></div>
   </div>
-  <!-- <div class="column">
+  
+  <h3>Postal Details</h3>
+  <div class="column">
     <div class="input-box">
-      <label>City</label>
-      <input type="text" id="city" name="city" placeholder="Enter City" value="Colombo" required />
+      <label>Address</label>
+      <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" required />
+      <?php if(!empty($errors['address'])):?>
+        <small class="err-msg"><?=$errors['address']?></small>
+      <?php endif;?>
     </div>
+ 
     <div class="input-box">
-      <label>Postal Code</label>
-      <input type="number" id="postalcode" name="postalcode" placeholder="Postal Code" value="12345" required />
+      <label>Contact Name</label>
+      
+      <input type="text" id="contactName" name="contactName" placeholder="Enter contact name" value="<?=set_value('contactName',$row->contactName)?>" />
+      <?php if(!empty($errors['contactName'])):?>
+        <small class="err-msg"><?=$errors['contactName']?></small>
+      <?php endif;?>
     </div>
-  </div> -->
-  <!-- <div class="column">
-    <div class="select-box"> 
+  </div>
+    <?php 
+      $provinceIdToFind = $row->province;
+      $selectedProvince = current(array_filter($provinces, function($province) use ($provinceIdToFind) { return $province->id == $provinceIdToFind; }));
+      $cityIdToFind = $row->city;
+      $selectedCity = current(array_filter($cities, function($city) use ($cityIdToFind) { return $city->id == $cityIdToFind; }));
+      
+    ?>
+   <div class="column">
+    <div class="select-box">
+      
       <select id="province" name="province">
-        <option hidden>Province</option>
-        <option>America</option>
-        <option>Japan</option>
-        <option>India</option>
-        <option>Nepal</option>
+        <option hidden><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : 'Province' ?></option>
+        <?php if(!empty($provinces)):?>
+          <?php foreach($provinces as $province): ?>
+            <option  value="<?=$province->id?>"><?=esc($province->provinceName)?></option>
+          <?php endforeach; ?>  
+        <?php endif;?>
+        
       </select>
+      <?php if(!empty($errors['province'])):?>
+        <small class="err-msg"><?=$errors['province']?></small>
+      <?php endif;?>
     </div>
     <div class="select-box">
-      <select id="district" name="district">
-        <option hidden>District</option>
-        <option>America</option>
-        <option>Japan</option>
-        <option>India</option>
-        <option>Nepal</option>
+    
+      <select id="city" name="city" disabled>
+      
+        <option hidden><?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : 'City' ?></option>
+        
+        <?php if(!empty($cities)):?>
+          <?php foreach($cities as $city): ?>
+            <option  value="<?=$city->id?>"><?=esc($city->cityName)?></option>
+          <?php endforeach; ?>  
+        <?php endif;?>
       </select>
-    </div> -->
-  <!-- </div> -->
-  <!-- <div class="column">
-    <div class="input-box">
-      <label>City</label>
-      <input type="text" id="city2" name="city2" placeholder="Enter City" value="Colombo" required />
-    </div>
-    <div class="input-box">
-      <label>Postal Code</label>
-      <input type="number" id="postalcode2" name="postalcode2" placeholder="Postal Code" value="12345" required />
-    </div>
-  </div> -->
+    </div> 
+  </div> 
 
   <div class="column">
-    <button>Cancel</button>
+    <div class="input-box">
+      <label>Postal Code</label>
+      <input type="number" id="postal" name="postalCode" placeholder="Enter postal code" value="<?=set_value('Postal code',$row->postalCode)?>" />
+      <?php if(!empty($errors['postalCode'])):?>
+        <small class="err-msg"><?=$errors['postalCode']?></small>
+      <?php endif;?>
+    </div>
+    <div class="input-box">
+    </div>
+  </div>
+   
+  <div class="column">
+    <button type='reset' >Cancel</button>
     <button type='submit'>Update Profile</button>
   </div>
 </form>
 
     </section>
     </section>
+
+<?php else:?>
+    <div>
+       Profile is not found..
+    </div>
+<?php endif;?>
 <script>
    
   function load_image(file){
@@ -167,6 +196,7 @@
   document.getElementById('fileImg').addEventListener('change', function(e){
     var fileInput = document.getElementById('fileImg');
     var filePath = fileInput.value;
+    document.getElementById("cancel").style.display = "block";
     var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
     if(!allowedExtensions.exec(filePath)){
         document.getElementsByClassName('err-msg')[0].innerHTML = 'Please upload file having extensions .jpeg/.jpg/.png only.';
@@ -174,15 +204,58 @@
     } else {
         document.getElementsByClassName('err-msg')[0].innerHTML = '';
     }
-});
-</script>
+  });
 
+  var userImage = document.getElementById('image').src;
+      document.getElementById("cancel").onclick = function(){
+        document.getElementById("image").src = userImage; // Back to previous image
+
+        document.getElementById("cancel").style.display = "none";
+        document.getElementById("confirm").style.display = "none";
+
+        document.getElementById("upload").style.display = "block";
+      }
+
+
+  // dropdown - provinces -> city
+
+  var provinces = <?php echo json_encode($provinces); ?>;
+  var cities = <?php echo json_encode($cities); ?>;
+  console.log(cities);
+
+document.getElementById("province").onchange = function() {
+  var selectedOption = this.options[this.selectedIndex];
+  var citySelect = document.getElementById("city");
+  var provinceId = selectedOption.value;
+  
+  if (selectedOption.hidden ) {
+    citySelect.disabled = true;
+  } else {
+    var relevantCities = cities.filter(function(city) {
+      return city.provinceID == provinceId;
+    });
     
+    citySelect.innerHTML = "";
+
+    var defaultOption = document.createElement("option");
+    defaultOption.text = "City";
+    citySelect.add(defaultOption);
+
+    relevantCities.forEach(function(city) {
+      var option = document.createElement("option");
+      option.value = city.id;
+      option.text = city.cityName;
+      citySelect.add(option);
+    });
+    citySelect.disabled = false;
+  }
+}
+
+// Trigger the onchange event to populate the city dropdown when the page loads
+document.getElementById("province").onchange();
+
+
+
 </script>
 
-<?php else:?>
-    <div>
-       Profile is not found..
-    </div>
-<?php endif;?>
 <?php $this->view('includes/footer') ?>

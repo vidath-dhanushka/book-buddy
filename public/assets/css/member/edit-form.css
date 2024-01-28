@@ -41,7 +41,7 @@ body {
   from {opacity: 1;}
   to {opacity: 0;}
 }
-.alert {
+.error {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
@@ -49,6 +49,20 @@ body {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+  text-align: center;
+  animation-name: fadeOut;
+  animation-duration: 1.5s;
+  animation-delay: .5s; 
+  animation-fill-mode: forwards; 
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #4F8A10;
+  background-color: #DFF2BF;
+  border-color: #DFF2BF;
   text-align: center;
   animation-name: fadeOut;
   animation-duration: 1.5s;

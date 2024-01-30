@@ -49,7 +49,7 @@
            <?php endif;?>
         </div>
         <div class="column">
-            <button>Cancel</button>
+            <button type="reset">Cancel</button>
             <button type="submit">Save Changes</button>
         </div>
     </form>

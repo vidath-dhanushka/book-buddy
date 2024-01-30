@@ -44,7 +44,13 @@
             
         </div>
     </div>
-
+    <?php 
+      $provinceIdToFind = $row->province;
+      $selectedProvince = current(array_filter($provinces, function($province) use ($provinceIdToFind) { return $province->id == $provinceIdToFind; }));
+      $cityIdToFind = $row->city;
+      $selectedCity = current(array_filter($cities, function($city) use ($cityIdToFind) { return $city->id == $cityIdToFind; }));
+      
+    ?>
     <div class="layout">
         <input name="nav" type="radio" class="nav personal-radio" id="personal" checked="checked" />
         <div class="page personal-page">
@@ -97,36 +103,41 @@
                 Personal Details
             </span>
         </label>
-    
+       
         <input name="nav" type="radio" class="postal-radio" id="postal" />
+        
         <div class="page postal-page">
+        
             <div class="page-contents">
+            
                 <main class="table" id="details_table">
-
+                
                     <section class="table__body">
+                    
                         <table>
-                            
+                        
                             <tbody>
                                 <tr>
-                                    <td>Address </td>
-                                    <td> <?=esc($row->address)?></td>
-                                </tr>
-                                <!-- <tr>
-                                    <td> Province </td>
-                                    <td> Western</td>
+                                    <td>Contact Name </td>
+                                    <td> <?=set_value('',$row->contactName)?></td>
                                 </tr>
                                 <tr>
-                                    <td> District </td>
-                                    <td> Colombo</td>
+                                    <td>Address </td>
+                                    <td> <?=set_value('',$row->address)?></td>
+                                </tr>
+                                <tr>
+                                    <td> Province </td>
+                                    <td><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : '' ?></td>
                                 </tr>
                                 <tr>
                                     <td> City </td>
-                                    <td> Battaramulla</td>
+                                    <td> <?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : '' ?></td>
                                 </tr>
+                                
                                 <tr>
                                     <td> Postal Code </td>
-                                    <td> 10120</td>
-                                </tr> -->
+                                    <td> <?=set_value('',$row->postalCode)?></td>
+                                </tr>
                                 
                             </tbody>
                             
@@ -135,12 +146,13 @@
                 </main>
             </div>
         </div>
+        
         <label class="nav" for="postal">
             <span>
                 Postal Details
             </span>
         </label>
-    
+        
         
         </div>
    </div>

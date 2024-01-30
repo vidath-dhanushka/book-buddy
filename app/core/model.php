@@ -49,6 +49,8 @@ class Model extends Database
         return $statement;
     }
 
+    
+
 
 
     public function where($data)

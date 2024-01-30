@@ -15,7 +15,7 @@ class Member extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
-        $data['row'] = $user->first(['id' => $id]);
+        $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
         $data['title'] = 'Dashboard';
         $this->view('member/dashboard', $data);
     }
@@ -24,28 +24,46 @@ class Member extends Controller
     {
         $this->check_auth();
         $id = $id ?? Auth::getId();
-        $user = new User();
-        $data['row'] = $user->first(['id' => $id]);
-
+        // $user = new User();
+        // $data['row'] = $user->first(['id' => $id]);
+        // echo $id;
+        $member = new Member_model();
+        $data['provinces'] = $member->getProvinces();
+        $data['cities'] = $member->getCities();
+        $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
+        // print_r($data);
+        // die;
         $data['title'] = 'Profile';
         $this->view('member/profile', $data);
     }
+
+   
 
     public function edit()
     {
         $this->check_auth();
         $id = $id ?? Auth::getId();
-        $user = new User();
-        $data['row'] = $row = $user->first(['id' => $id]);
+        $member = new Member_model();
+        
+        $data['provinces'] = $member->getProvinces();
+        $data['cities'] = $member->getCities();
+        // print_r($data['provinces']);
+        // die;
+        $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
+        // print_r($row);
+        // die;
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $row) {
-
+            
             $folder = "uploads/images/";
             if (!file_exists($folder)) {
                 mkdir($folder, 0777, true);
                 file_put_contents($folder . "index.php", "<? // silence");
                 file_put_contents("uploads/index.php", "<? // silence");
             }
-            if ($user->edit_validate($_POST, $id)) {
+            // print_r($_POST);
+            // die;
+            if ($member->edit_validate($_POST, $id)) {
+               
                 $allowed = ['image/jpeg', 'image/png', 'image/jpg'];
                 if (!empty($_FILES['image']['name'])) {
                     if ($_FILES['image']['error'] == 0) {
@@ -57,22 +75,31 @@ class Member extends Controller
                                 unlink($row->user_image);
                             }
                         } else {
-                            $user->errors['user_image'] = "This file type is not allowed";
+                            $member->errors['user_image'] = "This file type is not allowed";
                         }
                     } else {
-                        $user->errors['user_image'] = "Could not upload image";
+                        $member->errors['user_image'] = "Could not upload image";
                     }
                 };
+                
                 // Only update and redirect if there are no errors
-                if (empty($user->errors)) {
-                    $user->update($id, $_POST);
+                if (empty($member->errors)) {
+                    $_POST['userID'] = $id;
+                    // print_r($row);
+                    $member->update_by_column($row->userID, $_POST);
+                    
                     message("Profile saved successfully");
                     redirect("member/edit/" . $id);
                 }
             }
+            // else{
+            //     echo "something went wrong..1";
+            //     die;
+            // }
         }
         $data['title'] = 'Edit Profile';
-        $data['errors'] = $user->errors;
+        $data['errors'] = $member->errors;
+        
         $this->view('member/edit', $data);
     }
 

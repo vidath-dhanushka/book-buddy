@@ -18,9 +18,5 @@ class Home extends Controller{
         }
 
     }
-    public function profile(){
-        $data['title'] = 'Profile';
-        $this->view('admin/profile', $data);
-
-    }
+    
 }

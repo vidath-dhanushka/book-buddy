@@ -287,7 +287,7 @@ main .banner {
 }
 
 .arrivals .arrivals-box .arrivals-card .arrivals-tag p {
-    font-size: 20px;
+    font-size: 15px;
     margin: 8px 0;
 }
 
@@ -322,6 +322,7 @@ main .banner {
 .categories a {
     color: #333;
     font-size: 1.3rem;
+    text-transform: capitalize;
     padding-left: 2em;
 }
 
@@ -380,4 +381,23 @@ hr {
 
 .searchbar form button i {
     cursor: pointer;
+}
+
+.err-msg {
+    color: red;
+}
+
+.err-border {
+    border: 1px solid red;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    text-align: center;
 }

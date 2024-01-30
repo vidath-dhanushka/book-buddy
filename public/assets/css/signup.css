@@ -59,7 +59,7 @@ h2 {
 .details {
     position: relative;
     display: block;
-    width: calc(49% - 6px);
+    width: 100%;
     margin-left: 3px;
     margin-bottom: 5px;
     padding: 0;
@@ -70,8 +70,13 @@ h2 {
 } */
 
 .details input {
-    width: 100%;
+    position: relative;
+    width: 95%;
+    padding: 8px 20px;
     border-radius: 0.3em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -134,7 +139,7 @@ button:hover {
     background-color: #818af9;
 }
 
-.err-msg{
+.err-msg {
     color: red;
 }
 
@@ -157,4 +162,9 @@ button:hover {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
+}
+
+.subcontainer-right .inner-subcontainer div {
+    /* padding-right: 10px; */
+    padding-left: 15px;
 }

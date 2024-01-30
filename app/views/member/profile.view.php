@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
+<?php if(!empty($row)):?>
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
@@ -34,16 +35,22 @@
             </div>
         </div>
         
-        <img src="<?=ROOT?>/assets/images/Avatar.png"  class="profile-pic">
-        <h3>A . Perera</h3>
-        <p>someonr@gmail.com</p>
+        <img src="<?=ROOT?>/<?=($row->user_image)?>"  class="profile-pic">
+        <h3><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>
+        <p><?=esc($row->email)?></p>
         
-        <button type="button">BASIC</button>
+        <!-- <button type="button">BASIC</button> -->
         <div class="profile-buttom">
             
         </div>
     </div>
-
+    <?php 
+      $provinceIdToFind = $row->province;
+      $selectedProvince = current(array_filter($provinces, function($province) use ($provinceIdToFind) { return $province->id == $provinceIdToFind; }));
+      $cityIdToFind = $row->city;
+      $selectedCity = current(array_filter($cities, function($city) use ($cityIdToFind) { return $city->id == $cityIdToFind; }));
+      
+    ?>
     <div class="layout">
         <input name="nav" type="radio" class="nav personal-radio" id="personal" checked="checked" />
         <div class="page personal-page">
@@ -56,32 +63,32 @@
                             <tbody>
                                 <tr>
                                     <td> First Name </td>
-                                    <td> John</td>
+                                    <td> <?=esc($row->firstname)?></td>
                                 </tr>
                                 <tr>
                                     <td> Last Name </td>
-                                    <td> Doe</td>
+                                    <td> <?=esc($row->lastname)?></td>
                                 </tr>
                                 <tr>
                                     <td> Phone Number </td>
-                                    <td> +1-234-567-8901</td>
+                                    <td><?=esc($row->phone)?></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td> Birth Date </td>
                                     <td> 1998-08-11</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td> Username </td>
-                                    <td> johndoe123</td>
+                                    <td> <?=esc($row->username)?></td>
                                 </tr>
                                 <tr>
                                     <td> Email </td>
-                                    <td> johndoe123@example.com</td>
+                                    <td> <?=esc($row->email)?></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td> NIC Number </td>
                                     <td> 0000000000</td>
-                                </tr>
+                                </tr> -->
                                 
                             </tbody>
                             
@@ -96,35 +103,40 @@
                 Personal Details
             </span>
         </label>
-    
+       
         <input name="nav" type="radio" class="postal-radio" id="postal" />
+        
         <div class="page postal-page">
+        
             <div class="page-contents">
+            
                 <main class="table" id="details_table">
-
+                
                     <section class="table__body">
+                    
                         <table>
-                            
+                        
                             <tbody>
                                 <tr>
+                                    <td>Contact Name </td>
+                                    <td> <?=set_value('',$row->contactName)?></td>
+                                </tr>
+                                <tr>
                                     <td>Address </td>
-                                    <td> 19, 1st Floor, Battaramulla</td>
+                                    <td> <?=set_value('',$row->address)?></td>
                                 </tr>
                                 <tr>
                                     <td> Province </td>
-                                    <td> Western</td>
-                                </tr>
-                                <tr>
-                                    <td> District </td>
-                                    <td> Colombo</td>
+                                    <td><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : '' ?></td>
                                 </tr>
                                 <tr>
                                     <td> City </td>
-                                    <td> Battaramulla</td>
+                                    <td> <?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : '' ?></td>
                                 </tr>
+                                
                                 <tr>
                                     <td> Postal Code </td>
-                                    <td> 10120</td>
+                                    <td> <?=set_value('',$row->postalCode)?></td>
                                 </tr>
                                 
                             </tbody>
@@ -134,18 +146,23 @@
                 </main>
             </div>
         </div>
+        
         <label class="nav" for="postal">
             <span>
                 Postal Details
             </span>
         </label>
-    
+        
         
         </div>
    </div>
 </section>
 
 <script src="<?= ROOT ?>/assets/js/dropdown.js"></script>
-
+<?php else:?>
+    <div>
+       Profile is not found..
+    </div>
+<?php endif;?>
 </body>
 </html>

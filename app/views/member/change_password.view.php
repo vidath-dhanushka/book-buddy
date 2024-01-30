@@ -11,74 +11,51 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/profile-pic.css">
 </head>
 <body>
+
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 
 <section class="home-section">
+
 <section class="container">
     <header>Change Password</header>
-    <form action="#" class="form" >
+    <form  class="form" method="post" >
+    <?php if(message()):?>
+    <div class="alert"><?=message('', true)?></div>
+  <?php endif;?>
         <div class="input-box">
             <label>Username</label>
-            <input type="text" value="A. Perera" required />
+            <input type="text" name="username" value="<?=esc($row->username)?>" disabled />
         </div>
         <div class="input-box">
             <label>Current Password</label>
-            <input type="password"  required />
+            <input type="password" name="current_pass" required />
+            <?php if(!empty($errors['current_pass'])):?>
+              <small class="err-msg" ><?=$errors['current_pass']?></small>
+           <?php endif;?>
         </div>
         <div class="input-box">
             <label>New Password</label>
-            <input type="password"  required />
+            <input type="password" name="new_pass" required />
+            <?php if(!empty($errors['new_pass'])):?>
+              <small class="err-msg" ><?=$errors['new_pass']?></small>
+           <?php endif;?>
         </div>
         <div class="input-box">
             <label>Confirm Password</label>
-            <input type="password"  required />
+            <input type="password" name="confirm_pass" required />
+            <?php if(!empty($errors['confirm_pass'])):?>
+              <small class="err-msg" ><?=$errors['confirm_pass']?></small>
+           <?php endif;?>
         </div>
         <div class="column">
-            <button>Cancel</button>
-            <button>Save Changes</button>
+            <button type="reset">Cancel</button>
+            <button type="submit">Save Changes</button>
         </div>
     </form>
     </section>
     </section>
-    <script type="text/javascript">
-      document.getElementById("fileImg").onchange = function(){
-        document.getElementById("image").src = URL.createObjectURL(fileImg.files[0]); // Preview new image
-
-        document.getElementById("cancel").style.display = "block";
-        document.getElementById("confirm").style.display = "block";
-
-        document.getElementById("upload").style.display = "none";
-      }
-
-      var userImage = document.getElementById('image').src;
-      document.getElementById("cancel").onclick = function(){
-        document.getElementById("image").src = userImage; // Back to previous image
-
-        document.getElementById("cancel").style.display = "none";
-        document.getElementById("confirm").style.display = "none";
-
-        document.getElementById("upload").style.display = "block";
-      }
-    </script>
-    
-
-    <?php
-    if(isset($_FILES["fileImg"]["name"])){
-      $id = $_POST["id"];
-
-      $src = $_FILES["fileImg"]["tmp_name"];
-      $imageName = uniqid() . $_FILES["fileImg"]["name"];
-
-      $target = "img/" . $imageName;
-
-      move_uploaded_file($src, $target);
-
-      $query = "UPDATE tb_user SET image = '$imageName' WHERE id = $id";
-      mysqli_query($conn, $query);
-
-      header("Location: index.php");
-    }
-    ?>
+   
+  
 
 <?php $this->view('includes/footer') ?>

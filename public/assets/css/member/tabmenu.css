@@ -12,10 +12,10 @@
   }
   
   .layout{
-    margin-top: 100px;
+    margin-top: 30px;
     display: grid;
     height: 100%;
-    width: 98%;
+    width: 100%;
     overflow: hidden;
     grid-template-rows: 50px 1fr;
     grid-template-columns: 1fr 1fr;

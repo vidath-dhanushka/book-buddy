@@ -1,16 +1,18 @@
 <?php
 
-class Signup extends Controller{
+class Signup extends Controller
+{
 
-    public function index(){
+    public function index()
+    {
 
         $data['errors'] = [];
 
         $user = new User();
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if($user->validate($_POST)){
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (!($user->validate($_POST))) {
+                echo "Hello";
                 $_POST['role'] = 'member';
                 $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -18,10 +20,12 @@ class Signup extends Controller{
 
                 message("your account created successfully");
                 redirect('login');
-             }
+            } else {
+                echo "failed";
+            }
         }
-        
-        
+
+
         $data['errors'] = $user->errors;
 
         $data['title'] = 'Signup';

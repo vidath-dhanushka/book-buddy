@@ -1,6 +1,6 @@
 <?php
 
-class Member_model extends Model{
+class Librarian extends Model{
     protected $table = "members";
     protected $tableF = "userID";
     protected $tableP = "id";
@@ -28,7 +28,7 @@ class Member_model extends Model{
     ];
 
     public function addReview($data, $table = 'reviews'){
-        $query = "INSERT INTO " . $table . " (ebookID, userID, rating, description) VALUES (:ebook_id, :user_id, :rating, :description)";
+        $query = "INSERT INTO " . $table . " (ebookID, userID, rating, title, description) VALUES (:ebook_id, :user_id, :rating, :title, :description)";
         // echo $query;
         // print_r($data);
         // die;

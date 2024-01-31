@@ -1,6 +1,6 @@
 <?php
 
-class Ebooks extends Controller
+class Elibrary extends Controller
 {
     public function index()
     {
@@ -23,21 +23,26 @@ class Ebooks extends Controller
         }
 
 
-        show($data['ebooks']);
-        die;
+        // show($data['ebooks']);
+        // die;
 
-        $this->view('books', $data);
+        $this->view('elibrary/ebooks', $data);
     }
 
-    public function view_book($id)
+    public function view_ebook($id)
     {
-        $book = new Book;
+        
+        $ebook = new Ebook;
+        
+        $review = $ebook->get_review(["ebook_id"=>$id]);
+        // print_r($review);
+        // die;
 
-        $data['title'] = 'book details';
+        $data['title'] = 'E - book details';
 
-        $data['row'] = $book->view_book_details(['b.id' => $id]);
+        $data['row'] = $ebook->view_ebook_details(['b.id' => $id]);
+        $data['reviews'] = $review;
 
-
-        $this->view('book_details', $data);
+        $this->view('elibrary/ebook_details', $data);
     }
 }

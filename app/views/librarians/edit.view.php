@@ -99,80 +99,11 @@
     </div>
     <div class="input-box"></div>
   </div>
-  
-  <h3>Postal Details</h3>
-  <div class="column">
-    <div class="input-box">
-      <label>Address</label>
-      <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" required />
-      <?php if(!empty($errors['address'])):?>
-        <small class="err-msg"><?=$errors['address']?></small>
-      <?php endif;?>
-    </div>
- 
-    <div class="input-box">
-      <label>Contact Name</label>
-      
-      <input type="text" id="contactName" name="contactName" placeholder="Enter contact name" value="<?=set_value('contactName',$row->contactName)?>" />
-      <?php if(!empty($errors['contactName'])):?>
-        <small class="err-msg"><?=$errors['contactName']?></small>
-      <?php endif;?>
-    </div>
-  </div>
-    <?php 
-      $provinceIdToFind = $row->province;
-      $selectedProvince = current(array_filter($provinces, function($province) use ($provinceIdToFind) { return $province->id == $provinceIdToFind; }));
-      $cityIdToFind = $row->city;
-      $selectedCity = current(array_filter($cities, function($city) use ($cityIdToFind) { return $city->id == $cityIdToFind; }));
-      
-    ?>
-   <div class="column">
-    <div class="select-box">
-      
-      <select id="province" name="province">
-        <option hidden><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : 'Province' ?></option>
-        <?php if(!empty($provinces)):?>
-          <?php foreach($provinces as $province): ?>
-            <option  value="<?=$province->id?>"><?=esc($province->provinceName)?></option>
-          <?php endforeach; ?>  
-        <?php endif;?>
-        
-      </select>
-      <?php if(!empty($errors['province'])):?>
-        <small class="err-msg"><?=$errors['province']?></small>
-      <?php endif;?>
-    </div>
-    <div class="select-box">
-    
-      <select id="city" name="city" disabled>
-      
-        <option hidden><?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : 'City' ?></option>
-        
-        <?php if(!empty($cities)):?>
-          <?php foreach($cities as $city): ?>
-            <option  value="<?=$city->id?>"><?=esc($city->cityName)?></option>
-          <?php endforeach; ?>  
-        <?php endif;?>
-      </select>
-    </div> 
-  </div> 
-
-  <div class="column">
-    <div class="input-box">
-      <label>Postal Code</label>
-      <input type="number" id="postal" name="postalCode" placeholder="Enter postal code" value="<?=set_value('Postal code',$row->postalCode)?>" />
-      <?php if(!empty($errors['postalCode'])):?>
-        <small class="err-msg"><?=$errors['postalCode']?></small>
-      <?php endif;?>
-    </div>
-    <div class="input-box">
-    </div>
-  </div>
-   
   <div class="column">
     <button type='reset' >Cancel</button>
     <button type='submit'>Update Profile</button>
   </div>
+  
 </form>
 
     </section>

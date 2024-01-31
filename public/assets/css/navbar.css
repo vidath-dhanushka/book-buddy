@@ -17,6 +17,7 @@ nav {
     height: 45px;
 }
 
+
 nav .notification {
     width: 40px;
     border-radius: 50%;
@@ -44,13 +45,33 @@ nav ul li a:hover {
     color: #818AF9;
 }
 
-#user-btn {
-    font-size: 1.5rem;
+#user-btn , #notification-btn{
+    font-size: 1.1rem;
     color: #333;
     cursor: pointer;
     margin-right: 1rem;
 }
 
-#user-btn:hover {
+#user-btn:hover, #notification-btn:hover {
     color: #818af9;
 }
+
+
+span.icon > span.fa.fa-bell{
+    font-size: 1.1rem;
+    color: #333;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+span.icon > span.fa.fa-bell:hover{
+    color: #818af9;
+}
+ span.icon > span:nth-child(2){
+    background: #f00;
+	padding: 4px;
+	border-radius: 50%;
+	color: #fff;
+	vertical-align: top;
+	margin-left: -25px;
+    font-size: 0.5rem;
+ }

@@ -38,7 +38,7 @@ class Ebook extends Model
         return $res;
     }
 
-    public function view_book_details($data)
+    public function view_ebook_details($data)
     {
         $keys = array_keys($data);
         $query = "SELECT b.*, a.author_name, b.id bid, GROUP_CONCAT(c.category_id) cats FROM " . $this->table . " AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN book_category c ON c.book_id = b.id where ";
@@ -83,5 +83,30 @@ class Ebook extends Model
         }
 
         return false;
+    }
+
+    public function get_review($data){
+        
+        
+        $query =  "SELECT reviews.*, users.username, users.user_image
+        FROM `reviews`
+        INNER JOIN `users` ON reviews.userID = users.id
+        WHERE reviews.ebookID = :ebook_id;
+        ";
+        // echo $query;
+        // print_r($data);
+        // die;
+        $res = $this->query($query, $data);
+        
+            
+        if (is_array($res) && count($res) > 0) {
+            // print_r($res);
+            // die;
+            return $res;
+        }
+    
+        
+        return false;
+       
     }
 }

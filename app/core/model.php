@@ -20,6 +20,7 @@ class Model extends Database
         $query .= " (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
         // echo $query;
         // show($query);
+        // die;
         $statement =  $this->query($query, $data);
         return $statement;
     }

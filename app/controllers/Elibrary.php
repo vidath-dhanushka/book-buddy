@@ -46,17 +46,23 @@ class Elibrary extends Controller
         
         $ebook = new Ebook;
         $member = new Member_model();
-        $member_id = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id])->id;
+        if (Auth::logged_in()) {
+            $member_id = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id])->id;
         
-        $review = $ebook->get_review(["ebook_id"=>$id]);
-        $isborrowed = $ebook->is_borrowed(["ebook_id"=>$id, "member_id"=>$member_id]);
+            $review = $ebook->get_review(["ebook_id"=>$id]);
+            $isborrowed = $ebook->is_borrowed(["ebook_id"=>$id, "member_id"=>$member_id]);
+           
+            $data['reviews'] = $review;
+            $data['is_borrowed'] =  $isborrowed;
+        }
+        $data['row'] = $ebook->view_ebook_details(['b.id' => $id]);
+        
        
 
         $data['title'] = 'E - book details';
 
-        $data['row'] = $ebook->view_ebook_details(['b.id' => $id]);
-        $data['reviews'] = $review;
-        $data['is_borrowed'] =  $isborrowed;
+       
+       
         // print_r($data);
         // die;
 

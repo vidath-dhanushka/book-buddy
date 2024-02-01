@@ -220,6 +220,22 @@ class Database
 
         $this->query($query);
 
+        $query = "CREATE TABLE IF NOT EXISTS `reviews` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `ebookID` int(11) DEFAULT NULL,
+            `userID` int(11) DEFAULT NULL,
+            `rating` int(11) DEFAULT NULL,
+            `description` text DEFAULT NULL,
+            `date` timestamp NOT NULL DEFAULT current_timestamp(),
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`ebookID`) REFERENCES `ebooks`(`id`),
+            FOREIGN KEY (`userID`) REFERENCES `users`(`id`)
+        );
+
+        ";
+        $this->query($query);
+
+
         $query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebook_id` int(11) NOT NULL,

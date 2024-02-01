@@ -7,16 +7,16 @@
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </section>
     <section class="categories">
-        <a href="<?= ROOT ?>/books">All</a>
-        <!-- <?php foreach ($data['categories'] as $category) : ?>
+        <a href="<?= ROOT ?>/elibrary/ebooks">All</a>
+        <?php foreach ($data['categories'] as $category) : ?>
             <a href="?category_id=<?= $category->id ?>"><?= $category->category_name ?></a>
-        <?php endforeach; ?> -->
-        <a href="fiction">Fiction</a>
+        <?php endforeach; ?>
+        <!-- <a href="fiction">Fiction</a>
         <a href="thriller">Thriller</a>
         <a href="Fantasy">Fantasy</a>
         <a href="adventure">Adventure</a>
         <a href="romance">Romance</a>
-        <a href="horror">Horror</a>
+        <a href="horror">Horror</a> -->
     </section>
     <div class="container-hr">
         <hr>
@@ -24,7 +24,7 @@
     <section class="arrivals">
         <!-- <h1>New Arrivals</h1> -->
         <div class="arrivals-box">
-            <div class="arrivals-card">
+            <!-- <div class="arrivals-card">
                 <div class="arrivals-img">
                     <img src="<?= ROOT ?>/assets/images/books/arrival_1.jpg">
                 </div>
@@ -87,12 +87,12 @@
                     </div>
                     <a href="#" class="arrivals-btn">Learn More</a>
                 </div>
-            </div>
-            <!-- <?php if (!empty($data['books'])) : ?>
+            </div> -->
+            <?php if (!empty($data['ebooks'])) : ?>
         <section class="arrivals">
-            <h1>New Arrivals</h1>
+            <!-- <h1>New Arrivals</h1> -->
             <div class="arrivals-box">
-                <?php foreach ($data['books'] as $book) : ?>
+                <?php foreach ($data['ebooks'] as $book) : ?>
                     <div class="arrivals-card">
                         <div class="arrivals-img">
                             <img src="<?= ROOT . '/' . $book->book_image ?>">
@@ -106,7 +106,7 @@
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="<?= ROOT ?>/books/view_book/<?= $book->id ?>" class="arrivals-btn">Learn More</a>
+                            <a href="<?= ROOT ?>/elibrary/view_ebook/<?= $book->id ?>" class="arrivals-btn">Learn More</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -114,9 +114,9 @@
         </section>
     <?php else : ?>
         <h2 style="text-align: center; font-size:15px; margin-top:20px;">No books found for this category!</h2 style="text-align: center;">
-    <?php endif; ?> -->
+    <?php endif; ?>
 
-            <div class="arrivals-card">
+            <!-- <div class="arrivals-card">
                 <div class="arrivals-img">
                     <img src="<?= ROOT ?>/assets/images/books/arrival_6.jpg">
                 </div>
@@ -196,7 +196,7 @@
                     <a href="#" class="arrivals-btn">Learn More</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
 
 </main>

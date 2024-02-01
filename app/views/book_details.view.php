@@ -19,7 +19,7 @@
             <span>Thriller</span>
         </div>
         <div>
-            <button>Borrow Now</button>
+            <a href="<?= ROOT ?>/payment"><button>Borrow Now</button></a>
             <button>Add to Cart</button>
         </div>
     </section>

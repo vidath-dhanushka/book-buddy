@@ -221,7 +221,7 @@ class Database
         $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebook_id` int(11) NOT NULL,
             `member_id` int(11) NOT NULL,
             `borrow_date` date DEFAULT current_timestamp(),

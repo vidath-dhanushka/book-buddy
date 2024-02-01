@@ -220,6 +220,18 @@ class Database
 
         $this->query($query);
 
+        $query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
+            `id` int(11) NOT NULL,
+            `ebook_id` int(11) NOT NULL,
+            `member_id` int(11) NOT NULL,
+            `borrow_date` date DEFAULT current_timestamp(),
+            PRIMARY KEY (id),
+            FOREIGN KEY (ebook_id) REFERENCES ebooks(id) ON DELETE CASCADE,
+            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
+          );
+        ";
+        $this->query($query);
+
 
 
 

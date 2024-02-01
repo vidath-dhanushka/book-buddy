@@ -36,6 +36,24 @@ class Member extends Controller
         $data['title'] = 'Profile';
         $this->view('member/profile', $data);
     }
+
+    public function borrow($id=null)
+    {
+        // echo "yes";
+        // die;
+        $this->check_auth();
+        $id = $id ?? Auth::getId();
+        $member = new Member_model();
+        $member_id = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id])->id;
+        // print_r($id);
+        // die;
+        $ebook = new EBook;
+        $data['row'] =$row= $ebook->add_borrowed(['ebook_id' => $id, 'member_id' => $member_id]);
+    
+        redirect("elibrary/view_ebook/" . $id);
+       
+    }
+
     public function change_subscription($id = null)
     {
         $this->check_auth();

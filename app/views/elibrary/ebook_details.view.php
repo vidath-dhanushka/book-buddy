@@ -1,5 +1,5 @@
 <?php $this->view('includes/header') ?>
-<?php $this->view('includes/nav') ?>
+<?php $this->view('Elibrary/includes/elib_nav') ?>
 <?php if(message()):?>
 <div class="alert" id="hide"><?=message('', true)?></div>
 <?php endif;?>
@@ -23,7 +23,9 @@
             <span>Thriller</span>
         </div>
         <div>
-            <button>Borrow Now</button>
+       
+        <button onclick="location.href='<?=ROOT?>/member/borrow/<?=$row->id?>'">Borrow Now</button>
+
             <button>Add to Cart</button>
         </div>
         
@@ -32,9 +34,11 @@
 <div class="review">
       <div class="review-header">
       <h1>User Review</h1>
-      <img src="<?= ROOT ?>/assets/images/review.png" alt="add" id="myBtn" >
-      
+      <?= !empty($is_borrowed) ?  '<img src="'. ROOT .'/assets/images/review.png" alt="add" id="myBtn" >' : '' ?>
+
+
       <button class="cart-btn" id="more-btn">see more</button>
+
      
 
       </div>
@@ -101,11 +105,16 @@ var span = document.getElementsByClassName("close")[0];
 var span2 = document.getElementsByClassName("close")[1];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.visibility = "visible";
+if (btn) {
+    btn.onclick = function() {
+        modal.style.visibility = "visible";
+    }
 }
-moreBtn.onclick = function() {
-  modal2.style.visibility = "visible";
+
+if (moreBtn) {
+    moreBtn.onclick = function() {
+        modal2.style.visibility = "visible";
+    }
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -116,12 +125,21 @@ span2.onclick = function() {
   modal2.style.visibility = "hidden";
   modal2.classList.remove('animate');
 }
-document.getElementById('myBtn').addEventListener('click', function() {
-    document.getElementById('myModal').classList.add('animate');
-});
-document.getElementById('moreBtn').addEventListener('click', function() {
- document.getElementById('myModal-2').classList.add('animate');
-});
+if (document.getElementById('myBtn')) {
+    document.getElementById('myBtn').addEventListener('click', function() {
+        document.getElementById('myModal').classList.add('animate');
+    });
+}
+
+if (document.getElementById('more-btn')) {
+    document.getElementById('more-btn').addEventListener('click', function() {
+        document.getElementById('myModal-2').classList.add('animate');
+    });
+}
+
+
+
+
     
 </script>
 

@@ -11,9 +11,7 @@
                 <?php else:?>
                   
                     <p>
-                    <span class="icon" onclick="toggleNotifi()">
-                      <span  class="fa fa-bell"></span> <span>17</span>
-                    </span>
+                    
                       
                       <span id='display-uname'><?=Auth::getUsername()?></span><a href="<?=ROOT?>/member/profile"><span id="user-btn" class="fas fa-user"></span></a> <a href="<?=ROOT?>/logout">Logout</a>
                     </p>

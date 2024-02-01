@@ -48,7 +48,9 @@ class Ebook extends Model
 
         $query = trim($query, "&& ");
         $query .= " group by b.id order by id desc limit 1";
-
+        // echo $query;
+        // print_r($data);
+        // die;
         $res = $this->query($query, $data);
         $res[0]->cats = explode(',', $res[0]->cats);
         // show($res[0]->cats);
@@ -107,6 +109,49 @@ class Ebook extends Model
     
         
         return false;
+       
+    }
+
+    public function is_borrowed($data){
+        // print_r($data);
+        // die;
+        
+        $query =  "SELECT * FROM borrowed_ebooks WHERE ebook_id = :ebook_id AND member_id = :member_id";
+        // echo $query;
+        // print_r($data);
+        // die;
+        $res = $this->query($query, $data);
+        
+            
+        if (is_array($res) && count($res) > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    
+        
+       
+       
+    }
+    public function add_borrowed($data){
+        // print_r($data);
+        // die;
+        
+        $query =  "INSERT INTO borrowed_ebooks (ebook_id, member_id) VALUES (:ebook_id, :member_id)";
+        // echo $query;
+        // print_r($data);
+        // die;
+        $res = $this->query($query, $data);
+        
+            
+        if (is_array($res) && count($res) > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    
+        
+       
        
     }
 }

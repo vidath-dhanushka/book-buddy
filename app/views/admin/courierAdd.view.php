@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/navbar.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/admin/addLibrarian.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/admin/courierAdd.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/sidenav.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -14,7 +15,6 @@
 <?php if(!empty($row)):?>
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
-
     
 
     
@@ -30,8 +30,8 @@
           
           <div class="photo">
             
-            <div class="Photo">
-              <img src="<?=ROOT?>/assets/images/admin/addLibrarian.png"  alt="" class="LOGO-img"><br>
+            <div class="Photo1">
+              <img src="<?=ROOT?>/assets/images/admin/courier.jpg"  alt="" class="LOGO-img"><br>
               
              </div>
          
@@ -47,7 +47,7 @@
                 
          
             <form>
-             
+              
               <label for="fname">Full name:</label>
               <input type="text" id="fname" name="fname"><br><br><br>
               <label for="uname">User name:</label>
@@ -63,17 +63,19 @@
             </form>
             <div class="button1">
               <button>Add</button>
+              <button>Update</button>
             </div>
             
         </div> 
       </div>
       
     </div>
-
-    <?php else:?>
+    <script src="<?= ROOT ?>/assets/js/dropdown.js"></script>
+<?php else:?>
     <div>
-       Dashboard is not found..
+       Profile is not found..
     </div>
 <?php endif;?>
+
 </body>
 </html>

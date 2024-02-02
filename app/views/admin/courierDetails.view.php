@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/navbar.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/admin/librarianDetails.css">
-   
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/admin/courierDetails.css">
+    
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/sidenav.css">
     
    
@@ -17,11 +17,6 @@
 <?php if(!empty($row)):?>
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
-
-   
-   
-     
-    
 
     <div class="main--content">
       
@@ -36,61 +31,77 @@
          
           <thead>
             <tr>
-              <th>Librarian Name</th>
-              <th>Phone Number</th>
-              <th> Id</th>
+              <th>Company Name</th>
+              <th>Reg_no</th>
+              <th> Phone</th>
               <th>Email Address</th>
+              <th> Rate_first_kg</th>
+              <th> Rate_extra_kg</th>
               <th>Action</th>
             </tr>           
           </thead>
           <tbody>
             <tr>
-              <td>W.P.Navaz</td>
-              <td>0712343246</td>
+              <td>ZTO Express</td>
               <td>001122</td>
+              <td>0712343246</td>
               <td>navaz@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>K.A.Sarath</td>
-              <td>0719043246</td>
+              <td>Blue Dart</td>              
               <td>001123</td>
+              <td>0719043246</td>
               <td>sarath@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>A.W.D.Kalana</td>
-              <td>0712349046</td>
+              <td>SF Express</td>
               <td>001124</td>
+              <td>0712349046</td>
               <td>kalana@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>S.K.Ranmal</td>
-              <td>0712389246</td>
+              <td>Aramex</td>
               <td>001125</td>
+              <td>0712389246</td>
               <td>ranmal@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>W.L.Visal</td>
-              <td>0712903246</td>
+              <td>ExpressPulse</td>
               <td>001126</td>
+              <td>0712903246</td>
               <td>visal@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>W.L.Vikasitha</td>
-              <td>0712903246</td>
+              <td>BlinkLogistics</td>
               <td>001126</td>
+              <td>0712903246</td>
               <td>vikasitha@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>W.L.Pandithrathne</td>
-              <td>0712903246</td>
+              <td>DashMovers</td>
               <td>001126</td>
+              <td>0712903246</td>
               <td>rathne@gmail.com</td>
+              <td>**</td>
+              <td>**</td>
               <td><button>Delete</button></td>
             </tr>
           </tbody>

@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Brawler&family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@300&display=swap');
 
 
-*
-{
+
+*{
   margin :0;
   padding : 0;
   box-sizing:border-box;
@@ -21,7 +20,7 @@ body{
 
 
 .active{
-  background: #000000;
+  background: #3e3c3c;
   width: 100%;
   height: 45px;
   position: absolute;
@@ -29,7 +28,7 @@ body{
   top: 0;
   z-index: -1;
   border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(255 255 255 0.4);
+  box-shadow: 0 5px 10px #FFFFFF;
   display: none;
   transition: 0.5s;
 }
@@ -47,25 +46,8 @@ body{
   padding: 1rem;
 
 }
-.header--wrapper img{
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 50%;
-  margin-left: 0%;
 
 
-}
-.header--wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 10px 2rem;
-  margin-bottom: 1rem;
-}
 
 .header--title{
   color: black;
@@ -109,12 +91,14 @@ body{
 
 .tabular--wrapper{
   background: #FFFFFF;
-  margin-top: 1rem;
+  margin-top: 2rem;
+ 
   border-radius: 10px;
   padding: 2rem;
 }
 .table--container{
   width: 100%;
+  margin-left: 80px;
 }
 
 table{
@@ -139,6 +123,8 @@ td{
   padding: 1px;
   font-size: 14px;
   color: black;
+  width: 10px;
+  height: 10px;
 }
 
 tr:nth-child(even){
@@ -150,7 +136,7 @@ tr:nth-child(even){
 .table--container button{
   color: rgb(15, 11, 11);
   cursor: pointer;
-  background-color: #e9a0a0;
+  background-color: #c4c8fb;
   width: 60%;
   font-weight: bold;
 
@@ -161,7 +147,7 @@ tr:nth-child(even){
 .foot button{
   margin-top: 15px;
   margin-left: 87%;
-  background-color: #FFFFFF;
+  background-color: #c4c8fb;
   color: rgb(15, 11, 11);
   border-radius: 10px;
 }

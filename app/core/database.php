@@ -118,20 +118,24 @@ class Database
         $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `members` (
-            `id` int(11) NOT NULL,
-            `userID` int(11) DEFAULT NULL,
-            `contactName` varchar(255) DEFAULT NULL,
-            `province` varchar(255) DEFAULT NULL,
-            `city` varchar(255) DEFAULT NULL,
-            `postalCode` varchar(20) DEFAULT NULL
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `userID` int(11),
+            `contactName` varchar(255),
+            `province` varchar(255),
+            `city` varchar(255),
+            `postalCode` varchar(20),
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`userID`) REFERENCES `users`(`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+        
         ";
 
         $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `provinces` (
             `id` int(11) NOT NULL,
-            `provinceName` varchar(255) NOT NULL
+            `provinceName` varchar(255) NOT NULL,
+            PRIMARY KEY (id)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
         ";
 
@@ -140,8 +144,11 @@ class Database
         $query = "CREATE TABLE IF NOT EXISTS `cities` (
             `id` int(11) NOT NULL,
             `cityName` varchar(255) NOT NULL,
-            `provinceID` int(11) DEFAULT NULL
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            `provinceID` int(11),
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`provinceID`) REFERENCES `provinces`(`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+        
         ";
 
         $this->query($query);

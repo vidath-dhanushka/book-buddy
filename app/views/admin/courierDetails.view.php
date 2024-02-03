@@ -100,8 +100,8 @@
               <td>001126</td>
               <td>0712903246</td>
               <td>rathne@gmail.com</td>
-              <td>**</td>
-              <td>**</td>
+              <td>***</td>
+              <td>***</td>
               <td><button>Delete</button></td>
             </tr>
           </tbody>

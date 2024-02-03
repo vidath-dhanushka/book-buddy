@@ -15,7 +15,7 @@ class Database
 
         $stm = $con->prepare($query);
         if ($stm) {
-           
+
             foreach ($data as $key => $value) {
                 $newKey = str_replace('.', '', $key);
 
@@ -158,7 +158,7 @@ class Database
         (6, 'Sabaragamuwa Province');
         
         ";
-        
+
         $this->query($query);
 
         $query = "INSERT IGNORE INTO `cities` (id, cityName, provinceID) VALUES
@@ -248,8 +248,60 @@ class Database
         ";
         $this->query($query);
 
+        $query = "CREATE TABLE IF NOT EXISTS `courier`
+        (
+            `courier_id`    SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `company_name`  VARCHAR(32) UNIQUE NOT NULL,
+            `reg_no`        VARCHAR(16) UNIQUE NOT NULL,
+            `email`         VARCHAR(96) UNIQUE NOT NULL,
+            `phone`         VARCHAR(16) UNIQUE NOT NULL,
+            `rate_first_kg` DECIMAL(9, 2)      NOT NULL,
+            `rate_extra_kg` DECIMAL(9, 2)      NOT NULL,
+            `reg_time`      TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`      TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
+        ";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `courier_rate_exception`
+        (
+            `courier_rate_exception_id` MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `courier`                   SMALLINT UNSIGNED NOT NULL REFERENCES courier (courier_id),
+            `source_district`           VARCHAR(96),
+            `destination_district`      VARCHAR(96),
+            `rate_first_kg`             DECIMAL(9, 2)     NOT NULL,
+            `rate_extra_kg`             DECIMAL(9, 2)     NOT NULL,
+            `reg_time`                  TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`                  TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            UNIQUE (courier, source_district, destination_district)
+        );
+        ";
+        $this->query($query);
 
 
+        $query = "CREATE TABLE IF NOT EXISTS `borrow`
+        (
+            `borrow_id`                  MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `user`                       MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            `sending_address_line1`      VARCHAR(128),
+            `sending_address_line2`      VARCHAR(128),
+            `sending_address_city`       VARCHAR(32),
+            `sending_address_district`   VARCHAR(32),
+            `sending_address_zip`        CHAR(5),
+            `receiving_address_line1`    VARCHAR(128),
+            `receiving_address_line2`    VARCHAR(128),
+            `receiving_address_city`     VARCHAR(32),
+            `receiving_address_district` VARCHAR(32),
+            `receiving_address_zip`      CHAR(5),
+            `courier`                    SMALLINT UNSIGNED REFERENCES courier (courier_id),
+            `delivery_charge`            SMALLINT UNSIGNED  NOT NULL REFERENCES courier_rate_exception (courier_rate_exception_id),
+            `delivery_method`            VARCHAR(64)        NOT NULL, #(courier, self-deliver....)
+            `reg_time`                   TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`                   TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
+        ";
 
-}
+        $this->query($query);
+    }
 }

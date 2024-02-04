@@ -118,7 +118,7 @@ class Database
         $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `members` (
-            `id` int(11) NOT NULL,
+            `id` int(11) NOT NULL PRIMARY KEY,
             `userID` int(11) DEFAULT NULL,
             `contactName` varchar(255) DEFAULT NULL,
             `province` varchar(255) DEFAULT NULL,
@@ -242,8 +242,8 @@ class Database
             `member_id` int(11) NOT NULL,
             `borrow_date` date DEFAULT current_timestamp(),
             PRIMARY KEY (id),
-            FOREIGN KEY (ebook_id) REFERENCES ebooks(id) ON DELETE CASCADE,
-            FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
+            FOREIGN KEY (`ebook_id`) REFERENCES `ebooks`(`id`) ON DELETE CASCADE,
+            FOREIGN KEY (`member_id`) REFERENCES `members`(`id`) ON DELETE CASCADE
           );
         ";
         $this->query($query);
@@ -257,12 +257,12 @@ class Database
             `phone`         VARCHAR(16) UNIQUE NOT NULL,
             `rate_first_kg` DECIMAL(9, 2)      NOT NULL,
             `rate_extra_kg` DECIMAL(9, 2)      NOT NULL,
-            `reg_time`      TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            `mod_time`      TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            `reg_time`      TIMESTAMP          NOT NULL DEFAULT UNIX_TIMESTAMP,
+            `mod_time`      datetime ON UPDATE CURRENT_TIMESTAMP
         );
-        ";
+        // ";
 
-        $this->query($query);
+        // $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `courier_rate_exception`
         (
@@ -272,7 +272,7 @@ class Database
             `destination_district`      VARCHAR(96),
             `rate_first_kg`             DECIMAL(9, 2)     NOT NULL,
             `rate_extra_kg`             DECIMAL(9, 2)     NOT NULL,
-            `reg_time`                  TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `reg_time`                  TIMESTAMP         NOT NULL DEFAULT unix_timestamp(),
             `mod_time`                  TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             UNIQUE (courier, source_district, destination_district)
         );
@@ -297,8 +297,8 @@ class Database
             `courier`                    SMALLINT UNSIGNED REFERENCES courier (courier_id),
             `delivery_charge`            SMALLINT UNSIGNED  NOT NULL REFERENCES courier_rate_exception (courier_rate_exception_id),
             `delivery_method`            VARCHAR(64)        NOT NULL, #(courier, self-deliver....)
-            `reg_time`                   TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            `mod_time`                   TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            `reg_time`                   TIMESTAMP          NOT NULL DEFAULT unix_timestamp(),
+            `mod_time`                   datetime ON UPDATE CURRENT_TIMESTAMP
         );
         ";
 

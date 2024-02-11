@@ -14,7 +14,7 @@
 </head>
 <body>
 <?php if(!empty($row)):?>
-<?php $this->view('includes/navbar') ?>
+<?php $this->view('includes/navbar', $data) ?>
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
 <div class="profile-container">
@@ -25,8 +25,8 @@
             </div>
             <div class="menu">
                 <ul>
-                    <li><img src="<?=ROOT?>/assets/images/member/edit-info.png" alt=""><a href="<?=ROOT?>/librarians/edit">Edit Profile</a></li>
-                    <li><img src="<?=ROOT?>/assets/images/member/reset-password.png" alt=""><a href="<?=ROOT?>/librarians/change_password">Change Password</a></li>
+                    <li><img src="<?=ROOT?>/assets/images/member/edit-info.png" alt=""><a href="<?=ROOT?>/librarian/edit">Edit Profile</a></li>
+                    <li><img src="<?=ROOT?>/assets/images/member/reset-password.png" alt=""><a href="<?=ROOT?>/librarian/change_password">Change Password</a></li>
                     <!-- <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li>
                     <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li>
                     <li><img src="./images/arrow.png" alt=""><a href="#">sample</a></li>
@@ -34,8 +34,8 @@
                 </ul>
             </div>
         </div>
-        <img src="<?=ROOT?>/assets/images/Avatar.png" alt="">
-        <!-- <img src="<?=ROOT?>/<?=($row->user_image)?>"  class="profile-pic"> -->
+        <!-- <img src="<?=ROOT?>/assets/images/Avatar.png" alt=""> -->
+        <img src="<?=ROOT?>/<?=($row->user_image)?>"  class="profile-pic">
         <h3><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>
         <p><?=esc($row->email)?></p>
         
@@ -57,8 +57,8 @@
                             <tbody>
                                 <tr>
                                     <td> First Name </td>
-                                    <!-- <td> <?=esc($row->firstname)?></td> -->
-                                    <td> A. Perera </td>
+                                    <td> <?=esc($row->firstname)?></td>
+                                    <!-- <td> A. Perera </td> -->
                                 </tr>
                                 <tr>
                                     <td> Last Name </td>
@@ -80,10 +80,10 @@
                                     <td> Email </td>
                                     <td> <?=esc($row->email)?></td>
                                 </tr>
-                                <!-- <tr>
-                                    <td> NIC Number </td>
-                                    <td> 0000000000</td>
-                                </tr> -->
+                                <tr>
+                                    <td> Address </td>
+                                    <td> <?=esc($row->address)?></td>
+                                </tr>
                                 
                             </tbody>
                             

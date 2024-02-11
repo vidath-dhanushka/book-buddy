@@ -8,7 +8,13 @@
                 <?php if (!Auth::logged_in()) : ?>
                     <p><a href="<?= ROOT ?>/login">Login</a> | <a href="<?= ROOT ?>/signup">signup</a></p>
                 <?php else : ?>
-                    <p><span id='display-uname'><?= Auth::getUsername() ?></span><a href="<?= ROOT ?>/member/profile"><span id="user-btn" class="fas fa-user"></span></a> <a href="<?= ROOT ?>/logout">Logout</a></p>
+                    <p>
+                    <?php if(!empty($_SESSION["USER_DATA"]) and $_SESSION["USER_DATA"]->role == "librarian"):?>
+                      <span id='display-uname'><?=Auth::getUsername()?></span><a href="<?=ROOT?>/librarian/profile"><span id="user-btn" class="fas fa-user"></span></a> <a href="<?=ROOT?>/logout">Logout</a>
+                    <?php else: ?>
+                      <span id='display-uname'><?=Auth::getUsername()?></span><a href="<?=ROOT?>/member/profile"><span id="user-btn" class="fas fa-user"></span></a> <a href="<?=ROOT?>/logout">Logout</a>
+                    <?php endif; ?>
+                    </p>
                 <?php endif; ?>
             </div>
 

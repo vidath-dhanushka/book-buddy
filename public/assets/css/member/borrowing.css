@@ -210,12 +210,14 @@ tbody tr.hide td img {
     text-align: center;
 }
 
-.status.returned {
+.status.returned,
+.status.uploaded{
     background-color: #86e49d;
     color: #006b21;
 }
 
-.status.overdue {
+.status.overdue
+{
     background-color: #d893a3;
     color: #b30021;
 }

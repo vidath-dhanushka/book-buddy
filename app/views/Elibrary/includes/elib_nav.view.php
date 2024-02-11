@@ -19,7 +19,7 @@
             <nav class="navbar">
                 <a href="<?= ROOT ?>/Elibrary">Home</a>
                 <a href="<?= ROOT ?>/Elibrary/Ebooks">E Books</a>
-                <a href="<?= ROOT ?>/subscription">Subscription</a>
+                <a href="<?= ROOT ?>/Elibrary/subscription">Subscription</a>
                 <a href="<?= ROOT ?>/aboutus">About Us</a>
                 <a href="<?= ROOT ?>/home">Book Exchange</a>
 

@@ -1,30 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/navbar.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/sidenav.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/subscription.css">
-    <style>
-      body{
-        background: #D9D9D9;
-      }
-    </style>
-
-</head>
-
-<body>
-  <?php $this->view('includes/navbar')  ?>
-  <?php $this->view('includes/sidenav', $data) ?>
-  
-  <section class="home-section">
-    <div class="current-plan">
-    <div class="wrapper">
+<?php $this->view('includes/header') ?>
+<?php $this->view('Elibrary/includes/elib_nav') ?>
+<?php if(Auth::logged_in()):?>
+  <div class="current-plan">
+    <div class="wrapper" id="subscription">
       <div class="card-area">
+      <div class="title">Current Plan</div>
         <div class="current cards">
+       
           <div class="current price-details">
             <span class="price">0</span>
           </div>
@@ -36,9 +18,11 @@
           </ul>
           
         </div>
+      </div>
     </div>
-</div></div>
-  <section class="pricing">
+  </div>
+<?php endif;?>
+<section class="pricing" id="sub-pricing">
  <div class="card">
     <div class="title">Choose Your Subscription Plan</div>
   <div class="content">
@@ -46,21 +30,21 @@
     <input type="radio" name="slider" id="tab-2">
     <input type="radio" name="slider" id="tab-3">
 
-    <label for="tab-1" class="box first">
+    <label for="tab-1" class="box first" style="border: 2px solid #D9D9D9;">
       <div class="plan">
       <span class="circle"></span>
       <span class="yearly">Free</span>
     </div>
         <span class="price">0$/month</span>
     </label>
-    <label for="tab-2" class="box second">
+    <label for="tab-2" class="box second" style="border: 2px solid #D9D9D9;">
       <div class="plan">
       <span class="circle"></span>
       <span class="yearly">Basic</span>
     </div>
         <span class="price">00$/month</span>
     </label>
-    <label for="tab-3" class="box third">
+    <label for="tab-3" class="box third" style="border: 2px solid #D9D9D9;">
       <div class="plan">
       <span class="circle"></span>
         <span class="yearly">Premium</span>
@@ -69,9 +53,9 @@
     </label>
   </div>
  </div>
- <div class="wrapper">
+ <div class="wrapper" style="border: 2px solid #D9D9D9;">
     <div class="card-area">
-      <div class="cards">
+      <div class="cards" >
         <div class="row" id="row-1">
           <div class="price-details">
             <span class="price">0</span>
@@ -118,7 +102,7 @@
     
     <button>Choose plan</button>
   </div>
-</section>
+
 <script>
  window.onload = function() {
   var radios = document.getElementsByName('slider');

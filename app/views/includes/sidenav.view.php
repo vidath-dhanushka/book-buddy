@@ -3,7 +3,7 @@
   <a href="<?= ROOT ?>/member/profile">
   <?php endif; ?>
   <?php if($row->role === "librarian"):?>
-  <a href="<?= ROOT ?>/librarians/profile">
+  <a href="<?= ROOT ?>/librarian/profile">
   <?php endif; ?>
     <div class="logo-details">
       <img src="<?= ROOT ?>/<?= ($row->user_image) ?>" alt="profile-image" />
@@ -145,7 +145,7 @@
     <?php if($row->role === "librarian"):?>
     <ul class="nav-links">
       <li>
-        <a href="<?= ROOT ?>/librarians/dashboard">
+        <a href="<?= ROOT ?>/librarian/dashboard">
           <div class="icon">
             <img src="<?= ROOT ?>/assets/images/sidenav/dashboard.png" alt="icon" />
           </div>
@@ -153,7 +153,7 @@
         </a>
         <ul class="sub-menu blank">
           <li>
-            <a class="link_name" href="<?= ROOT ?>/librarians/dashboard">Dashboard</a>
+            <a class="link_name" href="<?= ROOT ?>/librarian/dashboard">Dashboard</a>
           </li>
         </ul>
       </li>
@@ -161,7 +161,7 @@
       
     <li>
         <div class="iocn-link">
-          <a href="<?= ROOT ?>/member/books">
+          <a href="<?= ROOT ?>/librarian/ebooks">
             <div class="icon">
               <img
                 src="<?= ROOT ?>/assets/images/sidenav/ebook.png"
@@ -171,24 +171,17 @@
             <span class="link_name">E - Book</span>
           </a>
 
-          <img
-            class="arrow"
-            src="<?= ROOT ?>/assets/images/sidenav/arrow.png"
-            alt="arrow"
-          />
+          
         </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="<?= ROOT ?>/member/books/add">E - Library</a></li>
+        <ul class="sub-menu blank">
           <li>
-            <a href="<?= ROOT ?>/member/ebooks/add"
-              >Add Book</a
-            >
+            <a class="link_name" href="<?= ROOT ?>/librarian/dashboard">E-Books</a>
           </li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
-          <a href="<?= ROOT ?>/member/change_subscription">
+          <a href="<?= ROOT ?>/librarian/subscription">
             <div class="icon">
               <img
                 src="<?= ROOT ?>/assets/images/sidenav/subscription.png"
@@ -198,23 +191,36 @@
             <span class="link_name">Subscription</span>
           </a>
 
-          <img
-            class="arrow"
-            src="<?= ROOT ?>/assets/images/sidenav/arrow.png"
-            alt="arrow"
-          />
+         
         </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="<?= ROOT ?>/member/books/add">Subscription</a></li>
+        <ul class="sub-menu blank">
           <li>
-            <a href="<?= ROOT ?>/member/change_subscription"
-              >Change Subscription</a
-            >
+            <a class="link_name" href="<?= ROOT ?>/librarian/dashboard">Subscription</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="<?= ROOT ?>/librarian/copyright">
+            <div class="icon">
+              <img
+                src="<?= ROOT ?>/assets/images/sidenav/permission.png"
+                alt="icon"
+              />
+            </div>
+            <span class="link_name">Copyright</span>
+          </a>
+
+         
+        </div>
+        <ul class="sub-menu blank">
+          <li>
+            <a class="link_name" href="<?= ROOT ?>/librarian/dashboard">Copyright</a>
           </li>
         </ul>
       </li>
     
-
+      <?php endif?>
 
       
     <!-- body > div.sidebar.close > ul > li:nth-child(3) -->
@@ -258,7 +264,7 @@
       </ul>
     </li> -->
 
-    <?php endif?>
+    
     <hr>
     <li id="log-out">
       <a href="<?= ROOT ?>/logout">

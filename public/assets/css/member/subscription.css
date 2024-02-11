@@ -1,13 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-body{
-    background-color: #D9D9D9;
-    
-}
 .pricing{
-    display: flex;
+ 
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  
 }
-
+#subscription{
+  border: 2px solid #D9D9D9;
+  margin:2%;
+  width:97%;
+  
+  color: #fff;
+ 
+}
+#sub-pricing{
+  border-radius: 5px;
+  margin: 1%;
+}
+/* .home-section {
+  margin-top: 1rem;
+} */
 
 .card{
   max-width: 350px;
@@ -16,6 +29,10 @@ body{
  
 }
 .card .title{
+  font-size: 22px;
+  font-weight: 600;
+}
+.card-area .title{
   font-size: 22px;
   font-weight: 600;
 }
@@ -71,11 +88,12 @@ body{
 
 /* wnnfkf */
 .wrapper{
-    width: 70%;
+    width: 100%;
     background: #fff;
     border-radius: 16px;
     padding: 30px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
   }
   .wrapper header{
     width: 50%;
@@ -128,6 +146,9 @@ body{
     width: 95px;
     transform: translateX(-105%);
   }
+  .current.name{
+    display: inline;
+  }
   
   .wrapper input[type="radio"]{
     display: none;
@@ -139,6 +160,15 @@ body{
     display: flex;
     width: 300%;
   }
+  .card-area .current.cards{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 2%;
+}
+  
   .cards .row{
     width: 33.4%;
   }
@@ -178,7 +208,7 @@ body{
     top: 17px;
     font-size: 20px;
   }
- 
+  
   .price-details p{
     font-size: 18px;
     margin-top: 5px;

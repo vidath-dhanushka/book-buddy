@@ -7,29 +7,91 @@ class Ebook extends Model
 
     protected $allowedColumns = [
         'title',
+        'subtitle',
+        'isbn',
+        'language',
+        'edition',
+        'publisher',
+        'publish_date',
+        'pages',
         'description',
-        'book_image',
-        'user_id',
-        'author_id'
+        'book_cover',
+        'file',
+        'author_id',
+        'librarian_id',
+        'license'
     ];
 
-    public function validate($data)
-    {
-        $this->errors = [];
-
-        if (empty($data['title'])) {
-            $this->errors['title'] = "Please enter the title of the book";
-        }
-        if (empty($data['description'])) {
-            $this->errors['description'] = "Please enter a small description";
-        }
-
-        if (empty($this->errors)) {
-            return true;
-        }
-
-        return false;
+    public function ebook_info_validate($data)
+{
+    $this->errors = [];
+    
+    if (empty($data['title'])) {
+        $this->errors['title'] = "Please provide a value for the title.";
+    } else if (strlen($data['title']) < 2) {
+        $this->errors['title'] = "The title should be at least 2 characters long.";
     }
+
+    if (empty($data['author_name'])) {
+        $this->errors['author_name'] = "Please provide a value for the author.";
+    }else
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$data["author_name"])) {
+        $this->errors['author_name'] = "Only letters and white space allowed in author name";
+    }
+    if (empty($data['pages'])) {
+        $this->errors['pages'] = "Please provide a value for the pages.";
+    }
+
+    if (isset($data['subtitle']) && strlen($data['subtitle']) > 255) {
+        $this->errors['subtitle'] = "The subtitle should not exceed 255 characters.";
+    }
+
+    if (isset($data['isbn']) && !preg_match('/^(?:ISBN(?:-1[03])?:? )?(?:[0-9]{10}(?:[- ]?[0-9]{4})?|[0-9]{13})$/', $data['isbn'])) {
+        $this->errors['isbn'] = "The ISBN format is invalid.";
+    }
+    
+    if (empty($data['language'])) {
+        $this->errors['language'] = "Please enter the language of the book";
+    }
+
+    if (empty($data['license'])) {
+        $this->errors['license'] = "Please select the license type of the book";
+    }
+    
+    if (empty($data['publisher'])) {
+        $this->errors['publisher'] = "Please provide a value for the publisher.";
+    } else if (!is_string($data['publisher'])) {
+        $this->errors['publisher'] = "The publisher should be a string.";
+    }
+    if (empty($data['publish_date'])) {
+        $this->errors['publish_date'] = "Please provide a value for the publish_date.";
+    } else if (!DateTime::createFromFormat('Y-m-d', $data['publish_date'])) {
+        $this->errors['publish_date'] = "The publish_date should be a date in 'Y-m-d' format.";
+    }
+    if (empty($data['description'])) {
+        $this->errors['description'] = "Please provide a value for the description.";
+    } else if (strlen($data['description']) < 10 || strlen($data['description']) > 1000) {
+        $this->errors['description'] = "The description should be between 10 and 1000 characters long.";
+    }
+
+    if (empty($data['book_cover'])) {
+        $this->errors['book_cover'] = "Please provide a value for the cover_image.";
+    }
+    if (empty($data['file'])) {
+        $this->errors['file'] = "Please provide a value for the file.";
+    }
+    if (empty($_POST['category'])) {
+        $this->errors['category'] = "Please select at least one category.";
+    }
+
+    
+    if (empty($this->errors)) {
+        return true;
+    }
+
+    return false;
+}
+
 
     public function categories()
     {
@@ -63,13 +125,14 @@ class Ebook extends Model
 
     public function view_all($data)
     {
-        $query = "SELECT b.*, a.author_name, b.id bid FROM books AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN book_category c ON c.book_id = b.id ";
+        $query = "SELECT b.*, a.author_name, b.id bid FROM ebooks AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id ";
 
         if ($data) {
-            $query .= "where user_id =:user_id";
+            $query .= "where librarian_id =:user_id";
         }
 
         $query .= " group by b.id order by id desc";
+        // print_r($data);
         // show($query);
         // die;
 
@@ -116,7 +179,7 @@ class Ebook extends Model
         // print_r($data);
         // die;
         
-        $query =  "SELECT * FROM borrowed_ebooks WHERE ebook_id = :ebook_id AND member_id = :member_id";
+        $query =  "SELECT * FROM borrowed_ebooks WHERE ebook_id = :ebook_id AND user_id = :user_id";
         // echo $query;
         // print_r($data);
         // die;
@@ -137,7 +200,7 @@ class Ebook extends Model
         // print_r($data);
         // die;
         
-        $query =  "INSERT INTO borrowed_ebooks (ebook_id, member_id) VALUES (:ebook_id, :member_id)";
+        $query =  "INSERT INTO borrowed_ebooks (ebook_id, user_id) VALUES (:ebook_id, :user_id)";
         // echo $query;
         // print_r($data);
         // die;

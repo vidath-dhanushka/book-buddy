@@ -14,10 +14,10 @@
 
 <?php if(!empty($row)):?>
  
-<?php $this->view('includes/navbar') ?>
+<?php $this->view('includes/navbar', $data) ?>
 <?php $this->view('includes/sidenav', $data) ?>
 
-<section class="home-section">
+<section class="home-section" style="background-color: #D9D9D9">
 
 <section class="container">
 <?php 
@@ -97,7 +97,13 @@
         <small class="err-msg"><?=$errors['phone']?></small>
       <?php endif;?>
     </div>
-    <div class="input-box"></div>
+    <div class="input-box">
+      <label>Address</label>
+      <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" required />
+      <?php if(!empty($errors['address'])):?>
+        <small class="err-msg"><?=$errors['address']?></small>
+      <?php endif;?>
+    </div>
   </div>
   <div class="column">
     <button type='reset' >Cancel</button>
@@ -147,43 +153,6 @@
         document.getElementById("upload").style.display = "block";
       }
 
-
-  // dropdown - provinces -> city
-
-  var provinces = <?php echo json_encode($provinces); ?>;
-  var cities = <?php echo json_encode($cities); ?>;
-  
-
-document.getElementById("province").onchange = function() {
-  var selectedOption = this.options[this.selectedIndex];
-  var citySelect = document.getElementById("city");
-  var provinceId = selectedOption.value;
-  
-  if (selectedOption.hidden ) {
-    citySelect.disabled = true;
-  } else {
-    var relevantCities = cities.filter(function(city) {
-      return city.provinceID == provinceId;
-    });
-    
-    citySelect.innerHTML = "";
-
-    var defaultOption = document.createElement("option");
-    defaultOption.text = "City";
-    citySelect.add(defaultOption);
-
-    relevantCities.forEach(function(city) {
-      var option = document.createElement("option");
-      option.value = city.id;
-      option.text = city.cityName;
-      citySelect.add(option);
-    });
-    citySelect.disabled = false;
-  }
-}
-
-// Trigger the onchange event to populate the city dropdown when the page loads
-document.getElementById("province").onchange();
 
 
 

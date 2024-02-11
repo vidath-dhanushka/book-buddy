@@ -40,7 +40,6 @@ class Member_model extends Model{
     
         return false;
     }
-    
 
     public function update_by_column($columnValue, $data, $columnName = null, $secondTable = null, $firstTableJoinColumn = null, $secondTableJoinColumn = null)
     {
@@ -134,7 +133,31 @@ class Member_model extends Model{
     
         return true;
     }
+    public function view_member_details($data)
+    {
+       
     
+        $keys = array_keys($data);
+     
+        $query = "SELECT * FROM users AS t1
+        LEFT JOIN members AS t2 ON t1.id = t2.userID
+        WHERE t1.id = :id
+        ORDER BY t2.id DESC LIMIT 1;
+        ";
+        
+        // echo "<br>".$query."<br>";
+        // print_r($data);
+        // echo "<br>";
+        // die;
+        $res = $this->query($query, $data);
+    
+        if (is_array($res)) {
+            // print_r($res[0]);
+            return $res[0];
+        }
+    
+        return false;
+    }
 
 
 
@@ -161,7 +184,7 @@ class Member_model extends Model{
         $res = $this->query($query, $data);
     
         if (is_array($res)) {
-            // print_r($res[0]);
+            print_r($res[0]);
             return $res[0];
         }
     
@@ -248,17 +271,17 @@ public function vertify_review($data){
         if(!preg_match('/^\+[0-9]{11}$/',$data['phone'])){
             $this->errors['phone'] = "please enter the number in international standards";
         }
-        if(empty($data['address'])){
-            $this->errors['address'] = "Please enter the address";
-        }
+        // if(empty($data['address'])){
+        //     $this->errors['address'] = "Please enter the address";
+        // }
         if(!empty($data['contactName']) & !preg_match("/^[a-zA-Z ]+$/",$data['contactName'])){
             $this->errors['contactName'] = "Contact can only have letters";
         }
         if(!empty($data['postalCode']) & !preg_match("/^[0-9]{5}$/", $data['postalCode'])){
             $this->errors['postalCode'] = "Postal Code must have exactly 5 numbers";
         }
-        
-        
+       
+    
         if(empty($this->errors)){
             // print_r($this->errors);
             // die;

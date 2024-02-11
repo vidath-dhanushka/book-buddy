@@ -104,7 +104,7 @@
   <div class="column">
     <div class="input-box">
       <label>Address</label>
-      <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" required />
+      <input type="text" id="address" name="address" placeholder="Enter Address" value="<?=set_value('address',$row->address)?>" />
       <?php if(!empty($errors['address'])):?>
         <small class="err-msg"><?=$errors['address']?></small>
       <?php endif;?>

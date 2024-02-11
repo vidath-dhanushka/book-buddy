@@ -1,6 +1,6 @@
 <?php
 
-class Librarian extends Model{
+class Librarian_model extends Model{
     protected $table = "members";
     protected $tableF = "userID";
     protected $tableP = "id";
@@ -292,6 +292,49 @@ public function vertify_review($data){
             return $res;
         }
 
+        return false;
+    }
+
+    public function subscription_validate($data, $id){
+        // echo "in edit_validate";
+        // die;
+        $this-> errors = [];
+      
+        if(empty($data['name'])){
+            $this->errors['name'] = "Please enter the name";
+        }else
+        if(!preg_match("/^[a-zA-Z ]+$/",$data['name'])){
+            $this->errors['name'] = "Name can only have letters";
+        }
+        if(empty($data['subscriptionPrice'])){
+            $this->errors['subscriptionPrice'] = "Please enter subscription price";
+        }
+        if(empty($data['copyrightCost'])){
+            $this->errors['copyrightCost'] = "Please enter the copyright Cost";
+        }
+        if(empty($data['numberOfBooks'])){
+            $this->errors['numberOfBooks'] = "Please enter the number Of Books";
+        }
+        if(empty($data['description'])){
+            $this->errors['description'] = "Please enter the description";
+        }else
+        if (strlen($description) < 10 || strlen($description) > 500) {
+            echo "Description must be between 10 and 500 characters.";
+            return;
+        }
+        if(empty($data['isActive'])){
+            $this->errors['isActive'] = "Please check the Is Active' box";
+        }
+        
+        if(empty($this->errors)){
+            // print_r($this->errors);
+            // die;
+            return true;
+        }
+        // echo "errors";
+        // print_r($this->errors);
+        // die;
+        
         return false;
     }
 

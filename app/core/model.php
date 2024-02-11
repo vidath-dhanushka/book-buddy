@@ -19,6 +19,7 @@ class Model extends Database
         $query = "insert into " . $this->table;
         $query .= " (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
         // echo $query;
+        // print_r($data);
         // show($query);
         // die;
         $statement =  $this->query($query, $data);
@@ -45,7 +46,9 @@ class Model extends Database
         $query = trim($query, ",");
         $query .= " where id = :id";
         // echo $query;
+        // die;
         $data['id'] = $id;
+
         $statement =  $this->query($query, $data);
         return $statement;
     }

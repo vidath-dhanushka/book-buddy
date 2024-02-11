@@ -12,6 +12,12 @@ class Elibrary extends Controller
         $data['title'] = 'Elibrary';
         $this->view('Elibrary/home', $data);
     }
+    public function subscription()
+    {
+
+        $data['title'] = 'subscription';
+        $this->view('Elibrary/subscription', $data);
+    }
 
 
     public function ebooks()
@@ -47,10 +53,9 @@ class Elibrary extends Controller
         $ebook = new Ebook;
         $member = new Member_model();
         if (Auth::logged_in()) {
-            $member_id = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id])->id;
-        
+            
             $review = $ebook->get_review(["ebook_id"=>$id]);
-            $isborrowed = $ebook->is_borrowed(["ebook_id"=>$id, "member_id"=>$member_id]);
+            $isborrowed = $ebook->is_borrowed(["ebook_id"=> $id, "user_id"=>$_SESSION['USER_DATA']->id]);
            
             $data['reviews'] = $review;
             $data['is_borrowed'] =  $isborrowed;

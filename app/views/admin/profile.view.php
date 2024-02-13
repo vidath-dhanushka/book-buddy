@@ -21,14 +21,19 @@
 <div class="profile-container">
     <div class="profile-box">
         
+    <div class="dropdown-action">
+            <div class="icon" onclick="menuToggle()" id="toggle">
+                <img src="<?=ROOT?>/assets/images/member/setting.png"  class="setting-icon">
+            </div>
             <div class="menu">
                 <ul>
-                    <li><img src="<?=ROOT?>/assets/images/member/edit-info.png" alt=""><a href="<?=ROOT?>/member/edit">Edit Profile</a></li>
-                    <li><img src="<?=ROOT?>/assets/images/member/reset-password.png" alt=""><a href="<?=ROOT?>/member/change_password">Change Password</a></li>
-                    
+                    <li><img src="<?=ROOT?>/assets/images/member/edit-info.png" alt=""><a href="<?=ROOT?>/admin/edit">Edit Profile</a></li>
+                    <li><img src="<?=ROOT?>/assets/images/member/reset-password.png" alt=""><a href="<?=ROOT?>/admin/change_password">Change Password</a></li>
+                   
                 </ul>
             </div>
         </div>
+        
         
         <img src=""  class="profile-pic">
         <h3><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>
@@ -79,10 +84,12 @@
                                     <td> Email: </td>
                                     <td> <?=esc($row->email)?></td>
                                 </tr>
-                                <!-- <tr>
-                                    <td> NIC Number </td>
-                                    <td> 0000000000</td>
-                                </tr> -->
+
+                                <tr>
+                                    <td>Address: </td>
+                                    <td> <?=set_value('',$row->address)?></td>
+                                </tr>
+                                
                                 
                             </tbody>
                             
@@ -95,51 +102,7 @@
        
         <input name="nav" type="radio" class="postal-radio" id="postal" />
         
-        <div class="page postal-page">
-        
-            <div class="page-contents">
-            
-                <main class="table" id="details_table">
-                    <label class="nav" for="postal">
-                        <span>
-                            Postal Details
-                        </span>
-                    </label>
-                
-                    <section class="table__body">
-                    
-                        <table>
-                        
-                            <tbody>
-                                <tr>
-                                    <td>Contact Name: </td>
-                                    <td> <?=set_value('',$row->contactName)?></td>
-                                </tr>
-                                <tr>
-                                    <td>Address: </td>
-                                    <td> <?=set_value('',$row->address)?></td>
-                                </tr>
-                                <tr>
-                                    <td> Province: </td>
-                                    <td><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : '' ?></td>
-                                </tr>
-                                <tr>
-                                    <td> City: </td>
-                                    <td> <?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : '' ?></td>
-                                </tr>
-                                
-                                <tr>
-                                    <td> Postal Code: </td>
-                                    <td> <?=set_value('',$row->postalCode)?></td>
-                                </tr>
-                                
-                            </tbody>
-                            
-                        </table>
-                    </section>
-                </main>
-            </div>
-        </div>
+       
         
         
         

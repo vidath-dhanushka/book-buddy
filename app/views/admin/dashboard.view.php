@@ -44,6 +44,22 @@
          
          </div>
 
+         <div class="card">
+            <div>
+              <h1>ONGOING ODERS</h1>
+              <div class="numbers">10</div>
+            </div>
+         
+         </div>
+
+         <div class="card">
+            <div>
+              <h1>COMPLETE ORDERS</h1>
+              <div class="numbers">22</div>
+            </div>
+         
+         </div>
+
         </div>
 
        
@@ -59,7 +75,7 @@
             <table>
               <thead>
               <tr>
-                <th> Profile Picture </th>
+                
                 <th> Member Id </th>
                 <th> User Name</th>
                 <th> Email </th>
@@ -68,21 +84,21 @@
               </thead>
               <tbody>
               <tr>
-                <td>1</td>
+               
                 <td>2</td>
                 <td>Michel David</td>
                 <td>User1</td>
                 <td><p class="status returned">Returned</p></td>
               </tr>
               <tr>
-                <td>3</td>
+               
                 <td>3</td>
                 <td>Mark Daniel</td>
                 <td>User3</td>
                 <td><p class="status borrowed">Borrowed</p></td>
               </tr>
               <tr>
-                <td>5</td>
+               
                 <td>6</td>
                 <td>Kevin George</td>
                 <td>User5</td>

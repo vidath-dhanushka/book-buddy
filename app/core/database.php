@@ -243,7 +243,7 @@ class Database
         $this->query($query);
 
 
-        $query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
+        /*$query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebook_id` int(11) NOT NULL,
             `member_id` int(11) NOT NULL,
@@ -253,7 +253,7 @@ class Database
             FOREIGN KEY (`member_id`) REFERENCES `members`(`id`) ON DELETE CASCADE
           );
         ";
-        $this->query($query);
+        $this->query($query);*/
 
         $query = "CREATE TABLE IF NOT EXISTS `courier`
         (
@@ -280,7 +280,7 @@ class Database
             `rate_first_kg`             DECIMAL(9, 2)     NOT NULL,
             `rate_extra_kg`             DECIMAL(9, 2)     NOT NULL,
             `reg_time`                  TIMESTAMP         NOT NULL DEFAULT unix_timestamp(),
-            `mod_time`                  TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `mod_time`                  datetime ON UPDATE CURRENT_TIMESTAMP,
             UNIQUE (courier, source_district, destination_district)
         );
         ";

@@ -1,6 +1,6 @@
 <?php
 
-class Courier extends Model
+class Courier_rate_exception extends Model
 {
     protected $table = "Courier";
     public $errors = [];

@@ -2,7 +2,7 @@
 
 class Courier extends Model
 {
-    protected $table = "Courier";
+    protected $table = "courier";
     public $errors = [];
 
     protected $allowedColumns = [

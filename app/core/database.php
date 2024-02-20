@@ -264,7 +264,7 @@ class Database
             `phone`         VARCHAR(16) UNIQUE NOT NULL,
             `rate_first_kg` DECIMAL(9, 2)      NOT NULL,
             `rate_extra_kg` DECIMAL(9, 2)      NOT NULL,
-            `reg_time`      TIMESTAMP          NOT NULL DEFAULT UNIX_TIMESTAMP,
+            `reg_time`      DATETIME          NOT NULL DEFAULT UNIX_TIMESTAMP,
             `mod_time`      DATETIME ON UPDATE CURRENT_TIMESTAMP
         );
         ";
@@ -279,7 +279,7 @@ class Database
             `destination_district`      VARCHAR(96),
             `rate_first_kg`             DECIMAL(9, 2)     NOT NULL,
             `rate_extra_kg`             DECIMAL(9, 2)     NOT NULL,
-            `reg_time`                  TIMESTAMP         NOT NULL DEFAULT unix_timestamp(),
+            `reg_time`                  DATETIME         NOT NULL DEFAULT unix_timestamp(),
             `mod_time`                  DATETIME ON UPDATE CURRENT_TIMESTAMP,
             UNIQUE (courier, source_district, destination_district)
         );

@@ -2,7 +2,7 @@
 
 class Courier_rate_exception extends Model
 {
-    protected $table = "Courier";
+    protected $table = "courier_rate_exception";
     public $errors = [];
 
     protected $allowedColumns = [

@@ -15,91 +15,52 @@
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
 
-<div class="cardBox  col-6">
-          
+<div class="cardBox col-4">
+  <div class="card">
+    <div>
+      <div class="iconBx">
+        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
+      </div>
+      <div class="numbers">2</div>
+      <h1>TOTAL</h1>
+      <div class="cardName">E - BOOKS</div>
+    </div> 
+  </div>
 
-          <div class="card">
-            <div>
-              <h1>BOOKS</h1>
-              <div class="iconBx">
-                <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
-              </div>
-              <div class="numbers">2</div>
-              <div class="cardName">
-                currently reading
-              </div>
-            </div> 
-          </div>
-          <div class="card">
-            <div>
-              <h1>BOOKS</h1>
-              <div class="iconBx">
-                <img src="<?= ROOT ?>/assets/images/member/book.png" alt="reading" height="60px" width="60px">
-              </div>
-              <div class="numbers">15</div>
-              <div class="cardName">
-                Read
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div>
-              <h1>BOOKS</h1>
-            <div class="iconBx">
-                <img src="<?= ROOT ?>/assets/images/member/book-share.png" alt="reading" height="60px" width="60px">
-              </div>
-              <div class="numbers">1</div>
-              <div class="cardName">
-                Shared
-              </div>
-            </div>
+  <div class="card">
+    <div>
+      <div class="iconBx">
+        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
+      </div>
+      <div class="numbers">2</div>
+      <h1>TOTAL</h1>
+      <div class="cardName">E - BOOKS</div>
+    </div> 
+  </div>
+
+  <div class="card">
+    <div>
+      <div class="iconBx">
+        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
+      </div>
+      <div class="numbers">2</div>
+      <h1>TOTAL</h1>
+      <div class="cardName">E - BOOKS</div>
+    </div> 
+  </div>
+
+  <div class="card">
+    <div>
+      <div class="iconBx">
+        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
+      </div>
+      <div class="numbers">2</div>
+      <h1>TOTAL</h1>
+      <div class="cardName">E - BOOKS</div>
+    </div> 
+  </div>
          
 </div>
-         
-
-          <div class="card">
-            <div>
-            <h1>E-BOOKS</h1>
-            <div class="iconBx">
-                <img src="<?= ROOT ?>/assets/images/member/ebook-reading.png" alt="reading" height="60px" width="60px">
-              </div>
-              
-              <div class="numbers">2</div>
-              <div class="cardName">
-                currently reading
-              </div>
-            </div> 
-          </div>
-          <div class="card">
-            <div>
-            <h1>E-BOOKS</h1>
-            <div class="iconBx">
-                <img src="<?= ROOT ?>/assets/images/member/ebook.png" alt="reading" height="60px" width="60px">
-              </div>
-              
-              <div class="numbers">10</div>
-              <div class="cardName">
-                Read
-              </div>
-            </div>
-
-            
-          </div>
-          <div class="card">
-            <div>
-              <h1>E-BOOKS</h1>
-            <div class="iconBx" style="text-align:center;">
-                <img src="<?= ROOT ?>/assets/images/member/sharing.png" alt="reading" height="60px" width="60px">
-              </div>
-              <div class="numbers">1</div>
-              <div class="cardName">
-                Shared
-              </div>
-            </div>
-
-            
-          </div>
-        </div>
 
        
         <div class="details">

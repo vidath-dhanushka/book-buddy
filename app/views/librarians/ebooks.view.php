@@ -120,13 +120,13 @@
               <small class="err-msg"><?= $errors['pages'] ?></small>
               <?php endif; ?>
               <div class="select-box">  
-              <select name="license">
-              <option value="" disabled selected><?= isset($data["license"]) ? set_value('license', $data["license"]) : 'License *' ?></option>
-                <option value="public_domain">Public Domain</option>
-                <option value="cc_by">Creative Commons Attribution (CC BY)</option>
+              <select name="license_type">
+              <option value="" disabled selected><?= isset($data['license_type']) ? set_value('license', $data['license_type']) : 'License *' ?></option>
+                <option value="Public Domain">Public Domain</option>
+                <option value="Licensed">Creative Commons Attribution (CC BY)</option>
               </select>
-              <?php if (!empty($errors['license'])) : ?>
-             <small class="err-msg"><?= $errors['license'] ?></small>
+              <?php if (!empty($errors['license_type'])) : ?>
+             <small class="err-msg"><?= $errors['license_type'] ?></small>
             <?php endif; ?>
               </div>
           </div>
@@ -208,56 +208,194 @@
 </div>
 </section>
 <?php elseif ($action == 'edit') : ?>
-        <br>
-        <section class="home-section" style="background-color: #D9D9D9">
-            <div class="container">
-                <header>Edit Book Details</header>
-                <form action="#" class="form" method="post" enctype="multipart/form-data">
-
-                    <img onclick="document.getElementById('book_upload').click()" src="<?= ($data['book_details']->book_image) ? (ROOT . "/" . $data['book_details']->book_image) : "/assets/images/books/book_image.jpg" ?>" id="thumb" class="img-book" alt="">
-                    <input type="file" onchange="change_img(this)" id="book_upload" accept="image/*" name="book_image">
-
-                    <div class="input-box">
-                        <label for="title">Title</label>
-                        <input type="text" id="title" name="title" value="<?= $data['book_details']->title; ?>" required>
-
-                        <?php if (!empty($errors['title'])) : ?>
-                            <small class="err-msg"><?= $errors['title'] ?></small>
-                        <?php endif; ?>
+  <br>
+<section class="home-section" style="background-color: #D9D9D9">
+    <div class="step-wrapper">
+        <header>Edit Book Details</header>
+       
+            <div class="step-wrapper">
+            <div class="step-header">
+              <ul>
+                <li class="step-active form_1_progessbar">
+                  <div>
+                    <p>1</p>
+                  </div>
+                </li>
+                <li class="form_2_progessbar">
+                  <div>
+                    <p>2</p>
+                  </div>
+                </li>
+                
+              </ul>
+            </div>
+            <div class="form_wrap">
+            <form action="#" class="form" method="post" enctype="multipart/form-data">
+                <div class="form_1 data_info">
+                    <h2>E-Book Info</h2>
+                    <div class="column">
+                        <div class="input-box">
+                            <label>Title *</label>
+                            <input type="text" id="title" name="title" value="<?= $data['book_details']->title; ?>" required>
+                            <?php if (!empty($errors['title'])) : ?>
+                                <small class="err-msg"><?= $errors['title'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label>Subtitle </label>
+                            <input type="text" id="subtitle" name="subtitle" value="<?= $data['book_details']->subtitle; ?>">
+                            <?php if (!empty($errors['subtitle'])) : ?>
+                                <small class="err-msg"><?= $errors['subtitle'] ?></small>
+                            <?php endif; ?>
+                        </div>
                     </div>
 
-                    <div class="input-box">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" required><?= $data['book_details']->description; ?></textarea>
-
-                        <?php if (!empty($errors['description'])) : ?>
-                            <small class="err-msg"><?= $errors['description'] ?></small>
-                        <?php endif; ?>
+                    <div class="column">
+                        <div class="input-box">
+                            <label>ISBN</label>
+                            <input type="text" id="isbn" name="isbn" value="<?= $data['book_details']->isbn; ?>">
+                            <?php if (!empty($errors['isbn'])) : ?>
+                                <small class="err-msg"><?= $errors['isbn'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label>Language *</label>
+                            <input type="text" id="language" name="language" value="<?= $data['book_details']->language; ?>" required>
+                            <?php if (!empty($errors['language'])) : ?>
+                                <small class="err-msg"><?= $errors['language'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="input-box">
+                            <label>Author *</label>
+                            <input type="text" id="author_name" name="author_name" value="<?= camelCaseToWords($data['book_details']->author_name); ?>" required>
+                            <?php if (!empty($errors['author_name'])) : ?>
+                                <small class="err-msg"><?= $errors['author_name'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label>Edition </label>
+                            <input type="text" id="edition" name="edition" value="<?= $data['book_details']->edition; ?>">
+                            <?php if (!empty($errors['edition'])) : ?>
+                                <small class="err-msg"><?= $errors['edition'] ?></small>
+                            <?php endif; ?>
+                        </div>
                     </div>
 
-
-                    <div class="input-box">
-                        <label for="author">Author</label>
-                        <input type="text" id="author" name="author" value="<?= camelCaseToWords($data['book_details']->author_name); ?>" required>
+                    <div class="column">
+                        <div class="input-box">
+                            <label>Publisher*</label>
+                            <input type="text" id="publisher" name="publisher" value="<?= $data['book_details']->publisher; ?>">
+                            <?php if (!empty($errors['publisher'])) : ?>
+                                <small class="err-msg"><?= $errors['publisher'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label>Publish Date *</label>
+                            <input type="date" id="publish_date" name="publish_date" value="<?= $data['book_details']->publish_date; ?>" required>
+                            <?php if (!empty($errors['publish_date'])) : ?>
+                                <small class="err-msg"><?= $errors['publish_date'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="input-box">
+                            <label>Pages *</label>
+                            <input type="number" id="pages" name="pages" value="<?= $data['book_details']->pages; ?>" required>
+                            <?php if (!empty($errors['pages'])) : ?>
+                                <small class="err-msg"><?= $errors['pages'] ?></small>
+                            <?php endif; ?>
+                            <div class="select-box">
+                                <select name="license_type">
+                                    <option value="" disabled selected><?= isset($data['license_type']) ? $data['license_type'] : 'License *' ?></option>
+                                    <option value="Public Domain" <?= ($data['book_details']->license_type == 'Public Domain') ? 'selected' : '' ?>>Public Domain</option>
+                                    <option value="Licensed" <?= ($data['book_details']->license_type == 'Licensed') ? 'selected' : '' ?>>Creative Commons Attribution (CC BY)</option>
+                                </select>
+                                <?php if (!empty($errors['license_type'])) : ?>
+                                    <small class="err-msg"><?= $errors['license_type'] ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="input-box">
+                            <label for="description">Description *</label>
+                            <textarea type="text" id="description" name="description" style="padding-top: 10px;"><?= $data['book_details']->description; ?></textarea>
+                            <?php if (!empty($errors['description'])) : ?>
+                                <small class="err-msg"><?= $errors['description'] ?></small>
+                            <?php endif; ?>
+                        </div>
                     </div>
                     <br>
                     <label for="category">Category</label>
                     <br>
-                    <!-- <div class="select-box"> -->
-                    <!-- <select id="category" multiple>     -->
                     <?php foreach ($data['categories'] as $category) : ?>
                         <input name="category[]" type="checkbox" value="<?= $category->id; ?>" <?= in_array($category->id, $data['book_details']->cats) ? 'checked' : '' ?> />
                         <label style="margin-right: 15px; text-transform: capitalize"><?= $category->category_name; ?></label>
                     <?php endforeach; ?>
-                    <!-- </select> -->
-                    <!-- </div> -->
+                    <br>
+                    <?php if (!empty($errors['category'])) : ?>
+                        <small class="err-msg"><?= $errors['category'] ?></small>
+                    <?php endif; ?>
+                </div>
 
-                    <div class="column" style="justify-content:center;">
-                        <button style="width:50%;">Update Details</button>
+                <div class="form_2 data_info" style="display: none;">
+                    <h2>Upload Files</h2>
+                    <div class="column">
+                        <div class="input-box">
+                            <label for="book_cover">Cover Image *</label> <br> <br>
+                            <div class="upload-cover-wrapper">
+                                <img onclick="document.getElementById('book_upload').click()" src="<?= ($data['book_details']->book_cover) ? (ROOT . "/" . $data['book_details']->book_cover) : "/assets/images/books/book_image.jpg" ?>" id="thumb" class="img-book">
+                                <input type="file" onchange="change_img(this)" id="book_upload" accept="image/jpeg,image/png" name="book_cover">
+                            </div>
+                            <?php if (!empty($errors['book_cover'])) : ?>
+                                <small class="err-msg"><?= $errors['book_cover'] ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label for="book_cover">E-book File: *</label> <br> <br>
+                            <div class="upload-wrapper" id="upload-wrapper-book">
+                                <input class="file-input" type="file" name="file"  hidden>
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Browse File to Upload</p>
+                                <section class="progress-area" id="progress-area-book"></section>
+                                <section class="uploaded-area" id="uploaded-area-book">
+                                <li class="row">
+                              <div class="content">
+                                <i class="fas fa-file-alt"></i>
+                                <div class="details">
+                                  <span class="name"><?= preg_replace('/^\d+/', '', basename($data['book_details']->file))  ?> • Uploaded</span>
+                                  <span class="size"><?=round(filesize($data['book_details']->file)/ 1024, 2)?>KB</span>
+                                </div>
+                              </div>
+                              <i class="fas fa-check"></i>
+                            </li>
+                                </section>
+                            </div>
+                            <?php if (!empty($errors['file'])) : ?>
+                                <small class="err-msg"><?= $errors['file'] ?></small>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </section>
+
+            <div class="column">
+                <div class="input-box">
+                    <div class="btns_wrap">
+                        <div class="common_btns form_1_btns">
+                            <button type="button" class="btn_next">Next <span class="icon"><ion-icon name="arrow-forward-sharp"></ion-icon></span></button>
+                        </div>
+                        <div class="common_btns form_2_btns" style="display: none;">
+                            <button type="button" class="btn_back"><span class="icon"><ion-icon name="arrow-back-sharp"></ion-icon></span>Back</button>
+                            <button type="submit" class="btn_done">Update Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
     <?php else : ?>
         <section class="home-section" style="background-color: #D9D9D9;">
             <?php if (message()) : ?>
@@ -297,8 +435,8 @@
                                                     <td><?= $book->title ?></td>
                                                     <td><?= camelCaseToWords($book->author_name) ?></td>
                                                     <td><?= camelCaseToWords($book->publisher) ?></td>
-                                                    <td><?= $book->license ?></td>
-                                                    <?php if($book->c_status) : ?>
+                                                    <td><?= $book->license_type ?></td>
+                                                    <?php if($book->copyright_status or $book->license_type=="Public Domain") : ?>
                                                       <td ><p class="status uploaded">Uploaded</p></td>
                                                     <?php else : ?>
                                                       <td> <p class="status pending"> Pending</p></td>
@@ -309,10 +447,10 @@
                                                         <a href="<?= ROOT . '/librarian/ebooks/delete/' . $book->id; ?>"><i class="fa-solid fa-trash" style="color:red; margin-left:5px"></i></a>
                                                     </td>
                                                     <td>
-                                                      <?php if($book->c_status) : ?>
+                                                      <?php if($book->copyright_status) : ?>
                                                         <a href="#" class="action btn">Edit</a>
                                                       <?php else : ?>
-                                                        <a href="<?= ROOT . '/librarian/copyright/' . $book->id; ?>" class="action btn">Add</a>
+                                                        <a href="<?= ROOT . '/librarian/copyright/add/' . $book->id; ?>" class="action btn">Add</a>
                                                       <?php endif; ?>
                                                       </td> 
                                                         
@@ -408,7 +546,7 @@
   }
 
 
-  let form = document.querySelector("#myForm");
+let form = document.querySelector("form");
 
 setupUploader("book");
 setupUploader("agreement");
@@ -490,6 +628,28 @@ textarea.addEventListener("keyup", e =>{
   let scHeight = e.target.scrollHeight;
   textarea.style.height = `${scHeight}px`;
 });
+
+window.onload = function() {
+    // Get the uploaded area
+    console.log("yes");
+    var uploadedArea = document.getElementById('uploaded-area-book');
+
+    // Create an element for the current file
+    var currentFileHTML = `<li class="row">
+                              <div class="content">
+                                <i class="fas fa-file-alt"></i>
+                                <div class="details">
+                                  <span class="name">${'<?= $data['book_details']->file ?>'} • Uploaded</span>
+                                  <span class="size">File Size</span>
+                                </div>
+                              </div>
+                              <i class="fas fa-check"></i>
+                            </li>`;
+
+    // Append the current file to the uploaded area
+    uploadedArea.insertAdjacentHTML("afterbegin", currentFileHTML);
+};
+
 
 
 

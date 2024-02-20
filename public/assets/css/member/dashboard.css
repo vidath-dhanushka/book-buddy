@@ -65,6 +65,12 @@ body {
   grid-gap: 20px;
 }
 
+.cardBox.col-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
 .profile.col-2-1-1 {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;

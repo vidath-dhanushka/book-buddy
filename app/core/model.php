@@ -46,6 +46,7 @@ class Model extends Database
         $query = trim($query, ",");
         $query .= " where id = :id";
         // echo $query;
+        // print_r($data);
         // die;
         $data['id'] = $id;
 
@@ -86,6 +87,9 @@ class Model extends Database
 
         $query = trim($query, "&& ");
         $query .= " order by id desc limit 1";
+        // print_r($query);
+        // print_r($data);
+        // die;
         $res = $this->query($query, $data);
 
         if (is_array($res)) {

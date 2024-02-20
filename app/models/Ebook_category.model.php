@@ -12,16 +12,19 @@ class Ebook_category extends Model
 
     public function getCategs()
     {
-        $query = "SELECT * FROM book_category";
+        $query = "SELECT * FROM ebook_category";
         $res =  $this->query($query);
-        show($res);
-        die;
+        // show($res);
+        // die;
         return $res;
     }
 
     public function categ_delete($id)
     {
-        $query = "delete from book_category where book_id = " . $id;
+        $query = "delete from ebook_category where ebook_id = " . $id;
+        // echo $query;
+        // echo $id;
+
         $this->query($query);
     }
 

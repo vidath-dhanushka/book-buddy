@@ -39,8 +39,8 @@
                                 <small class="err-msg"><?=$errors['subscriptionPrice']?></small>
                             <?php endif;?>
                         </div>
-                    </div>
-                    <div class="column">
+                    <!-- </div> -->
+                    <!-- <div class="column"> -->
                         <div class="input-box">
                         <label for="numberOfBooks">Number of Books Allowed *</label><br>
                             <input type="number" id="numberOfBooks" name="numberOfBooks" min="0">
@@ -48,9 +48,7 @@
                                 <small class="err-msg"><?=$errors['numberOfBooks']?></small>
                             <?php endif;?>
                         </div>
-                        <div class="input-box">
-                            
-                        </div>
+                        
   
                     </div>
                   
@@ -146,11 +144,10 @@
                     <table>
                         <thead>
                             <tr>
-                                <th> Name <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Price <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Copyright Cost <span class="icon-arrow">&UpArrow;</span></th>
+                                <th>Name <span class="icon-arrow">&UpArrow;</span></th>
+                                <th>Price <span class="icon-arrow">&UpArrow;</span></th>
                                 <th>Date added<span class="icon-arrow">&UpArrow;</span></th>
-                                <th>Is Active</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>

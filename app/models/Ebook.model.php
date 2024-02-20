@@ -19,7 +19,7 @@ class Ebook extends Model
         'file',
         'author_id',
         'librarian_id',
-        'license'
+        'license_type'
     ];
 
     public function ebook_info_validate($data)
@@ -54,8 +54,8 @@ class Ebook extends Model
         $this->errors['language'] = "Please enter the language of the book";
     }
 
-    if (empty($data['license'])) {
-        $this->errors['license'] = "Please select the license type of the book";
+    if (empty($data['license_type'])) {
+        $this->errors['license_type'] = "Please select the license type of the book";
     }
     
     if (empty($data['publisher'])) {
@@ -103,7 +103,7 @@ class Ebook extends Model
     public function view_ebook_details($data)
     {
         $keys = array_keys($data);
-        $query = "SELECT b.*, a.author_name, b.id bid, GROUP_CONCAT(c.category_id) cats FROM " . $this->table . " AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN book_category c ON c.book_id = b.id where ";
+        $query = "SELECT b.*, a.author_name, b.id bid, GROUP_CONCAT(c.category_id) cats FROM " . $this->table . " AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id where ";
         foreach ($keys as $key) {
             $query .= $key . "=:" . str_replace('.', '', $key) . " && ";
         }

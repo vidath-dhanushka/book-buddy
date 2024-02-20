@@ -239,8 +239,9 @@ class Database
             `description` TEXT,
             `book_cover`  VARCHAR(1024) NOT NULL,
             `file`  VARCHAR(1024) NOT NULL,
-            `license` VARCHAR(1024) NOT NULL,
-            `librarian_id` INT,  
+            license_type VARCHAR(50) NOT NULL,
+            `librarian_id` INT, 
+            `copyright_status` INT NOT NULL DEFAULT 0,
             `date_added` DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id),
             FOREIGN KEY (librarian_id) REFERENCES Users(id) ON DELETE SET NULL
@@ -274,6 +275,7 @@ class Database
             copyright_fee DECIMAL(10,2) NOT NULL,
             license_start_date DATE NOT NULL,
             license_end_date DATE NOT NULL,
+            date_added DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id),
             FOREIGN KEY (ebook_id) REFERENCES ebooks(id),
             FOREIGN KEY (subscription) REFERENCES subscriptions(id) 

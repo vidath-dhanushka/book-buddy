@@ -306,12 +306,10 @@ public function vertify_review($data){
         if(!preg_match("/^[a-zA-Z ]+$/",$data['name'])){
             $this->errors['name'] = "Name can only have letters";
         }
-        if(empty($data['subscriptionPrice'])){
-            $this->errors['subscriptionPrice'] = "Please enter subscription price";
+        if(empty($data['price'])){
+            $this->errors['price'] = "Please enter subscription price";
         }
-        if(empty($data['copyrightCost'])){
-            $this->errors['copyrightCost'] = "Please enter the copyright Cost";
-        }
+       
         if(empty($data['numberOfBooks'])){
             $this->errors['numberOfBooks'] = "Please enter the number Of Books";
         }

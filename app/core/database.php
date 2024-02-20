@@ -281,7 +281,6 @@ class Database
             `rate_extra_kg`             DECIMAL(9, 2)     NOT NULL,
             `reg_time`                  DATETIME         NOT NULL DEFAULT unix_timestamp(),
             `mod_time`                  DATETIME ON UPDATE CURRENT_TIMESTAMP,
->>>>>>> 916ad2c4a1eb0f5738fb34417e553a0e41bb8eea
             UNIQUE (courier, source_district, destination_district)
         );
         ";

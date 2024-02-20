@@ -1,17 +1,29 @@
 <?php
 
-class Courier extends Model
+class Delivery extends Model
 {
-    protected $table = "courier";
+    protected $table = "delivery";
     public $errors = [];
 
     protected $allowedColumns = [
-        'company_name',
-        'reg_no',
-        'email',
-        'phone',
-        'rate_first_kg',
-        'rate_extra_kg'
+        'sender_name',
+        'sender_address_line_1',
+        'sender_address_line_2',
+        'sender_address_city',
+        'sender_address_district',
+        'sender_address_zip',
+        'sender_phone',
+        'receiver_name',
+        'receiver_address_line_1',
+        'receiver_address_line_2',
+        'receiver_address_city',
+        'receiver_address_district',
+        'receiver_address_zip',
+        'receiver_phone',
+        'weight',
+        'charge',
+        'method',
+        'courier'
     ];
 
     public function validate($data)

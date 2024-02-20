@@ -310,7 +310,7 @@ class Database
         $this->query($query);
 
 
-        $query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
+        /*$query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebook_id` int(11) NOT NULL,
             `user_id` int(11) NOT NULL,
@@ -320,7 +320,7 @@ class Database
             FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
           );
         ";
-        $this->query($query);
+        $this->query($query);*/
 
         $query = "CREATE TABLE IF NOT EXISTS `courier`
         (
@@ -332,9 +332,9 @@ class Database
             `rate_first_kg` DECIMAL(9, 2)      NOT NULL,
             `rate_extra_kg` DECIMAL(9, 2)      NOT NULL,
             `reg_time`      TIMESTAMP          NOT NULL DEFAULT UNIX_TIMESTAMP,
-            `mod_time`      datetime ON UPDATE CURRENT_TIMESTAMP
+            `mod_time`      DATETIME ON UPDATE CURRENT_TIMESTAMP
         );
-        // ";
+        ";
 
         // $this->query($query);
 
@@ -347,34 +347,133 @@ class Database
             `rate_first_kg`             DECIMAL(9, 2)     NOT NULL,
             `rate_extra_kg`             DECIMAL(9, 2)     NOT NULL,
             `reg_time`                  TIMESTAMP         NOT NULL DEFAULT unix_timestamp(),
-            `mod_time`                  TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+<<<<<<< HEAD
+            `mod_time`                  datetime ON UPDATE CURRENT_TIMESTAMP,
+=======
+            `mod_time`                  DATETIME ON UPDATE CURRENT_TIMESTAMP,
+>>>>>>> 916ad2c4a1eb0f5738fb34417e553a0e41bb8eea
             UNIQUE (courier, source_district, destination_district)
         );
         ";
         // $this->query($query);
 
 
-        $query = "CREATE TABLE IF NOT EXISTS `borrow`
+        // $query = "CREATE TABLE IF NOT EXISTS `borrow`
+        // (
+        //     `borrow_id`                  MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        //     `user`                       MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+        //     `sending_address_line1`      VARCHAR(128),
+        //     `sending_address_line2`      VARCHAR(128),
+        //     `sending_address_city`       VARCHAR(32),
+        //     `sending_address_district`   VARCHAR(32),
+        //     `sending_address_zip`        CHAR(5),
+        //     `receiving_address_line1`    VARCHAR(128),
+        //     `receiving_address_line2`    VARCHAR(128),
+        //     `receiving_address_city`     VARCHAR(32),
+        //     `receiving_address_district` VARCHAR(32),
+        //     `receiving_address_zip`      CHAR(5),
+        //     `courier`                    SMALLINT UNSIGNED REFERENCES courier (courier_id),
+        //     `delivery_charge`            SMALLINT UNSIGNED  NOT NULL REFERENCES courier_rate_exception (courier_rate_exception_id),
+        //     `delivery_method`            VARCHAR(64)        NOT NULL, #(courier, self-deliver....)
+        //     `reg_time`                   TIMESTAMP          NOT NULL DEFAULT unix_timestamp(),
+        //     `mod_time`                   DATETIME ON UPDATE CURRENT_TIMESTAMP
+        // );
+        // ";
+
+        //$this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS user_invitation
         (
-            `borrow_id`                  MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            `user`                       MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
-            `sending_address_line1`      VARCHAR(128),
-            `sending_address_line2`      VARCHAR(128),
-            `sending_address_city`       VARCHAR(32),
-            `sending_address_district`   VARCHAR(32),
-            `sending_address_zip`        CHAR(5),
-            `receiving_address_line1`    VARCHAR(128),
-            `receiving_address_line2`    VARCHAR(128),
-            `receiving_address_city`     VARCHAR(32),
-            `receiving_address_district` VARCHAR(32),
-            `receiving_address_zip`      CHAR(5),
-            `courier`                    SMALLINT UNSIGNED REFERENCES courier (courier_id),
-            `delivery_charge`            SMALLINT UNSIGNED  NOT NULL REFERENCES courier_rate_exception (courier_rate_exception_id),
-            `delivery_method`            VARCHAR(64)        NOT NULL, #(courier, self-deliver....)
-            `reg_time`                   TIMESTAMP          NOT NULL DEFAULT unix_timestamp(),
-            `mod_time`                   datetime ON UPDATE CURRENT_TIMESTAMP
-        );
-        ";
+            `user_invitation_id` MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `email`              VARCHAR(128),
+            `token`              VARCHAR(96) UNIQUE,
+            `role`               TINYINT UNSIGNED   NOT NULL,
+            `courier`            SMALLINT UNSIGNED REFERENCES courier (courier_id),
+            `other`              JSON               NOT NULL DEFAULT JSON_OBJECT(),
+            `used_time`          DATETIME,
+            `new_user`           MEDIUMINT UNSIGNED REFERENCES user (user_id),
+            `reg_user`           MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            `reg_time`           DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`           DATETIME ON UPDATE CURRENT_TIMESTAMP
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `transaction`
+        (
+            `transaction_id` MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `user`           MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            `description`    VARCHAR(64)        NOT NULL,
+            `payment_method` VARCHAR(64)        NOT NULL,
+            `status`         VARCHAR(32)        NOT NULL,
+            `amount`         DECIMAL(9, 2)      NOT NULL,
+            `reg_time`       DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`       DATETIME ON UPDATE CURRENT_TIMESTAMP
+        );";
+
+        $this->query($query);
+
+
+        $query = "CREATE TABLE IF NOT EXISTS delivery
+        (
+            `delivery_id`               MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `sender_name`               VARCHAR(32)   NOT NULL,
+            `sender_address_line1`      VARCHAR(128),
+            `sender_address_line2`      VARCHAR(128),
+            `sender_address_city`       VARCHAR(32),
+            `sender_address_district`   VARCHAR(32),
+            `sender_address_zip`        CHAR(5),
+            `sender_phone`              VARCHAR(16)   NOT NULL,
+            `receiver_name`             VARCHAR(32)   NOT NULL,
+            `receiver_address_line1`    VARCHAR(128),
+            `receiver_address_line2`    VARCHAR(128),
+            `receiver_address_city`     VARCHAR(32),
+            `receiver_address_district` VARCHAR(32),
+            `receiver_address_zip`      CHAR(5),
+            `receiver_phone`            VARCHAR(16)   NOT NULL,
+            `weight`                    DECIMAL(9, 2) NOT NULL,
+            `charge`                    DECIMAL(9, 2),
+            `method`                    VARCHAR(64)   NOT NULL, #(courier, self-deliver....)
+            `courier`                   SMALLINT UNSIGNED REFERENCES courier (courier_id),
+            `reg_time`                  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`                  DATETIME ON UPDATE CURRENT_TIMESTAMP
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS borrow
+        (
+            `borrow_id`       MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `user`            MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            `send_delivery`   MEDIUMINT UNSIGNED REFERENCES delivery (delivery_id),
+            `return_delivery` MEDIUMINT UNSIGNED REFERENCES delivery (delivery_id),
+            `reg_time`        DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`        DATETIME ON UPDATE CURRENT_TIMESTAMP
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS book_borrow
+        (
+            `book_borrow_id` MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `book`           MEDIUMINT UNSIGNED NOT NULL REFERENCES book (book_id),
+            `borrow`         MEDIUMINT UNSIGNED NOT NULL REFERENCES borrow (borrow_id),
+            `user`           MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            `reg_time`       DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`       DATETIME ON UPDATE CURRENT_TIMESTAMP,
+            UNIQUE (book, user, borrow)
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS book_borrow_status
+        (
+            `book_borrow_status_id` MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `book_borrow`           MEDIUMINT UNSIGNED NOT NULL REFERENCES borrow (borrow_id),
+            `status`                VARCHAR(16)        NOT NULL,
+            `reg_time`              DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time`              DATETIME ON UPDATE CURRENT_TIMESTAMP
+        );";
 
         // $this->query($query);
 

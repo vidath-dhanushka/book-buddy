@@ -5,6 +5,9 @@
   <?php if($row->role === "librarian"):?>
   <a href="<?= ROOT ?>/librarian/profile">
   <?php endif; ?>
+  <?php if($row->role === "admin"):?>
+  <a href="<?= ROOT ?>/admin/profile">
+  <?php endif; ?>
     <div class="logo-details">
       <img src="<?= ROOT ?>/<?= ($row->user_image) ?>" alt="profile-image" />
 
@@ -265,6 +268,94 @@
     </li> -->
 
     
+
+   
+  
+  <?php if($row->role === "admin"):?>
+    <ul class="nav-links">
+      <li>
+        <a href="<?= ROOT ?>/admin/dashboard">
+          <div class="icon">
+            <img src="<?= ROOT ?>/assets/images/sidenav/dashboard.png" alt="icon" />
+          </div>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li>
+            <a class="link_name" href="<?= ROOT ?>/admin/dashboard">Dashboard</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="<?= ROOT ?>/admin/courierAdd">
+          <div class="icon">
+            <img src="<?= ROOT ?>/assets/images/sidenav/borrowing.png" alt="icon" />
+          </div>
+
+          <span class="link_name">Add Courier</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li>
+            <a class="link_name" href="<?= ROOT ?>/admin/courierAdd">Add Courier</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="<?= ROOT ?>/admin/courierDetails">
+          <div class="icon">
+            <img src="<?= ROOT ?>/assets/images/sidenav/white-book.svg" alt="icon" />
+          </div>
+
+          <span class="link_name">Courier Details</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li>
+            <a class="link_name" href="<?= ROOT ?>/admin/courierDetails">Courier Details</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="<?= ROOT ?>/admin/addLibrarian">
+          <div class="icon">
+            <img src="<?= ROOT ?>/assets/images/sidenav/borrowing.png" alt="icon" />
+          </div>
+
+          <span class="link_name">Add Librarian</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li>
+            <a class="link_name" href="<?= ROOT ?>/admin/addLibrarian">Add Librarian</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="<?= ROOT ?>/admin/librarianDetails">
+          <div class="icon">
+            <img src="<?= ROOT ?>/assets/images/sidenav/white-book.svg" alt="icon" />
+          </div>
+
+          <span class="link_name">Librarian Details</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li>
+            <a class="link_name" href="<?= ROOT ?>/admin/librarianDetails">Librarian Details</a>
+          </li>
+        </ul>
+      </li>
+
+    
+      
+    
+
+
+      
+    
+    <?php endif;?>
+
     <hr>
     <li id="log-out">
       <a href="<?= ROOT ?>/logout">

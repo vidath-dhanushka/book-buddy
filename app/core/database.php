@@ -381,6 +381,31 @@ class Database
 
         $this->query($query);
 
+
+        $query = "CREATE TABLE IF NOT EXISTS `borrow`
+        (
+            `borrow_id`                  MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            `user`                       MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            `sending_address_line1`      VARCHAR(128),
+            `sending_address_line2`      VARCHAR(128),
+            `sending_address_city`       VARCHAR(32),
+            `sending_address_district`   VARCHAR(32),
+            `sending_address_zip`        CHAR(5),
+            `receiving_address_line1`    VARCHAR(128),
+            `receiving_address_line2`    VARCHAR(128),
+            `receiving_address_city`     VARCHAR(32),
+            `receiving_address_district` VARCHAR(32),
+            `receiving_address_zip`      CHAR(5),
+            `courier`                    SMALLINT UNSIGNED REFERENCES courier (courier_id),
+            `delivery_charge`            SMALLINT UNSIGNED  NOT NULL REFERENCES courier_rate_exception (courier_rate_exception_id),
+            `delivery_method`            VARCHAR(64)        NOT NULL, #(courier, self-deliver....)
+            `reg_time`                   TIMESTAMP          NOT NULL DEFAULT unix_timestamp(),
+            `mod_time`                   DATETIME ON UPDATE CURRENT_TIMESTAMP
+        );
+        ";
+
+        $this->query($query);
+
         $query = "CREATE TABLE IF NOT EXISTS user_invitation
         (
             `user_invitation_id` MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -396,7 +421,7 @@ class Database
             `mod_time`           DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";
 
-        $this->query($query);
+       // $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `transaction`
         (
@@ -410,7 +435,7 @@ class Database
             `mod_time`       DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";
 
-        $this->query($query);
+        //$this->query($query);
 
 
         $query = "CREATE TABLE IF NOT EXISTS delivery
@@ -438,7 +463,7 @@ class Database
             `mod_time`                  DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";
 
-        $this->query($query);
+       // $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS borrow
         (
@@ -450,7 +475,7 @@ class Database
             `mod_time`        DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";
 
-        $this->query($query);
+       // $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS book_borrow
         (
@@ -463,7 +488,7 @@ class Database
             UNIQUE (book, user, borrow)
         );";
 
-        $this->query($query);
+        //$this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS book_borrow_status
         (

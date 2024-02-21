@@ -1,0 +1,37 @@
+
+    
+    body {
+        position: relative;
+    }
+
+    .confirmation {
+        width: 80%;
+        max-width: 600px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin: 0 auto;
+        margin-top: 50px; 
+    }
+
+    .actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .actions button {
+        background-color: #818af9;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px; 
+    }
+
+    .actions button:hover {
+        background-color: #6e75e6;
+    }

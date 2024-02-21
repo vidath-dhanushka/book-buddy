@@ -20,7 +20,7 @@
         </div>
         <div>
             <a href="<?= ROOT ?>/payment"><button>Borrow Now</button></a>
-            <button>Add to Cart</button>
+            <a href="<?= ROOT ?>/cart/add_to_cart"><button>Add to Cart</button>
         </div>
     </section>
 </div>

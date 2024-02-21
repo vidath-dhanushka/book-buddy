@@ -267,9 +267,9 @@ class Database
             `reg_time`      TIMESTAMP          NOT NULL DEFAULT UNIX_TIMESTAMP,
             `mod_time`      datetime ON UPDATE CURRENT_TIMESTAMP
         );
-        // ";
+         ";
 
-        // $this->query($query);
+       // $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS `courier_rate_exception`
         (
@@ -284,7 +284,7 @@ class Database
             UNIQUE (courier, source_district, destination_district)
         );
         ";
-        $this->query($query);
+        //$this->query($query);
 
 
         $query = "CREATE TABLE IF NOT EXISTS `borrow`
@@ -309,6 +309,6 @@ class Database
         );
         ";
 
-        $this->query($query);
+        //$this->query($query);
     }
 }

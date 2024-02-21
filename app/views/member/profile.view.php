@@ -44,13 +44,7 @@
             
         </div>
     </div>
-    <?php 
-      $provinceIdToFind = $row->province;
-      $selectedProvince = current(array_filter($provinces, function($province) use ($provinceIdToFind) { return $province->id == $provinceIdToFind; }));
-      $cityIdToFind = $row->city;
-      $selectedCity = current(array_filter($cities, function($city) use ($cityIdToFind) { return $city->id == $cityIdToFind; }));
-      
-    ?>
+  
     <div class="layout">
         <input name="nav" type="radio" class="nav personal-radio" id="personal" checked="checked" />
         <div class="page personal-page">

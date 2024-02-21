@@ -447,6 +447,7 @@
                                                         <a href="<?= ROOT . '/librarian/ebooks/delete/' . $book->id; ?>"><i class="fa-solid fa-trash" style="color:red; margin-left:5px"></i></a>
                                                     </td>
                                                     <td>
+                                                      
                                                       <?php if($book->copyright_status) : ?>
                                                         <a href="#" class="action btn">Edit</a>
                                                       <?php else : ?>
@@ -471,6 +472,7 @@
                 </div>
             </div>
         </section>
+        <?php $book ?>
         <script src="<?= ROOT ?>/assets/js/table.js"></script>
 
     <?php endif; ?>
@@ -494,6 +496,7 @@
  
 
   form_1_next_btn.addEventListener("click", function(){
+    console.log("clicked");
     form_1.style.display = "none";
     form_2.style.display = "block";
 
@@ -629,26 +632,7 @@ textarea.addEventListener("keyup", e =>{
   textarea.style.height = `${scHeight}px`;
 });
 
-window.onload = function() {
-    // Get the uploaded area
-    console.log("yes");
-    var uploadedArea = document.getElementById('uploaded-area-book');
 
-    // Create an element for the current file
-    var currentFileHTML = `<li class="row">
-                              <div class="content">
-                                <i class="fas fa-file-alt"></i>
-                                <div class="details">
-                                  <span class="name">${'<?= $data['book_details']->file ?>'} • Uploaded</span>
-                                  <span class="size">File Size</span>
-                                </div>
-                              </div>
-                              <i class="fas fa-check"></i>
-                            </li>`;
-
-    // Append the current file to the uploaded area
-    uploadedArea.insertAdjacentHTML("afterbegin", currentFileHTML);
-};
 
 
 

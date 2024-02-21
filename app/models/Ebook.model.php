@@ -19,7 +19,8 @@ class Ebook extends Model
         'file',
         'author_id',
         'librarian_id',
-        'license_type'
+        'license_type',
+        'copyright_status'
     ];
 
     public function ebook_info_validate($data)

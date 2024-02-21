@@ -259,6 +259,7 @@ class Database
             `price` DECIMAL(10,2) NOT NULL,
             `numberOfBooks` INT NOT NULL,
             `description` TEXT,
+            `date_added` DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id)
         );        
         ";
@@ -277,7 +278,7 @@ class Database
             license_end_date DATE NOT NULL,
             date_added DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id),
-            FOREIGN KEY (ebook_id) REFERENCES ebooks(id),
+            FOREIGN KEY (ebook_id) REFERENCES ebooks(id) ON DELETE CASCADE,
             FOREIGN KEY (subscription) REFERENCES subscriptions(id) 
         );
         ";

@@ -333,6 +333,7 @@ class Librarian extends Controller
         $user = new User();
         $copyright = new Copyright;
         $subscription = new Subscription;
+        $book = new Ebook;
         $data['row'] = $row =  $user->first(['id' => $_SESSION['USER_DATA']->id]);
         $data['action'] = $action;
 
@@ -385,6 +386,12 @@ class Librarian extends Controller
                         $_POST['subscription'] = $sub_data->id;
                         // print_r($_POST);
                         $copyright->insert($_POST);
+                    }
+
+                    if(empty($copyright->erorors)){
+                        $book->update($id, ["copyright_status"=>1]);
+                        message("copyright added successfully");
+                        redirect('librarian/ebooks');
                     }
                 }
             }

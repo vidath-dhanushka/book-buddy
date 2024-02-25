@@ -48,6 +48,9 @@ class Book extends Model
 
         $query = trim($query, "&& ");
         $query .= " group by b.id order by id desc limit 1";
+        
+
+        $res = $this->query($query, $data);
 
         $res = $this->query($query, $data);
         $res[0]->cats = explode(',', $res[0]->cats);

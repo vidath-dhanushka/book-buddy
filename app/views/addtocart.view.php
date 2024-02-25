@@ -13,9 +13,10 @@
 </div>
 
 <div class="actions">
-    <button onclick="goToCart()">Go to Cart</button>
+    <a href="<?= ROOT ?>/cart"><button>Go to Cart</button></a>
     <button onclick="proceedToCheckout()">Proceed to Checkout</button>
 </div>  
+
 
 <script>
     function goToCart() {

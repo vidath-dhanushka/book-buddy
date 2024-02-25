@@ -22,5 +22,10 @@ class Cart extends Controller
         $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
         $data['title'] = 'add to cart';
         $this->view('addtocart', $data);
+        
+        
+        //message("Book added to cart");
+               // redirect('books/view_book/');
+        
     }
 }

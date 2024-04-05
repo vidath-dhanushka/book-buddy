@@ -49,6 +49,7 @@ body {
 
 .fc-light-green {
   color: #A6E7D8;
+  
 }
 
 /* card box */
@@ -56,7 +57,7 @@ body {
 
 
   width: 100%;
-  padding: 15px;
+  padding-top: 15px;
 }
 
 .cardBox.col-6 {
@@ -65,6 +66,11 @@ body {
   grid-gap: 20px;
 }
 
+.cardBox.col-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
 .cardBox.col-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -270,4 +276,21 @@ details .history table tr {
 
 tbody tr {
   transition: none;
+}
+
+.chart-card{
+  display: flex;
+}
+.chart-card-1{
+  flex: 0 0 20%;
+  margin: 10px;
+}
+.chart-card-2{
+  flex: 0 0 80%;
+  padding: 10px;
+}
+
+/* CSS */
+.apexcharts-legend-series:hover {
+  fill: black; /* Change this to your desired hover color */
 }

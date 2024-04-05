@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/profile-pic.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/borrowing.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/book/add-ebook.css">
+    
+
 </head>
 
 <?php $this->view('includes/navbar',$data) ?>
@@ -113,26 +115,28 @@
           </div>
         </div>
         <div class="column">
-          <div class="input-box">
-            <label>Pages *</label>
-              <input type="number"  placeholder="Enter number of pages" value="<?= set_value('pages') ?>" name="pages"/>
-              <?php if (!empty($errors['pages'])) : ?>
-              <small class="err-msg"><?= $errors['pages'] ?></small>
-              <?php endif; ?>
-              <div class="select-box">  
-              <select name="license_type">
-              <option value="" disabled selected><?= isset($data['license_type']) ? set_value('license', $data['license_type']) : 'License *' ?></option>
-                <option value="Public Domain">Public Domain</option>
-                <option value="Licensed">Creative Commons Attribution (CC BY)</option>
-              </select>
-              <?php if (!empty($errors['license_type'])) : ?>
-             <small class="err-msg"><?= $errors['license_type'] ?></small>
-            <?php endif; ?>
-              </div>
-          </div>
+        <div class="input-box">
+    <label>Pages *</label>
+    <input type="number" placeholder="Enter number of pages" value="<?= set_value('pages') ?>" name="pages" />
+    <?php if (!empty($errors['pages'])) : ?>
+        <small class="err-msg"><?= $errors['pages'] ?></small>
+    <?php endif; ?>
+
+    <div class="select-box">  
+        <select name="license_type">
+            <option value="" disabled <?= empty(set_value('license_type')) ? 'selected' : '' ?>>License *</option>
+            <option value="Public Domain" <?= set_value('license_type') === 'Public Domain' ? 'selected' : '' ?>>Public Domain</option>
+            <option value="Licensed" <?= set_value('license_type') === 'Licensed' ? 'selected' : '' ?>>Creative Commons Attribution (CC BY)</option>
+        </select>
+        <?php if (!empty($errors['license_type'])) : ?>
+            <small class="err-msg"><?= $errors['license_type'] ?></small>
+        <?php endif; ?>
+    </div>
+</div>
+
           <div class="input-box">
             <label for="description">Description *</label>
-            <textarea type="text" id="description" name="description" style="padding-top: 10px;" value="<?= set_value('description') ?>"></textarea> 
+            <textarea type="text" id="description" name="description" style="padding-top: 10px; height: 98px;"><?= set_value('description') ?></textarea>  
             <?php if (!empty($errors['description'])) : ?>
              <small class="err-msg"><?= $errors['description'] ?></small>
             <?php endif; ?>  
@@ -140,15 +144,18 @@
          
         </div>
         <br>
-          
-        <label for="category">Category</label>
+        <?php ?> 
+        <label for="category">Category *</label>
         <br>
           <!-- <div class="select-box"> -->
           <!-- <select id="category" multiple>     -->
-        <?php foreach ($data['categories'] as $category) : ?>
-            <input name="category[]" type="checkbox" value="<?= $category->id; ?>" />
-            <label style="margin-right: 15px; text-transform: capitalize"><?= $category->category_name; ?></label>
-        <?php endforeach; ?>
+          <?php 
+$selectedCategories = isset($_POST['category']) ? $_POST['category'] : [];
+foreach ($data['categories'] as $category) : ?>
+    <input name="category[]" type="checkbox" value="<?= $category->id; ?>" <?= (in_array($category->id, $selectedCategories)) ? 'checked' : ''; ?> />
+    <label style="margin-right: 15px; text-transform: capitalize"><?= $category->category_name; ?></label>
+<?php endforeach; ?>
+
         <br>
         <?php if (!empty($errors['category'])) : ?>
              <small class="err-msg"><?= $errors['category'] ?></small>
@@ -157,21 +164,27 @@
                     <!-- </div> -->
       </div>
       
-
-
+   
+      
       <div class="form_2 data_info" style="display: none;">
         <h2>Upload Files</h2>
         <div class="column">
-          <div class="input-box">
-            <label for="book_cover">Cover Image *</label> <br> <br>
-            <div class="upload-cover-wrapper">
-              <img onclick="document.getElementById('book_upload').click()" src="<?= ROOT ?>/assets/images/books/book_image.jpg" id="thumb" class=img-book>
-              <input type="file" onchange="change_img(this)" id="book_upload" accept="image/jpeg,image/png" name="book_cover" >
-            </div>
-            <?php if (!empty($errors['book_cover'])) : ?>
-             <small class="err-msg"><?= $errors['book_cover'] ?></small>
-            <?php endif; ?>
-          </div>
+        <div class="input-box">
+    <label for="book_cover">Cover Image *</label> <br> <br>
+    <div class="upload-cover-wrapper">
+        <?php
+       
+        $selectedCoverImage = set_value('book_cover');
+        $coverImagePath = !empty($selectedCoverImage) ? ROOT.'/' .$selectedCoverImage : ROOT . '/assets/images/books/book_image.jpg';
+        ?>
+        <img onclick="document.getElementById('book_upload').click()" src="<?= $coverImagePath ?>" id="thumb" class="img-book">
+        <input type="file" onchange="change_img(this)" id="book_upload" accept="image/jpeg,image/png" name="book_cover">
+    </div>
+    <?php if (!empty($errors['book_cover'])) : ?>
+        <small class="err-msg"><?= $errors['book_cover'] ?></small>
+    <?php endif; ?>
+</div>
+
           <div class="input-box">
             <label for="book_cover">E-book File: *</label> <br> <br>
             <div class="upload-wrapper" id="upload-wrapper-book">
@@ -179,7 +192,7 @@
               <i class="fas fa-cloud-upload-alt"></i>
               <p>Browse File to Upload</p>
               <section class="progress-area" id="progress-area-book"></section>
-              <section class="uploaded-area" id="uploaded-area-book"></section>
+              <section class="uploaded-area" id="uploaded-area-book"><span id="selected-file-name"></span></section>
             </div>
             <?php if (!empty($errors['file'])) : ?>
              <small class="err-msg"><?= $errors['file'] ?></small>
@@ -208,7 +221,7 @@
 </div>
 </section>
 <?php elseif ($action == 'edit') : ?>
-  <br>
+
 <section class="home-section" style="background-color: #D9D9D9">
     <div class="step-wrapper">
         <header>Edit Book Details</header>
@@ -230,7 +243,7 @@
               </ul>
             </div>
             <div class="form_wrap">
-            <form action="#" class="form" method="post" enctype="multipart/form-data">
+            <form action="<?=ROOT?>/librarian/ebooks" class="form" method="post" enctype="multipart/form-data">
                 <div class="form_1 data_info">
                     <h2>E-Book Info</h2>
                     <div class="column">
@@ -428,7 +441,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
+                                       
                                         <?php if (!empty($data['books'])) : ?>
                                             <?php foreach ($data['books'] as $book) : ?>
                                                 <tr>
@@ -447,12 +460,15 @@
                                                         <a href="<?= ROOT . '/librarian/ebooks/delete/' . $book->id; ?>"><i class="fa-solid fa-trash" style="color:red; margin-left:5px"></i></a>
                                                     </td>
                                                     <td>
-                                                      
-                                                      <?php if($book->copyright_status) : ?>
-                                                        <a href="#" class="action btn">Edit</a>
-                                                      <?php else : ?>
+                                                    <?php if($book->copyright_status and !($book->license_type=="Public Domain")) : ?>
+                                                        <a href="<?= ROOT . '/librarian/copyright/edit/' . $book->id; ?>" class="action btn">Edit</a>
+                                                    <?php elseif($book->license_type=="Public Domain"): ?>
+                                                        
+                                                        <a href="#" class="action btn disabled" title="This book is in the public domain and does not require copyright">Add</a>
+                                                    <?php else : ?>
                                                         <a href="<?= ROOT . '/librarian/copyright/add/' . $book->id; ?>" class="action btn">Add</a>
-                                                      <?php endif; ?>
+                                                    <?php endif; ?>
+
                                                       </td> 
                                                         
                                                   
@@ -480,6 +496,9 @@
 
 
 <script>
+
+
+
 
   var form_1 = document.querySelector(".form_1");
   var form_2 = document.querySelector(".form_2");
@@ -516,19 +535,8 @@
     form_2_progessbar.classList.remove("step-active");
   });
 
- 
-
-  form_2_back_btn.addEventListener("click", function(){
-    form_1.style.display = "block";
-    form_2.style.display = "none";
-
-    form_1_btns.style.display = "flex";
-    form_2_btns.style.display = "none";
-
-    form_2_progessbar.classList.remove("step-active");
-  });
-
   change_img = (input) => {
+    
       var image = document.getElementById('thumb');
 
       // Check if a file is selected
@@ -631,11 +639,6 @@ textarea.addEventListener("keyup", e =>{
   let scHeight = e.target.scrollHeight;
   textarea.style.height = `${scHeight}px`;
 });
-
-
-
-
-
 
 </script>
 

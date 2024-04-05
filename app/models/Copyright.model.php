@@ -20,18 +20,9 @@ class Copyright extends Model
 {
     // print_r($data);
     // Validate agreement
-    if (empty($data['agreement'])) {
+   
+    if (empty($data['agreement']) && empty($_SESSION['agreement'])) {
         $this->errors['agreement'] = "Agreement is required.";
-    }
-
-    // Validate license_type
-    if (empty($data['license_type'])) {
-        $this->errors['license_type'] = "License type is required.";
-    }
-
-    // Validate subscription
-    if (empty($data['subscription'])) {
-        $this->errors['subscription'] = "Subscription is required.";
     }
 
     // Validate licensed_copies
@@ -52,6 +43,26 @@ class Copyright extends Model
     // Validate license_end_date
     if (empty($data['license_end_date'])) {
         $this->errors['license_end_date'] = "License end date is required.";
+    } else if (!empty($data['license_start_date'])) {
+        // Convert dates to DateTime objects for proper comparison
+        $startDate = new DateTime($data['license_start_date']);
+        $endDate = new DateTime($data['license_end_date']);
+    
+        // Compare the DateTime objects
+        if ($endDate <= $startDate) {
+            $this->errors['license_end_date'] = "License end date should be greater than the start date.";
+        }
+    }
+    
+    
+
+    if (!isset($data['license_type']) || $data['license_type'] == 'default') {
+        $this->errors['license_type'] = "Please select a license type.";
+    }
+
+    // Check if subscription is set and has a valid value
+    if (!isset($data['subscription']) || $data['subscription'] == 'default') {
+        $this->errors['subscription'] = "Please select a subscription.";
     }
 
     
@@ -62,5 +73,34 @@ class Copyright extends Model
     // print_r($this->errors);
     return false;
 }
+
+public function getCopyright($data){
+    $query = "SELECT * FROM copyrights WHERE ebook_id =:ebook_id;";
+    // print_r($data);
+    // echo $query;
+    // die;
+    $res = $this->query($query, $data);
+    return $res[0];
+}
+
+public function view_all($data){
+    $query = "SELECT copyrights.*, ebooks.title, subscriptions.name AS subscription_name
+    FROM copyrights
+    JOIN ebooks ON copyrights.ebook_id = ebooks.id
+    JOIN subscriptions ON copyrights.subscription = subscriptions.id
+    ";
+    if ($data) {
+        $query .= "where librarian_id =:librarian_id";
+    }
+    // print_r($data);
+    // echo $query;
+    // die;
+    $res = $this->query($query, $data);
+    return $res;
+}
+
+
+
+
 
 }

@@ -31,41 +31,60 @@
             
             <div class="upload-wrapper" id="upload-wrapper-agreement">
             <label for="agreement" style="color:#6990F2;">Copyright Agreement: *</label> <br> <br>
-              <input class="file-input" type="file" name="agreement" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"  hidden>
+              <input class="file-input" type="file" name="agreement" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"  hidden value="<?= isset($_POST['agreement']) ? $_POST['agreement'] : (isset($_SESSION['agreement']) ? $_SESSION['agreement'] : '') ?>">
               <i class="fas fa-cloud-upload-alt"></i>
               <p>Browse File to Upload</p>
               <section class="progress-area" id="progress-area-agreement"></section>
-              <section class="uploaded-area" id="uploaded-area-agreement"></section>
+              <section class="uploaded-area" id="uploaded-area-agreement">
+              <?php if (isset($_SESSION['agreement'])) : ?>
+                <li class="row">
+                    <div class="content">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="details">
+                          
+                            <span class="name"><?= $_SESSION['agreement'] ?> • Uploaded</span>
+                            <span class="size"><?= $_SESSION['agreement_size'] ?></span>
+                        </div>
+                    </div>
+                    <i class="fas fa-check"></i>
+                </li>
+              <?php endif; ?>
+              </section>
 
               <?php if (!empty($errors['agreement'])) : ?>
              <small class="err-msg"><?= $errors['agreement'] ?></small>
             <?php endif; ?>
+
+
+
             </div>
             
           </div>
           <div class="column">
             <div class="select-box">     
               <select name="license_type">
-                <option hidden  selected required>License Type *</option>
-                <option value="public_domain">Public Domain</option>
-                <option value="cc_by">Creative Commons Attribution (CC BY)</option>
-                <option value="cc_by_sa">Creative Commons Attribution-ShareAlike (CC BY-SA)</option>
-                <option value="cc_by_nc_sa">Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)</option>
-                <option value="cc_by_nc">Creative Commons Attribution-NonCommercial (CC BY-NC)</option>
-                <option value="cc_by_nc_nd">Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND)</option>
-                <option value="cc_by_nd">Creative Commons Attribution-NoDerivatives (CC BY-ND)</option>
+              <option hidden value="default" <?= set_value('license_type') == 'default' ? 'selected' : '' ?> required>License Type *</option>
+              <option value="cc0" <?= set_value('license_type') == 'cc0' ? 'selected' : '' ?>>No Rights Reserved (CC0)</option>
+    <option value="cc_by" <?= set_value('license_type') == 'cc_by' ? 'selected' : '' ?>>Creative Commons Attribution (CC BY)</option>
+    <option value="cc_by_sa" <?= set_value('license_type') == 'cc_by_sa' ? 'selected' : '' ?>>Creative Commons Attribution-ShareAlike (CC BY-SA)</option>
+    <option value="cc_by_nc_sa" <?= set_value('license_type') == 'cc_by_nc_sa' ? 'selected' : '' ?>>Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)</option>
+    <option value="cc_by_nc" <?= set_value('license_type') == 'cc_by_nc' ? 'selected' : '' ?>>Creative Commons Attribution-NonCommercial (CC BY-NC)</option>
+    <option value="cc_by_nc_nd" <?= set_value('license_type') == 'cc_by_nc_nd' ? 'selected' : '' ?>>Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND)</option>
+    <option value="cc_by_nd" <?= set_value('license_type') == 'cc_by_nd' ? 'selected' : '' ?>>Creative Commons Attribution-NoDerivatives (CC BY-ND)</option>
               </select>
               <?php if (!empty($errors['license_type'])) : ?>
               <small class="err-msg"><?= $errors['license_type'] ?></small>
               <?php endif; ?>
             </div>
             <div class="select-box">
-              <select name="subscription">
-                <option value="basic">Basic (Free)</option>
-                <option value="silver">Silver</option>
-                <option value="gold">Gold</option>
-                <option value="platinum">Platinum</option>
-              </select>
+            <select name="subscription" required>
+    <option hidden value="default" <?= set_value('subscription') == 'default' ? 'selected' : '' ?>>Subscription *</option>
+    <?php foreach ($data['subscriptions'] as $subscription) : ?>
+        <option value="<?= $subscription->id; ?>" <?= set_value('subscription') == $subscription->id ? 'selected' : '' ?>>
+            <?= $subscription->name; ?>
+        </option>
+    <?php endforeach; ?>
+</select>
               <?php if (!empty($errors['subscription'])) : ?>
                   <small class="err-msg"><?= $errors['subscription'] ?></small>
               <?php endif; ?>
@@ -97,16 +116,16 @@
                 
               <div class="input-box">
                 <label>License Start Date *</label>
-                <input type="date"  placeholder="" value="<?= set_value('license_end_date') ?>" name="license_end_date"/>
-                <?php if (!empty($errors['license_end_date'])) : ?>
-             <small class="err-msg"><?= $errors['license_end_date'] ?></small>
+                <input type="date"  placeholder="" value="<?= set_value('license_start_date') ?>" name="license_start_date"/>
+                <?php if (!empty($errors['license_start_date'])) : ?>
+             <small class="err-msg"><?= $errors['license_start_date'] ?></small>
             <?php endif; ?>
               </div>
               <div class="input-box">
                 <label>License End Date *</label>
-                <input type="date"  placeholder="" value="<?= set_value('license_start_date') ?>" name="license_start_date"/>
-                <?php if (!empty($errors['license_start_date'])) : ?>
-             <small class="err-msg"><?= $errors['license_start_date'] ?></small>
+                <input type="date"  placeholder="" value="<?= set_value('license_end_date') ?>" name="license_end_date"/>
+                <?php if (!empty($errors['license_end_date'])) : ?>
+             <small class="err-msg"><?= $errors['license_end_date'] ?></small>
             <?php endif; ?>
               </div>
             </div>
@@ -124,9 +143,127 @@
                 </div>
                 </section>
 <?php elseif ($action == 'edit') : ?>
-  this is edit page 
+  <section class="home-section">
+  <div class="step-wrapper">
+<form id="myForm" class="form" method="post" enctype="multipart/form-data">
+  <h1>EDIT COPYRIGHT PERMISSION</h1>
+          <div class="input-box">
+            
+            <div class="upload-wrapper" id="upload-wrapper-agreement">
+            <label for="agreement" style="color:#6990F2;">Copyright Agreement: *</label> <br> <br>
+              <input class="file-input" type="file" name="agreement" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"  hidden value="<?= isset($_POST['agreement']) ? $_POST['agreement'] : (isset($_SESSION['agreement']) ? $_SESSION['agreement'] : '') ?>">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Browse File to Upload</p>
+              <section class="progress-area" id="progress-area-agreement"></section>
+              <section class="uploaded-area" id="uploaded-area-agreement">
+              <?php if (isset($data['copyright']->agreement)) : ?>
+                <li class="row">
+                    <div class="content">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="details">
+                            
+                            <span class="name"><?= substr(basename($data['copyright']->agreement),10) ?> • Uploaded</span>
+                            <span class="size"><?= round(filesize($data['copyright']->agreement)/1024,2) ?>KB</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-check"></i>
+                </li>
+              <?php endif; ?>
+              </section>
 
-  <?php else : ?>
+              <?php if (!empty($errors['agreement'])) : ?>
+             <small class="err-msg"><?= $errors['agreement'] ?></small>
+            <?php endif; ?>
+
+
+
+            </div>
+            
+          </div>
+          <div class="column">
+            
+          <div class="select-box">     
+            <select name="license_type">
+                <option value="" disabled selected hidden><?= isset($data['copyright']->license_type) ? $data['copyright']->license_type : 'License Type*' ?></option>
+                <option value="cc0" <?= $data['copyright']->license_type == 'cc0' ? 'selected' : '' ?>>No Rights Reserved (CC0)</option>
+                <option value="cc_by" <?= $data['copyright']->license_type == 'cc_by' ? 'selected' : '' ?>>Creative Commons Attribution (CC BY)</option>
+                <option value="cc_by_sa" <?= $data['copyright']->license_type == 'cc_by_sa' ? 'selected' : '' ?>>Creative Commons Attribution-ShareAlike (CC BY-SA)</option>
+                <option value="cc_by_nc_sa" <?= $data['copyright']->license_type == 'cc_by_nc_sa' ? 'selected' : '' ?>>Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)</option>
+                <option value="cc_by_nc" <?= $data['copyright']->license_type == 'cc_by_nc' ? 'selected' : '' ?>>Creative Commons Attribution-NonCommercial (CC BY-NC)</option>
+                <option value="cc_by_nc_nd" <?= $data['copyright']->license_type == 'cc_by_nc_nd' ? 'selected' : '' ?>>Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND)</option>
+                <option value="cc_by_nd" <?= $data['copyright']->license_type == 'cc_by_nd' ? 'selected' : '' ?>>Creative Commons Attribution-NoDerivatives (CC BY-ND)</option>
+            </select>
+            <?php if (!empty($errors['license_type'])) : ?>
+                <small class="err-msg"><?= $errors['license_type'] ?></small>
+            <?php endif; ?>
+</div>
+
+            <div class="select-box">
+            <select name="subscription" required>
+            <option value="" disabled selected><?= isset($data['subscription']->name) ? $data['subscription']->name : 'Subscription*' ?></option>
+    <?php foreach ($data['subscriptions'] as $subscription) : ?>
+        <option value="<?= $subscription->id; ?>" <?= $data['subscription']->id == $subscription->id ? 'selected' : '' ?>>
+            <?= $subscription->name; ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+              <?php if (!empty($errors['subscription'])) : ?>
+                  <small class="err-msg"><?= $errors['subscription'] ?></small>
+              <?php endif; ?>
+            </div>
+
+          </div>
+            
+          <div class="column">
+            <div class="input-box half">
+              <div class="input-box">
+                <label>Licensed Copies *</label>
+                <input type="number"  placeholder="Number of Copies" value="<?= $data['copyright']->licensed_copies; ?>" name="licensed_copies" />
+                <?php if (!empty($errors['licensed_copies'])) : ?>
+                <small class="err-msg"><?= $errors['licensed_copies'] ?></small>
+                <?php endif; ?>
+              </div>
+              <div class="input-box">
+                <label>Copyright Fee (LKR)*</label>
+                <input type="number" id="price"  min="0" step="0.01" name="copyright_fee" value="<?= $data['copyright']->copyright_fee; ?>">
+                <?php if (!empty($errors['copyright_fee'])) : ?>
+                <small class="err-msg"><?= $errors['copyright_fee'] ?></small>
+                <?php endif; ?>
+            </div>
+                
+          </div>
+            </div>
+            <div class="input-box half">
+                
+              <div class="input-box">
+                <label>License Start Date *</label>
+                <input type="date"  placeholder="" value="<?= $data['copyright']->license_start_date; ?>" name="license_start_date"/>
+                <?php if (!empty($errors['license_start_date'])) : ?>
+             <small class="err-msg"><?= $errors['license_start_date'] ?></small>
+            <?php endif; ?>
+              </div>
+              <div class="input-box">
+                <label>License End Date *</label>
+                <input type="date"  placeholder="" value="<?= $data['copyright']->license_end_date; ?>" name="license_end_date"/>
+                <?php if (!empty($errors['license_end_date'])) : ?>
+             <small class="err-msg"><?= $errors['license_end_date'] ?></small>
+            <?php endif; ?>
+              </div>
+            </div>
+           
+          <div class="column">
+          
+          <div class="input-box">
+          <button type="reset">Cancel</button>
+          </div>
+          <div class="input-box">
+             <button type="submit">Save</button>
+          </div>
+        </div>
+                </form>
+                </div>
+                </section>
+<?php else : ?>
         <section class="home-section" style="background-color: #D9D9D9;">
             <?php if (message()) : ?>
                 <div class="alert"><?= message('', true) ?></div>
@@ -146,43 +283,36 @@
                             <section class="table__body">
                                 <table>
                                     <thead>
-                                        <tr>
-                                            <th> Title <span class="icon-arrow">&UpArrow;</span></th>
-                                            <th> Author <span class="icon-arrow">&UpArrow;</span></th>
-                                            <th> Publisher <span class="icon-arrow">&UpArrow;</span></th>
-                                            <th> Type<span class="icon-arrow">&UpArrow;</span></th>
-                                            <th> Status<span class="icon-arrow">&UpArrow;</span></th>
-                                            <th>Date added<span class="icon-arrow">&UpArrow;</span></th>
-                                            <th>Action</th>
-                                            <th>Copyright</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Title <span class="icon-arrow">↑</span></th>
+                                        <th> License Type <span class="icon-arrow">↑</span></th>
+                                        <th> Subscription <span class="icon-arrow">↑</span></th>
+                                        <th> Licensed Copies <span class="icon-arrow">↑</span></th>
+                                        <th> Copyright Fee <span class="icon-arrow">↑</span></th>
+                                        <th> License Start Date <span class="icon-arrow">↑</span></th>
+                                        <th> License End Date <span class="icon-arrow">↑</span></th>
+                                        <th> Action </th>
+                                    </tr>
+
                                     </thead>
                                     <tbody>
-                                      
-                                        <?php if (!empty($data['books'])) : ?>
-                                            <?php foreach ($data['books'] as $book) : ?>
+                                    
+                                        <?php if (!empty($data['copyrights'])) : ?>
+                                            <?php foreach ($data['copyrights'] as $copyright) : ?>
                                                 <tr>
-                                                    <td><?= $book->title ?></td>
-                                                    <td><?= camelCaseToWords($book->author_name) ?></td>
-                                                    <td><?= camelCaseToWords($book->publisher) ?></td>
-                                                    <td><?= $book->license_type ?></td>
-                                                    <?php if($data['c_status']) : ?>
-                                                      <td ><p class="status uploaded">Uploaded</p></td>
-                                                    <?php else : ?>
-                                                      <td> <p class="status pending"> Pending</p></td>
-                                                    <?php endif; ?>
-                                                    <td><?= date('Y-m-d', strtotime($book->date_added)) ?></td>
+                                                    
+                                                    <td><?= $copyright->title ?></td>
+                                                    
+                                                    <td><?= strtoupper($copyright->license_type) ?></td>
+                                                    <td><?= $copyright->subscription_name?></td>
+                                                    <td><?= $copyright->licensed_copies?></td>
+                                                    <td><?= $copyright->copyright_fee?></td>
+                                                    <td><?= $copyright->license_start_date?></td>
+                                                    <td><?= $copyright->license_end_date?></td>
                                                     <td>
-                                                        <a href="<?= ROOT . '/librarian/ebooks/edit/' . $book->id; ?>"><i class="fa-regular fa-pen-to-square" style="color:blue"></i></a>
-                                                        <a href="<?= ROOT . '/librarian/ebooks/delete/' . $book->id; ?>"><i class="fa-solid fa-trash" style="color:red; margin-left:5px"></i></a>
+                                                        <a href="<?= ROOT . '/librarian/copyright/edit/' . $copyright->ebook_id; ?>"><i class="fa-regular fa-pen-to-square" style="color:blue"></i></a>
+                                                        <a href="<?= ROOT . '/librarian/copyright/delete/' . $copyright->ebook_id; ?>"><i class="fa-solid fa-trash" style="color:red; margin-left:5px"></i></a>
                                                     </td>
-                                                    <td>
-                                                      <?php if($data['c_status']) : ?>
-                                                        <a href="#" class="action btn">Edit</a>
-                                                      <?php else : ?>
-                                                        <a href="<?= ROOT . '/librarian/copyright/' . $book->id; ?>" class="action btn">Add</a>
-                                                      <?php endif; ?>
-                                                      </td> 
                                                         
                                                   
                                                 </tr>

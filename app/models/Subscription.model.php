@@ -9,7 +9,7 @@ class Subscription extends Model
         "name",
         "price",
         "numberOfBooks",
-        "description"
+        "features"
     ];
     public function validate($data)
     {
@@ -38,6 +38,24 @@ class Subscription extends Model
         }
     
         return false;
+    }
+
+    public function getSubscriptions() {
+        $query = "SELECT id, name FROM subscriptions";
+        $res =  $this->query($query);
+        // show($res);
+        // die;
+        return $res;
+    }
+
+    public function getSubscriptionName($data) {
+        $query = "SELECT id, name FROM subscriptions WHERE id =:id";
+        
+        // print_r($data);
+        // echo $query;
+        // die;
+        $res =  $this->query($query, $data);
+        return $res[0];
     }
     
 

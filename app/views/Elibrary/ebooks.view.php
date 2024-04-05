@@ -95,7 +95,7 @@
                 <?php foreach ($data['ebooks'] as $book) : ?>
                     <div class="arrivals-card">
                         <div class="arrivals-img">
-                            <img src="<?= ROOT . '/' . $book->book_image ?>">
+                            <img src="<?= ROOT . '/' . $book->book_cover ?>">
                         </div>
                         <div class="arrivals-tag">
                             <p><?= $book->title ?></p>
@@ -105,7 +105,7 @@
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
-                            </div>
+                            </div>                      
                             <a href="<?= ROOT ?>/elibrary/view_ebook/<?= $book->id ?>" class="arrivals-btn">Learn More</a>
                         </div>
                     </div>

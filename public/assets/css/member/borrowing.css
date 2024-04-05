@@ -13,6 +13,15 @@ h1 {
     font-size: 16px;
 }
 
+.action.btn.disabled {
+    color: #ccc;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    pointer-events: none;
+}
+
+
+
 @media print {
 
     .table,

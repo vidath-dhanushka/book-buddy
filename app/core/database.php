@@ -230,7 +230,7 @@ class Database
             `title` VARCHAR(255),
             `subtitle` VARCHAR(255),
             `author_id` INT NOT NULL, 
-            `isbn` VARCHAR(13) UNIQUE,
+            `isbn` VARCHAR(17) UNIQUE,
             `language` VARCHAR(50),
             `edition` INT,
             `publisher` VARCHAR(255),

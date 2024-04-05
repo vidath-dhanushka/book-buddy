@@ -55,7 +55,7 @@ class Librarian extends Controller
                 if (empty($data['edition'])) {
                     $data['edition'] = null;
                 }
-               
+                
                 // print_r($book->errors);
                 // die;
                
@@ -77,7 +77,7 @@ class Librarian extends Controller
                         file_put_contents($folder . "index.php", "<h2>Access denied!</h2>");
                         file_put_contents("uploads/index.php", "<h2>Access denied!</h2>");
                     }
-            
+                    
                     if ($_FILES['file']['error'] == 0 ) {
                         $fileSize = $_FILES['file']['size'];
                         $maxSize = 5 * 1024 * 1024; // 5 MB
@@ -110,7 +110,7 @@ class Librarian extends Controller
                 }
 
                 $allowed = ['image/jpeg', 'image/png'];
-
+                
                 if (!empty($_FILES['book_cover']['name'])) {
                     if ($_FILES['book_cover']['error'] == 0) {
                         if (in_array($_FILES['book_cover']['type'], $allowed)) {
@@ -133,6 +133,9 @@ class Librarian extends Controller
                 if ($book->ebook_info_validate($_POST) && empty($book->errors)){
                     // print_r($book->errors);
                     // die;
+                    if($book->like(['isbn' => $_POST['isbn']])){
+                        $book->errors['isbn'] = "Could not have same isbn";
+                    }
                     $auth_data = $author->like(['author_name' => $_POST['author_name']]);
                     
                     if ($auth_data) {
@@ -151,10 +154,12 @@ class Librarian extends Controller
                         }
                     }
                     
-                    $book_res = $book->insert($_POST);
-                    $book_verify = 1;
-                   
-                    
+                    if(empty($book->errors)){
+                       
+                        $book_res = $book->insert($_POST);
+                        $book_verify = 1;
+
+                         
                     $category = $_POST['category'];
                     if ($category) {
                         foreach ($category as $cat) {
@@ -165,9 +170,12 @@ class Librarian extends Controller
                             $book_categ->insert($book_categ_details);
                         }
                     }
+                    }
+                   
+                   
+                   
                   
                     if ($author_verify && $book_verify) {
-                        $data['c_status ']= 0;
                         message("book added successfully");
                         redirect('librarian/ebooks');
                     }
@@ -176,7 +184,7 @@ class Librarian extends Controller
                     
                    
                 }
-                // print_r($book->errors);
+                // print_r($data);
                 // die;
                    
             }
@@ -318,11 +326,11 @@ class Librarian extends Controller
             // die;
         }
        
-
-        $data['categories'] = $book->categories();
+        // print_r($_POST);
+        // die;
         $data['title'] = 'E - BOOK';
         $data['errors'] = $book->errors;
-       
+        
        $this->view('librarians/ebooks', $data);
     }
 
@@ -336,6 +344,7 @@ class Librarian extends Controller
         $book = new Ebook;
         $data['row'] = $row =  $user->first(['id' => $_SESSION['USER_DATA']->id]);
         $data['action'] = $action;
+        $data['subscriptions'] = $subscription->getSubscriptions();
 
        
         if ($action == 'add') {
@@ -368,9 +377,9 @@ class Librarian extends Controller
                             } else if (in_array($_FILES['agreement']['type'], $allowed)) {
                                 $destination = $folder . time() . $_FILES['agreement']['name'];
                                 move_uploaded_file($_FILES['agreement']['tmp_name'], $destination);
-                    
                                 $_POST['agreement'] = $destination;
-                    
+                                $_SESSION['agreement'] =$_FILES['agreement']['name'];
+                                $_SESSION['agreement_size'] =$_FILES['agreement']['size'];
                             } else {
                                 $copyright->errors['agreement'] = "This file type is not allowed";
                             }
@@ -382,24 +391,97 @@ class Librarian extends Controller
                     $_POST['ebook_id'] = $id;
                     // print_r($_POST);
                     if($copyright->validate($_POST)){
-                        $sub_data = $subscription->like(['name' => $_POST['subscription']]);
-                        $_POST['subscription'] = $sub_data->id;
-                        // print_r($_POST);
+                        if(!isset($_POST['agreement'])){
+                            $_POST['agreement'] = $_SESSION['agreement'];
+                        }
                         $copyright->insert($_POST);
-                    }
-
-                    if(empty($copyright->erorors)){
                         $book->update($id, ["copyright_status"=>1]);
+                        unset($_SESSION['agreement']);
                         message("copyright added successfully");
                         redirect('librarian/ebooks');
                     }
+
+                   
+                       
+                    
                 }
             }
             
         }else if($action == 'edit'){
-            // something
-        }else{
-            //something
+            $data['copyright'] = $copyright->getCopyright(['ebook_id' => $id]);
+            $data['subscription'] = $subscription->getSubscriptionName(["id" => $data['copyright']->subscription]);
+            if(empty($id)){
+                $this->view("librarians/ebooks");
+            }
+            else{
+                if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    // print_r($_POST);
+                    // print_r($data['copyright']);
+                    if (!empty($_FILES['agreement']['name'])) {
+                    
+                        $allowed = [
+                            'application/pdf', // PDF format
+                            'application/msword', // DOC format
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX format
+                            'text/plain'
+                        ];
+                        $folder = "uploads/ebooks/agreement/";
+                        if (!file_exists($folder)) {
+                            mkdir($folder, 0777, true);
+                            file_put_contents($folder . "index.php", "<h2>Access denied!</h2>");
+                            file_put_contents("uploads/index.php", "<h2>Access denied!</h2>");
+                        }
+                    
+                        if ($_FILES['agreement']['error'] == 0 ) {
+                            $fileSize = $_FILES['agreement']['size'];
+                            $maxSize = 5 * 1024 * 1024; // 5 MB
+                            if ($fileSize > $maxSize) {
+                                $copyright->errors['agreement'] = "File is too large. Maximum file size is 5 MB.";
+                            } else if (in_array($_FILES['agreement']['type'], $allowed)) {
+                                $destination = $folder . time() . $_FILES['agreement']['name'];
+                                move_uploaded_file($_FILES['agreement']['tmp_name'], $destination);
+                                $_POST['agreement'] = $destination;
+                                $_SESSION['agreement'] =$_FILES['agreement']['name'];
+                                $_SESSION['agreement_size'] =$_FILES['agreement']['size'];
+                            } else {
+                                $copyright->errors['agreement'] = "This file type is not allowed";
+                            }
+                        } else {
+                            $copyright->errors['agreement'] = "Could not upload file";
+                        }
+                    }
+                   
+                    $_POST['ebook_id'] = $id;
+                    if(!isset($_POST['agreement'])){
+                        $_POST['agreement'] = $data['copyright']->agreement;
+                    }
+                    
+                    if($copyright->validate($_POST)){
+                       
+                        $copyright->update($data['copyright']->id,$_POST);
+                        $book->update($id, ["copyright_status"=>1]);
+                        unset($_SESSION['agreement']);
+                        message("Copyright Updated successfully");
+                        redirect('librarian/copyright');
+                    }     
+                }
+            }
+            
+           
+        }elseif($action == 'delete'){
+            $data['copyright'] = $copyright->getCopyright(['ebook_id' => $id]);
+
+            $copyright->delete($data['copyright']->id);
+            $book->update($data['copyright']->ebook_id, ["copyright_status"=>0]);
+            message("copyright deleted successfully");
+            redirect('librarian/copyright');
+        }
+        else{
+            $librarian_copyright = [];
+            $librarian_copyright['librarian_id'] = $_SESSION['USER_DATA']->id;
+            
+            $data['copyrights'] = $copyright->view_all($librarian_copyright);
+            
         }
     //    print_r($copyright->errors);
        $data['errors'] = $copyright->errors;
@@ -569,6 +651,8 @@ class Librarian extends Controller
 
         if ($action == 'add') {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                print_r($_POST);
+                die;
                 if ($librarian->subscription_validate($_POST, $id)) {
                     $message = $_POST["description"];
                     echo nl2br(htmlspecialchars($message));

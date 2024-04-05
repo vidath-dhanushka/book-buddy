@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/edit-form.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/profile-pic.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/borrowing.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/addfeature.css">
+
 </head>
 
 <body>
@@ -23,7 +25,7 @@
         <section class="home-section">
             <div class="container">
                 <header>Add New Subscription Level</header>
-                <form class="form" method="post" enctype="multipart/form-data">
+                <form class="form" id="subscription-form" method="post" enctype="multipart/form-data">
                     <div class="column">
                         <div class="input-box">
                             <label for="name">Subscription Name *</label><br>
@@ -33,10 +35,10 @@
                             <?php endif;?>
                         </div>
                         <div class="input-box">
-                            <label for="subscriptionPrice">Subscription Price *</label><br>
-                            <input type="number" id="subscriptionPrice" name="subscriptionPrice" step="0.01" min="0">
-                            <?php if(!empty($errors['subscriptionPrice'])):?>
-                                <small class="err-msg"><?=$errors['subscriptionPrice']?></small>
+                            <label for="price">Subscription Price *</label><br>
+                            <input type="number" id="price" name="price" step="0.01" min="0">
+                            <?php if(!empty($errors['price'])):?>
+                                <small class="err-msg"><?=$errors['price']?></small>
                             <?php endif;?>
                         </div>
                     <!-- </div> -->
@@ -51,16 +53,19 @@
                         
   
                     </div>
-                  
-                    <div class="column">
-                        <div class="input-box">
-                            <label for="description">Description *</label><br>
-                            <textarea id="description" name="description"></textarea>
-                            <?php if(!empty($errors['description'])):?>
-                                <small class="err-msg"><?=$errors['description']?></small>
-                            <?php endif;?>
-                        </div>
-                        
+                    <br><label for="numberOfBooks">Features *</label>
+                    <div class="column add-features">
+                    
+                            <div class="row input-box">
+                            
+                                <input  type="text" id="feature-input" placeholder="Add a feature">
+                                <button  type="button" onclick="addFeature()">Add</button>
+                            </div>
+                            
+                   
+                    </div>
+                    <div class="column add-features">
+                        <ul id="features-list"></ul>
                     </div>
                     
                            
@@ -176,11 +181,14 @@
             </main>
 
         </section>
+        
         <script src="<?= ROOT ?>/assets/js/table.js"></script>
-
     <?php endif; ?>
-
+    
+        
+        <script src="<?= ROOT ?>/assets/js/add-features.js"></script>
     <script>
+        
         change_img = (input) => {
             var image = document.getElementById('thumb');
 
@@ -200,3 +208,4 @@
             }
         }
     </script>
+</body>

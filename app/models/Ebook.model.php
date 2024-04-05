@@ -23,73 +23,129 @@ class Ebook extends Model
         'copyright_status'
     ];
 
+    private function isValidISBN($isbn) {
+        $isbn = str_replace('-', '', $isbn);
+    
+        if(strlen($isbn) == 10) {
+            // Validate ISBN-10
+            $sum = 0;
+            for($i = 0; $i < 10; $i++) {
+                if($isbn[$i] == "X") {
+                    $sum += 10 * (10 - $i);
+                } else if(is_numeric($isbn[$i])) {
+                    $sum += $isbn[$i] * (10 - $i);
+                } else {
+                    return false;
+                }
+            }
+            
+            return $sum % 11 == 0;
+        } else if(strlen($isbn) == 13) {
+            // Validate ISBN-13
+            $sum = 0;
+            for($i = 0; $i < 13; $i++) {
+                if($i % 2 == 0) {
+                    $sum += $isbn[$i];
+                } else {
+                    $sum += 3 * $isbn[$i];
+                }
+            }
+            return $sum % 10 == 0;
+        } else {
+            // Not a valid ISBN
+            return false;
+        }
+    }
+
+    private function validateEdition($edition) {
+        // Check if the edition is a positive integer
+        if (filter_var($edition, FILTER_VALIDATE_INT, array("options" => array("min_range"=>1)))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    
+   
+
     public function ebook_info_validate($data)
 {
-    $this->errors = [];
     
+    $this->errors = [];
+    $maxLength = 255;
     if (empty($data['title'])) {
-        $this->errors['title'] = "Please provide a value for the title.";
-    } else if (strlen($data['title']) < 2) {
-        $this->errors['title'] = "The title should be at least 2 characters long.";
+        $this->errors['title'] = "Error: Title cannot be empty.";
+    } else 
+    if (strlen($data['title']) < 2) {
+        $this->errors['title'] = "Error: Title should be at least 2 characters long.";
+    } else
+    if(strlen($data['title']) > $maxLength) {
+        $this->errors['title'] =  "Error: Title cannot exceed " . $maxLength . " characters.";
     }
 
     if (empty($data['author_name'])) {
-        $this->errors['author_name'] = "Please provide a value for the author.";
+        $this->errors['author_name'] = "Error: Author cannot be empty.";
     }else
-    if (!preg_match("/^[a-zA-Z-' ]*$/",$data["author_name"])) {
-        $this->errors['author_name'] = "Only letters and white space allowed in author name";
+    if (isset($data['author_name'])) {
+        if (!preg_match("/^[a-zA-Z-' .]*$/", $data["author_name"])) {
+            $this->errors['author_name'] = "Error: Only letters, white space, hyphen, period, and apostrophe are allowed in author name";
+        }
     }
+    
     if (empty($data['pages'])) {
-        $this->errors['pages'] = "Please provide a value for the pages.";
+        $this->errors['pages'] = "Error: Number of pages cannot be empty.";
     }
 
-    if (isset($data['subtitle']) && strlen($data['subtitle']) > 255) {
-        $this->errors['subtitle'] = "The subtitle should not exceed 255 characters.";
+    if (isset($data['subtitle']) && strlen($data['subtitle']) >$maxLength) {
+        $this->errors['subtitle'] = "Error: The subtitle should not exceed 255 characters.";
     }
-
-    if (isset($data['isbn']) && !preg_match('/^(?:ISBN(?:-1[03])?:? )?(?:[0-9]{10}(?:[- ]?[0-9]{4})?|[0-9]{13})$/', $data['isbn'])) {
-        $this->errors['isbn'] = "The ISBN format is invalid.";
+   
+    if (isset($data['isbn']) && !$this->isValidISBN($data['isbn'])) {
+        $this->errors['isbn'] = "Error: The ISBN format is invalid.";
+    }
+    if (isset($data['edtion']) && !$this->validateEdition($data['edtion'])) {
+        $this->errors['isbn'] = "Error: The Edition format is invalid.";
     }
     
     if (empty($data['language'])) {
-        $this->errors['language'] = "Please enter the language of the book";
+        $this->errors['language'] = "Error: Language cannot be empty.";
     }
 
     if (empty($data['license_type'])) {
-        $this->errors['license_type'] = "Please select the license type of the book";
+        $this->errors['license_type'] = "Error: License Type cannot be empty.";
     }
     
     if (empty($data['publisher'])) {
-        $this->errors['publisher'] = "Please provide a value for the publisher.";
-    } else if (!is_string($data['publisher'])) {
-        $this->errors['publisher'] = "The publisher should be a string.";
-    }
+        $this->errors['publisher'] = "Error: Publisher cannot be empty.";
+    } 
     if (empty($data['publish_date'])) {
-        $this->errors['publish_date'] = "Please provide a value for the publish_date.";
+        $this->errors['publish_date'] = "Error: Please provide a value for the publish_date.";
     } else if (!DateTime::createFromFormat('Y-m-d', $data['publish_date'])) {
-        $this->errors['publish_date'] = "The publish_date should be a date in 'Y-m-d' format.";
+        $this->errors['publish_date'] = "Error: The publish_date should be a date in 'Y-m-d' format.";
     }
     if (empty($data['description'])) {
-        $this->errors['description'] = "Please provide a value for the description.";
+        $this->errors['description'] = "Error: Please provide a value for the description.";
     } else if (strlen($data['description']) < 10 || strlen($data['description']) > 1000) {
-        $this->errors['description'] = "The description should be between 10 and 1000 characters long.";
+        $this->errors['description'] = "Error: The description should be between 10 and 1000 characters long.";
     }
 
     if (empty($data['book_cover'])) {
-        $this->errors['book_cover'] = "Please provide a value for the cover_image.";
+        $this->errors['book_cover'] = "Error: Please provide a value for the cover_image.";
     }
     if (empty($data['file'])) {
-        $this->errors['file'] = "Please provide a value for the file.";
+        $this->errors['file'] = "Error: Please provide a value for the file.";
     }
-    if (empty($_POST['category'])) {
-        $this->errors['category'] = "Please select at least one category.";
+    if (empty($data['category'])) {
+        $this->errors['category'] = "Error: Please select at least one category.";
     }
 
     
     if (empty($this->errors)) {
         return true;
     }
-
+    
     return false;
 }
 

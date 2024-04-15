@@ -130,13 +130,18 @@ class Member extends Controller
         
         $data['provinces'] = $member->getProvinces();
         $data['cities'] = $member->getCities();
-        // print_r($data['provinces']);
-        // die;
         $data['row'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
-        // print_r($row);
-        // die;
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $row) {
-            
+            if(isset($_POST['city']) && $_POST['city'] == 'City'){
+                unset($_POST['city']);
+            }
+            $dataToUpdate = [];
+            foreach ($_POST as $key => $value) {
+                if ($data['row']->$key != $value) {
+                    $dataToUpdate[$key] = $value;
+                }
+            }
+           
             $folder = "uploads/images/";
             if (!file_exists($folder)) {
                 mkdir($folder, 0777, true);
@@ -145,7 +150,7 @@ class Member extends Controller
             }
             // print_r($_POST);
             // die;
-            if ($member->edit_validate($_POST, $id)) {
+            if ($member->edit_validate($dataToUpdate, $id)) {
                 
                 if (!is_numeric($_POST['province'])) {
                     unset($_POST['province']);
@@ -179,7 +184,11 @@ class Member extends Controller
                     $_POST['userID'] = $id;
                     // print_r($row);
                     $member->update_by_column($row->userID, $_POST);
-                    
+                 
+                    foreach($dataToUpdate as $key => $value) {
+                        $_SESSION['USER_DATA']->$key = $value;
+                    }
+                    print_r($_SESSION);
                     message("Profile saved successfully");
                     redirect("member/edit/" . $id);
                 }

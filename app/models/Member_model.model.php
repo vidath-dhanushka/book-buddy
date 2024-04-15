@@ -235,64 +235,45 @@ public function vertify_review($data){
 
 
 
-    public function edit_validate($data, $id){
-        // echo "in edit_validate";
-        // die;
-        $this-> errors = [];
-      
-        if(empty($data['firstname'])){
-            $this->errors['firstname'] = "Please enter the first name";
-        }else
-        if(!preg_match("/^[a-zA-Z ]+$/",$data['firstname'])){
-            $this->errors['firstname'] = "first name can only have letters";
-        }
-        if(empty($data['lastname'])){
-            $this->errors['lastname'] = "Please enter the last name";
-        }else
-        if(!preg_match("/^[a-zA-Z]+$/",$data['lastname'])){
-            $this->errors['lastname'] = "last name can only have letters without spaces";
-        }
-        if(empty($data['username'])){
-            $this->errors['username'] = "Please enter the username";
-        }
-       
-        
-        if(!filter_var($data['email'],  FILTER_VALIDATE_EMAIL)){
-            $this->errors['email'] = "Please enter a valid email";
-        }elseif($results = $this->where(['email' =>$data['email']], $this->parentTable)){
-            foreach($results as $result){
-                if($id != $result->id) $this->errors['email'] = "email already exists";
-            }  
-        }
+public function edit_validate($data, $id){
+    $this->errors = [];
 
-        if(empty($data['phone'])){
-            $this->errors['phone'] = "Please enter the phone number";
-        }else
-        if(!preg_match('/^\+[0-9]{11}$/',$data['phone'])){
-            $this->errors['phone'] = "please enter the number in international standards";
-        }
-        // if(empty($data['address'])){
-        //     $this->errors['address'] = "Please enter the address";
-        // }
-        if(!empty($data['contactName']) & !preg_match("/^[a-zA-Z ]+$/",$data['contactName'])){
-            $this->errors['contactName'] = "Contact can only have letters";
-        }
-        if(!empty($data['postalCode']) & !preg_match("/^[0-9]{5}$/", $data['postalCode'])){
-            $this->errors['postalCode'] = "Postal Code must have exactly 5 numbers";
-        }
-       
-    
-        if(empty($this->errors)){
-            // print_r($this->errors);
-            // die;
-            return true;
-        }
-        // echo "errors";
-        // print_r($this->errors);
-        // die;
-        
-        return false;
+  
+    if(isset($data['firstname']) && !preg_match("/^[a-zA-Z ]+$/",$data['firstname'])){
+        $this->errors['firstname'] = "Please enter a valid first name";
     }
+
+    if(isset($data['lastname']) && !preg_match("/^[a-zA-Z]+$/",$data['lastname'])){
+        $this->errors['lastname'] = "Please enter a valid last name";
+    }
+
+    if(isset($data['username']) && !preg_match("/^[a-zA-Z0-9]+$/",$data['username'])){
+        $this->errors['username'] = "Username can only contain letters and numbers";
+    }
+    
+
+    if(isset($data['email']) && !filter_var($data['email'],  FILTER_VALIDATE_EMAIL)){
+        $this->errors['email'] = "Please enter a valid email";
+    }elseif($results = $this->where(['email' =>$data['email']], $this->parentTable)){
+        foreach($results as $result){
+            if($id != $result->id) $this->errors['email'] = "email already exists";
+        }  
+    }
+
+    if(isset($data['phone']) && !preg_match('/^\+[0-9]{11}$/',$data['phone'])){
+        $this->errors['phone'] = "please enter the number in international standards";
+    }
+
+    if(isset($data['contactName']) && !preg_match("/^[a-zA-Z ]+$/",$data['contactName'])){
+        $this->errors['contactName'] = "Contact can only have letters";
+    }
+
+    if(isset($data['postalCode']) && !preg_match("/^[0-9]{5}$/", $data['postalCode'])){
+        $this->errors['postalCode'] = "Postal Code must have exactly 5 numbers";
+    }
+
+    return empty($this->errors);
+}
 
     public function getProvinces($order = 'desc'){
         $query = "SELECT * FROM " . $this->provinceT . " ORDER BY id " . $order;

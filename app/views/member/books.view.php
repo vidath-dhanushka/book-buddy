@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/edit-form.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/profile-pic.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/borrowing.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/notification.css">
 </head>
 
 <body>
@@ -207,3 +208,4 @@
             }
         }
     </script>
+    <script src="<?=ROOT?>/assets/js/notification.js"></script>

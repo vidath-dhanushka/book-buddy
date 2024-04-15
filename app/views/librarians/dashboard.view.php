@@ -15,60 +15,68 @@
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
 
-<div class="cardBox col-4">
-  <div class="card">
-    <div>
-      <div class="iconBx">
-        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
-      </div>
+<div class="cardBox col-3">
+  <div class="card chart-card">
+    <div class="chart-card-1">
       <div class="numbers">2</div>
       <h1>TOTAL</h1>
-      <div class="cardName">E - BOOKS</div>
+      <div class="cardName">E-Books</div>
+    </div> 
+    <div class="chart-card-2">
+      <div class="charts">
+        <div class="charts-card">
+          <div id="bar-chart"></div>
+        </div>
+      </div>
     </div> 
   </div>
 
-  <div class="card">
-    <div>
-      <div class="iconBx">
-        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
-      </div>
+  <div class="card chart-card">
+    <div class="chart-card-1">
       <div class="numbers">2</div>
-      <h1>TOTAL</h1>
-      <div class="cardName">E - BOOKS</div>
+      <h1>ACTIVITE</h1>
+      <div class="cardName">Subscribers</div>
+    </div> 
+    <div class="chart-card-2">
+      <div class="charts">
+        <div class="charts-card">
+          <div id="pie-chart"></div>
+        </div>
+      </div>
     </div> 
   </div>
 
-  <div class="card">
-    <div>
-      <div class="iconBx">
-        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
-      </div>
+  <div class="card chart-card">
+    <div class="chart-card-1">
+   
+            <div id="area-chart"></div>
+        
       <div class="numbers">2</div>
       <h1>TOTAL</h1>
-      <div class="cardName">E - BOOKS</div>
+      <div class="cardName">Revenue(Yearly)</div>
+    </div> 
+    <div class="chart-card-2">
+      <div class="charts">
+        <div class="charts-card">
+          <div id="revenue-chart"></div>
+        </div>
+      </div>
     </div> 
   </div>
+  
 
-  <div class="card">
-    <div>
-      <div class="iconBx">
-        <img src="<?= ROOT ?>/assets/images/member/book-reading.png" alt="reading" height="60px" width="60px">
-      </div>
-      <div class="numbers">2</div>
-      <h1>TOTAL</h1>
-      <div class="cardName">E - BOOKS</div>
-    </div> 
-  </div>
+
+
+  
          
 </div>
 
        
         <div class="details">
           <div class="history">
-          <h2>My Borrowing</h2>
+          <h2>Recent Activities</h2>
             <div class="cardHeader">
-              
-              <h3>Books</h3>
+              <h3>E-Books</h3>
               <a href="<?= ROOT ?>/member/borrowing" class="btn">View All</a>
             </div>
 
@@ -96,34 +104,14 @@
                 <td>2024-01-14</td>
                 <td><p class="status returned">Returned</p></td>
               </tr>
-              <tr>
-                <td>3</td>
-                <td>1984</td>
-                <td>George Orwell</td>
-                <td>User3</td>
-                <td>2024-01-05</td>
-                <td>2024-01-19</td>
-                <td></td>
-                <td><p class="status borrowed">Borrowed</p></td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Pride and Prejudice</td>
-                <td>Jane Austen</td>
-                <td>User5</td>
-                <td>2024-01-09</td>
-                <td>2024-01-23</td>
-                <td></td>
-                <td><p class="status overdue">Overdue</p></td>
-              </tr>
               </tbody>
             </table>
 
             <div class="cardHeader">
-              
-              <h3>E-Books</h3>
-              
+              <h3>Subscribers</h3>
+              <a href="<?= ROOT ?>/member/borrowing" class="btn">View All</a>
             </div>
+
             <table>
               <thead>
               <tr>
@@ -132,60 +120,6 @@
                 <th> Author</th>
                 <th> Lender </th>
                 <th> Borrow Date</th>
-                <th> Return Date </th>
-                <th> Status</th>
-                </tr>
-              </thead>
-
-              <tbody>
-              <tr>
-                <td>1</td>
-                <td>The Great Gatsby</td>
-                <td>F. Scott Fitzgerald</td>
-                <td>User1</td>
-                <td>2024-01-01</td>
-                <td>2024-01-15</td>
-                <td><p class="status returned">Returned</p></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>To Kill a Mockingbird</td>
-                <td>Harper Lee</td>
-                <td>User2</td>
-                <td>2024-01-03</td>
-                <td>2024-01-17</td>
-                <td><p class="status returned">Returned</p></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>1984</td>
-                <td>George Orwell</td>
-                <td>User3</td>
-                <td>2024-01-05</td>
-                <td>2024-01-19</td>
-                <td><p class="status borrowed">Borrowed</p></td>
-              </tr>
-
-            </tbody>
-            </table>
-          </div>
-          
-
-          <!-- <div class="history">
-          <h2>My Sharing</h2>
-          <div class="cardHeader">
-              
-              <h3>Books</h3>
-              <a href="#" class="btn">View All</a>
-            </div>
-
-            <table>
-              <thead>
-              <tr>
-                <th> Id </th>
-                <th> Title </th>
-                <th> Author</th>
-                <th> Shared Date</th>
                 <th> Due Date</th>
                 <th> Return Date</th>
                 <th> Status</th>
@@ -196,86 +130,90 @@
                 <td>1</td>
                 <td>The Great Gatsby</td>
                 <td>F. Scott Fitzgerald</td>
-              
+                <td>User1</td>
                 <td>2024-01-01</td>
                 <td>2024-01-15</td>
                 <td>2024-01-14</td>
                 <td><p class="status returned">Returned</p></td>
               </tr>
-              <tr>
-                <td>3</td>
-                <td>1984</td>
-                <td>George Orwell</td>
-              
-                <td>2024-01-05</td>
-                <td>2024-01-19</td>
-                <td></td>
-                <td><p class="status borrowed">Borrowed</p></td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Pride and Prejudice</td>
-                <td>Jane Austen</td>
-                
-                <td>2024-01-09</td>
-                <td>2024-01-23</td>
-                <td></td>
-                <td><p class="status overdue">Overdue</p></td>
-              </tr>
               </tbody>
             </table>
 
             <div class="cardHeader">
-              
-              <h3>E-Books</h3>
-              <a href="#" class="btn">View All</a>
+              <h3>Copyright</h3>
+              <a href="<?= ROOT ?>/member/borrowing" class="btn">View All</a>
             </div>
+
             <table>
               <thead>
               <tr>
                 <th> Id </th>
                 <th> Title </th>
                 <th> Author</th>
-               
+                <th> Lender </th>
                 <th> Borrow Date</th>
-                <th> Return Date </th>
+                <th> Due Date</th>
+                <th> Return Date</th>
                 <th> Status</th>
                 </tr>
               </thead>
-
               <tbody>
               <tr>
                 <td>1</td>
                 <td>The Great Gatsby</td>
                 <td>F. Scott Fitzgerald</td>
-              
+                <td>User1</td>
                 <td>2024-01-01</td>
                 <td>2024-01-15</td>
+                <td>2024-01-14</td>
                 <td><p class="status returned">Returned</p></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>To Kill a Mockingbird</td>
-                <td>Harper Lee</td>
-               
-                <td>2024-01-03</td>
-                <td>2024-01-17</td>
-                <td><p class="status returned">Returned</p></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>1984</td>
-                <td>George Orwell</td>
-                
-                <td>2024-01-05</td>
-                <td>2024-01-19</td>
-                <td><p class="status borrowed">Borrowed</p></td>
-              </tr>
-
-            </tbody>
+              </tbody>
             </table>
-    </div> -->
+
+            <div class="cardHeader">
+              <h3>Subscriptions</h3>
+              <a href="<?= ROOT ?>/member/borrowing" class="btn">View All</a>
+            </div>
+
+            <table>
+              <thead>
+              <tr>
+                <th> Id </th>
+                <th> Title </th>
+                <th> Author</th>
+                <th> Lender </th>
+                <th> Borrow Date</th>
+                <th> Due Date</th>
+                <th> Return Date</th>
+                <th> Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td>The Great Gatsby</td>
+                <td>F. Scott Fitzgerald</td>
+                <td>User1</td>
+                <td>2024-01-01</td>
+                <td>2024-01-15</td>
+                <td>2024-01-14</td>
+                <td><p class="status returned">Returned</p></td>
+              </tr>
+              </tbody>
+            </table>
+            
+
+            
+          </div>
+          
+
+    
+
+        
 </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
+<script src="<?= ROOT ?>/assets/js/chart.js"></script>
 </body>
 </html>

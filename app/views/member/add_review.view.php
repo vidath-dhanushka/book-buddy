@@ -30,3 +30,4 @@
     </div>
 </div>
 <script src="<?=ROOT?>/assets/js/rating.js"></script>
+<script src="<?=ROOT?>/assets/js/notification.js"></script>

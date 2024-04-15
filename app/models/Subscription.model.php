@@ -57,6 +57,29 @@ class Subscription extends Model
         $res =  $this->query($query, $data);
         return $res[0];
     }
+
+    public function subscriptions() {
+        $query = "SELECT * FROM $this->table";
+        $res =  $this->query($query);
+        if (is_array($res)) {
+
+            return $res;
+        }
+
+        return false;
+
+    }
+
+    public function getSubscriptionById($data) {
+        $query = "SELECT * FROM $this->table WHERE id = :id";
+        $res = $this->query($query, $data);
+        if (is_array($res)) {
+            return $res[0]; 
+        }
+        return false;
+    }
+    
+    
     
 
 }

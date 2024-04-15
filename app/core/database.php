@@ -258,7 +258,7 @@ class Database
             `name` VARCHAR(255) NOT NULL,
             `price` DECIMAL(10,2) NOT NULL,
             `numberOfBooks` INT NOT NULL,
-            `description` TEXT,
+            `features` TEXT NOT NULL,
             `date_added` DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id)
         );        
@@ -501,16 +501,7 @@ class Database
 
         $this->query($query);
 
-        // CREATE TABLE subscription(
-        //     id INT PRIMARY KEY AUTO_INCREMENT,
-        //     name VARCHAR(50) NOT NULL,
-        //     price DECIMAL(10, 2) NOT NULL,
-        //     copyrightCost DECIMAL(10, 2),
-        //     maxBooksAllowed INT NOT NULL,
-        //     description TEXT,
-        //     isActive BOOLEAN DEFAULT FALSE,
-        //     dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        // );
+        
         
         
     }

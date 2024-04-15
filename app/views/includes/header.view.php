@@ -7,6 +7,7 @@
     <title><?= ucfirst(App::$page) ?> - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/navbar.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/notification.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/sidenav.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/book/view-details.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/payment.css">

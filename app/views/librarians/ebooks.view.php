@@ -243,7 +243,7 @@ foreach ($data['categories'] as $category) : ?>
               </ul>
             </div>
             <div class="form_wrap">
-            <form action="<?=ROOT?>/librarian/ebooks" class="form" method="post" enctype="multipart/form-data">
+            <form id="myForm-2" class="form" method="post" enctype="multipart/form-data">
                 <div class="form_1 data_info">
                     <h2>E-Book Info</h2>
                     <div class="column">
@@ -587,10 +587,13 @@ function setupUploader(id) {
     }
   }
 }
-
+let action = 'add'; // Set the default action to 'add'
+if (window.location.href.includes('/edit/')) {
+    action = 'edit';
+}
 function uploadFile(name, progressArea, uploadedArea){
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "<?=ROOT?>/librarian/ebooks");
+  xhr.open("POST", `<?=ROOT?>/librarian/ebooks`);
   xhr.upload.addEventListener("progress", ({loaded, total}) =>{
     let fileLoaded = Math.floor((loaded / total) * 100);
     let fileTotal = Math.floor(total / 1000);
@@ -630,6 +633,7 @@ function uploadFile(name, progressArea, uploadedArea){
   });
 
   let data = new FormData(form);
+ 
   xhr.send(data);
 }
 

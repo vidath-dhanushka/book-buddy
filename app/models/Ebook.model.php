@@ -66,10 +66,6 @@ class Ebook extends Model
         }
     }
     
-    
-    
-   
-
     public function ebook_info_validate($data)
 {
     
@@ -85,9 +81,6 @@ class Ebook extends Model
         $this->errors['title'] =  "Error: Title cannot exceed " . $maxLength . " characters.";
     }
 
-    if (empty($data['author_name'])) {
-        $this->errors['author_name'] = "Error: Author cannot be empty.";
-    }else
     if (isset($data['author_name'])) {
         if (!preg_match("/^[a-zA-Z-' .]*$/", $data["author_name"])) {
             $this->errors['author_name'] = "Error: Only letters, white space, hyphen, period, and apostrophe are allowed in author name";

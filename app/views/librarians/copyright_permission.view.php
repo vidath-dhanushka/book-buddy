@@ -161,9 +161,8 @@
                     <div class="content">
                         <i class="fas fa-file-alt"></i>
                         <div class="details">
-                            
-                            <span class="name"><?= substr(basename($data['copyright']->agreement),10) ?> • Uploaded</span>
-                            <span class="size"><?= round(filesize($data['copyright']->agreement)/1024,2) ?>KB</span>
+                            <span class="name"><?= substr(basename($data['copyright']->agreement),5) ?> • Uploaded</span>
+                            <!-- <span class="size"><?= round(filesize($data['copyright']->agreement)/1024,2) ?>KB</span> -->
                         </div>
                     </div>
                     <i class="fas fa-check"></i>

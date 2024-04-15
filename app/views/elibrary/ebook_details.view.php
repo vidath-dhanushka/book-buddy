@@ -4,18 +4,17 @@
 <div class="alert" id="hide"><?=message('', true)?></div>
 <?php endif;?>
 <div class="main-container">
-
+    <?php print_r($row); ?>
     <section class="container-left">
-    <img src="<?= ROOT ?>/assets/images/books/arrival_6.jpg">
-        <!-- <img src="<?= ROOT . '/' . $data['row']->book_image; ?>"> -->
+        <img src="<?= ROOT . '/' . $row->book_cover; ?>">
     </section>
     <section class="container-right">
         <br>
-        <p class="book-title"><?= $data['row']->title; ?></p>
-        <p>By <i><?= camelCaseToWords($data['row']->author_name); ?></i></p>
+        <p class="book-title"><?= $row->title; ?></p>
+        <p>By <i><?= camelCaseToWords($row->author_name); ?></i></p>
         <br>
         <!-- <h2>Description:</h2> -->
-        <p class="description"><?= $data['row']->description; ?></p><br>
+        <p class="description"><?= $row->description; ?></p><br>
         <br>
         <div class="tags">
             <span>Fiction</span>

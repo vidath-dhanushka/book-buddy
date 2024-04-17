@@ -4,7 +4,7 @@
 <div class="alert" id="hide"><?=message('', true)?></div>
 <?php endif;?>
 <div class="main-container">
-    <?php print_r($row); ?>
+    <!-- <?php print_r($row); ?> -->
     <section class="container-left">
         <img src="<?= ROOT . '/' . $row->book_cover; ?>">
     </section>
@@ -23,7 +23,7 @@
         </div>
         <div>
        
-        <button onclick="location.href='<?=ROOT?>/member/borrow/<?=$row->id?>'">Borrow Now</button>
+        <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$row->id?>'">Borrow Now</button>
 
             <button>Add to Cart</button>
         </div>

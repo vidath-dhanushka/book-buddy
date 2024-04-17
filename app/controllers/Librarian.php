@@ -67,8 +67,6 @@ class Librarian extends Controller
                     $allowed = [
                         'application/epub+zip', // EPUB format
                         'application/pdf', // PDF format
-                        'application/x-mobipocket-ebook', // MOBI format
-                        'application/vnd.amazon.ebook' // AZW format
                       ];
                       $folder = "uploads/ebooks/file/";
                     if (!file_exists($folder)) {

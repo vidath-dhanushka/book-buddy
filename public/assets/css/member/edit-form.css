@@ -55,7 +55,7 @@
   animation-delay: .5s; 
   animation-fill-mode: forwards; 
 }
-.alert {
+.alert-success{
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;

@@ -106,6 +106,7 @@ class Member extends Controller
                 }
                 
                 $member->addReview($_POST);
+                $_SESSION['message_class'] = 'success-alert';
                 message("Review added.");
                 redirect("elibrary/view_ebook/" . $id);
                 
@@ -116,6 +117,7 @@ class Member extends Controller
         $data['errors'] = $member->errors;
         // print_r($data['errors']);
         // die;
+        $_SESSION['message_class'] = 'alert';
         message("Your review already added.");
         redirect("elibrary/view_ebook/" . $id);
     }

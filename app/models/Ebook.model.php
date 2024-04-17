@@ -200,30 +200,7 @@ class Ebook extends Model
         return false;
     }
 
-    public function get_review($data){
-        
-        
-        $query =  "SELECT reviews.*, users.username, users.user_image
-        FROM `reviews`
-        INNER JOIN `users` ON reviews.userID = users.id
-        WHERE reviews.ebookID = :ebook_id;
-        ";
-        // echo $query;
-        // print_r($data);
-        // die;
-        $res = $this->query($query, $data);
-        
-            
-        if (is_array($res) && count($res) > 0) {
-            // print_r($res);
-            // die;
-            return $res;
-        }
-    
-        
-        return false;
-       
-    }
+  
 
     public function is_borrowed($data){
         // print_r($data);

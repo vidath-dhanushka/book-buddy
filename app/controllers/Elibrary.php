@@ -23,21 +23,20 @@ class Elibrary extends Controller
     public function ebooks()
     {
         $cats = new Category;
-        $book_categ = new Book_category;
+        $book_categ = new EBook_category;
         $data['title'] = 'E - Books';
         $data['categories'] = $cats->getCategs();
 
         $cats = [];
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            // echo 'hello';
-            // show($_GET);
-            // die;
 
             if (isset($_GET["category_id"])) {
                 $cats['c.category_id'] = $_GET['category_id'];
             }
             $data['ebooks'] = $book_categ->get_ebook_data($cats);
+            // show($data['ebooks']);
+            // die;
         }
 
 
@@ -58,24 +57,24 @@ class Elibrary extends Controller
         $ebook = new Ebook;
         $member = new Member_model();
         $category = new Ebook_category();
+        $review = new Ebook_review();
         if (Auth::logged_in()) {
-            
-            $review = $ebook->get_review(["ebook_id"=>$id]);
+            $data['user'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
             $isborrowed = $ebook->is_borrowed(["ebook_id"=> $id, "user_id"=>$_SESSION['USER_DATA']->id]);
-           
-            $data['reviews'] = $review;
+            
+            $data['reviews']['all'] =$review->get_review(["ebook_id"=>$id]);
+            $data['reviews']['average_rating'] = number_format($review->get_average_rating(["ebook_id"=>$id]), 1);
+            $data['reviews']['count'] = $review->get_review_count(["ebook_id"=>$id]);
+            $data['reviews']['rating_count'] = $review->get_rating_counts(["ebook_id"=>$id]);
+            $data['reviews']['user_review'] = $review->get_user_review(["ebook_id"=>$id, "user_id"=>$_SESSION['USER_DATA']->id]);
             $data['is_borrowed'] =  $isborrowed;
+            
         }
         $data['row'] = $row = $ebook->view_ebook_details(['b.id' => $id]);
         
-        // $row->cats = $category->
 
         $data['title'] = 'E - book details';
 
-       
-       
-        // print_r($data);
-        // die;
 
         $this->view('elibrary/ebook_details', $data);
     }

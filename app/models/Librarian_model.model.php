@@ -27,7 +27,7 @@ class Librarian_model extends Model{
         'postalCode'
     ];
 
-    public function addReview($data, $table = 'reviews'){
+    public function addReview($data, $table = 'ebook_reviews'){
         $query = "INSERT INTO " . $table . " (ebookID, userID, rating, title, description) VALUES (:ebook_id, :user_id, :rating, :title, :description)";
         // echo $query;
         // print_r($data);
@@ -192,7 +192,7 @@ class Librarian_model extends Model{
 public function vertify_review($data){
         
     $this->errors = [];
-    $query = "SELECT ebookID, userID FROM `reviews` WHERE ebookID=:ebook_id AND userID=:user_id";
+    $query = "SELECT ebookID, userID FROM `ebook_reviews` WHERE ebookID=:ebook_id AND userID=:user_id";
     $res = $this->query($query, $data);
         
     if (is_array($res) && count($res) > 0) {

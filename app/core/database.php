@@ -297,7 +297,7 @@ class Database
 
         $this->query($query);
 
-        $query = "CREATE TABLE IF NOT EXISTS `reviews` (
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_reviews` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebookID` int(11) DEFAULT NULL,
             `userID` int(11) DEFAULT NULL,

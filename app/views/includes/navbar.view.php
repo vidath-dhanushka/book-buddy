@@ -2,10 +2,8 @@
   <nav id="navbar">
     <div class="logo">
       <a href="<?=ROOT?>/home"><img src="<?=ROOT?>/assets/images/logo.svg" alt="logo"></a>
-    </div>
-    
+    </div> 
     <div class="account">
-
         <?php if(!Auth::logged_in()):?>
             <p><a href="<?=ROOT?>/login">Login</a> |  <a href="<?=ROOT?>/signup">signup</a></p>
         <?php else:?>

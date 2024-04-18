@@ -1,0 +1,66 @@
+.upgrade-card {
+    max-width: 320px;
+    border-width: 1px;
+    border-color: rgba(219, 234, 254, 1);
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1rem;
+  }
+  
+  .upgrade-header {
+    display: flex;
+    align-items: center;
+    grid-gap: 1rem;
+    gap: 1rem;
+  }
+  
+  
+  
+  .upgrade-alert {
+    font-weight: 600;
+    color: rgba(107, 114, 128, 1);
+  }
+  
+  .upgrade-message {
+    margin-top: 1rem;
+    color: rgba(107, 114, 128, 1);
+  }
+  
+  .upgrade-action {
+    margin-top: 1.5rem;
+  }
+  
+  .upgrade-action a {
+    text-decoration: none;
+  }
+  
+  .upgrade-cancel, .upgrade-submit {
+    display: inline-block;
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .upgrade-submit {
+    background-color: rgb(130, 106, 251);
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  .upgrade-cancel {
+    margin-top: 0.5rem;
+    background-color: rgba(249, 250, 251, 1);
+    color: rgba(107, 114, 128, 1);
+    transition: all .15s ease;
+  }
+  
+  .upgrade-cancel:hover {
+    background-color: rgb(230, 231, 233);
+  }
+
+ #myModal-3 .modal-content{
+    width: 352px;
+ }

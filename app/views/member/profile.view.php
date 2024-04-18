@@ -15,7 +15,7 @@
 </head>
 <body>
 <?php if(!empty($row)):?>
-<?php $this->view('includes/navbar') ?>
+<?php $this->view('includes/navbar', $data) ?>
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
 <div class="profile-container">
@@ -35,7 +35,6 @@
                 </ul>
             </div>
         </div>
-        
         <img src="<?=ROOT?>/<?=($row->user_image)?>"  class="profile-pic">
         <h3><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>
         <p><?=esc($row->email)?></p>

@@ -41,15 +41,15 @@ class Subscription extends Model
     }
 
     public function getSubscriptions() {
-        $query = "SELECT id, name FROM subscriptions";
+        $query = "SELECT * FROM subscriptions";
         $res =  $this->query($query);
         // show($res);
         // die;
         return $res;
     }
 
-    public function getSubscriptionName($data) {
-        $query = "SELECT id, name FROM subscriptions WHERE id =:id";
+    public function getSubscription($data) {
+        $query = "SELECT * FROM subscriptions WHERE id =:id";
         
         // print_r($data);
         // echo $query;

@@ -10,34 +10,68 @@
     endif;
 ?>
 
-<div class="main-container">
-    <!-- <?php print_r($row); ?> -->
-    <section class="container-left">
-        <img src="<?= ROOT . '/' . $row->book_cover; ?>">
-    </section>
-    <section class="container-right">
-        <br>
-        <p class="book-title"><?= $row->title; ?></p>
-        <p>By <i><?= camelCaseToWords($row->author_name); ?></i></p>
-        <br>
-        <!-- <h2>Description:</h2> -->
-        <p class="description"><?= $row->description; ?></p><br>
-        <br>
-        <div class="tags">
-            <span>Fiction</span>
-            <span>Horror</span>
-            <span>Thriller</span>
-        </div>
-        <div>
-       
-        <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$row->id?>'">Borrow Now</button>
-
-            <button>Add to Cart</button>
-        </div>
+<div class="main-container" >
+    <!-- <?php print_r($subscription); ?> -->
+    <section class="container-left" id="book-details-l">
+    <img src="<?= ROOT . '/' . $ebook->book_cover; ?>">
+</section>
+<section class="container-right" id="book-details">
+    <div class="sub-tags">
+        <span><?= $subscription->name ?></span>
+    </div>
+    <br>
+    <p class="book-title"><?= $ebook->title; ?></p>
+    <p>By <i><?= camelCaseToWords($ebook->author_name); ?></i></p>
+    <br>
+    <table>
+        <tr>
+            <th>ISBN</th>
+            <td><?= $ebook->isbn; ?></td>
+        </tr>
+        <tr>
+            <th>Language</th>
+            <td><?= $ebook->language; ?></td>
+        </tr>
+        <tr>
+            <th>Edition</th>
+            <td><?= $ebook->edition; ?></td>
+        </tr>
+        <tr>
+            <th>Publisher</th>
+            <td><?= $ebook->publisher; ?></td>
+        </tr>
+        <tr>
+            <th>Publish Date</th>
+            <td><?= $ebook->publish_date; ?></td>
+        </tr>
+        <tr>
+            <th>Pages</th>
+            <td><?= $ebook->pages; ?></td>
+        </tr>
         
-    </section>
+    </table>
+    <!-- <?= show($ebook) ?> -->
+    <p class="description"> <span>Description:</span><br><?= $ebook->description; ?></p>
+    <?php if (!empty($ebook->cats)) : ?>
+        <div class="tags">
+            <?php for ($i = 0; $i < count($ebook->cats); $i++) : ?>
+                <span><?php echo $ebook->cats[$i]; ?></span>
+            <?php endfor; ?>
+        </div>
+    <?php endif; ?>
+    
+    <?php if ($user_subscription->price >= $book_subscription->price ): ?>
+        <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Borrow Now</button>
+    <?php else: ?>
+        <!-- <?= show($book_subscription) ?> -->
+        <button id="borrow-btn">Borrow Now</button>
+    <?php endif; ?>
+    <button>Add to Cart</button>
+</section>
+
 </div>
 <div class="review">
+    <h1>Rating and Reviews</h1>
 <div class="summary-rating">
             <div class="rating_average">
             <h1><?=$reviews['average_rating'] ?></h1>
@@ -115,10 +149,10 @@
                     <div class="box-top">
                         <div class="profile">
                             <div class="profile-img">
-                                <img src="<?= ROOT ?>/<?= $user->user_image ?>" />
+                                <img src="<?= ROOT ?>/<?= $row->user_image ?>" />
                             </div>
                             <div class="name-user">
-                                <strong>@<?= $user->username ?></strong>
+                                <strong>@<?= $row->username ?></strong>
                                 <span><?= $user_review->date ?></span>
                             </div>
                         </div>
@@ -147,7 +181,7 @@
             
         </div>
       <div class="review-header">
-      <h1>User Review</h1>
+   
       <!-- <?= !empty($is_borrowed) ?  '<img src="'. ROOT .'/assets/images/review.png" alt="add" id="myBtn" >' : '' ?> -->
  
 
@@ -199,6 +233,7 @@
             
     <?php $this->view('member/add_review', $data) ?>
     <?php $this->view('elibrary/review', $data) ?>
+    <?php $this->view('member/upgrade_plan_alert', $data) ?>
 
      
     <!-- end of add review box -->
@@ -207,16 +242,18 @@
         // Get the modal
 var modal = document.getElementById("myModal");
 var modal2 = document.getElementById("myModal-2");
+var modal3 = document.getElementById("myModal-3");
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 var moreBtn = document.getElementById("more-btn");
+var borrowBtn = document.getElementById("borrow-btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 var span2 = document.getElementsByClassName("close")[1];
-
+var span3 = document.getElementsByClassName("close")[2];
 // When the user clicks the button, open the modal 
 if (btn) {
     btn.onclick = function() {
@@ -229,6 +266,12 @@ if (moreBtn) {
         modal2.style.visibility = "visible";
     }
 }
+if (borrowBtn) {
+    borrowBtn.onclick = function() {
+        console.log("yes")
+        modal3.style.visibility = "visible";
+    }
+}
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.visibility = "hidden";
@@ -237,6 +280,10 @@ span.onclick = function() {
 span2.onclick = function() {
   modal2.style.visibility = "hidden";
   modal2.classList.remove('animate');
+}
+span3.onclick = function() {
+  modal3.style.visibility = "hidden";
+  modal3.classList.remove('animate');
 }
 if (document.getElementById('myBtn')) {
     document.getElementById('myBtn').addEventListener('click', function() {
@@ -249,6 +296,16 @@ if (document.getElementById('more-btn')) {
         document.getElementById('myModal-2').classList.add('animate');
     });
 }
+if (document.getElementById('borrow-btn')) {
+    document.getElementById('borrow-btn').addEventListener('click', function() {
+        console.log("borrow");
+        document.getElementById('myModal-3').classList.add('animate');
+    });
+}
+
+
+
+
 
 
 

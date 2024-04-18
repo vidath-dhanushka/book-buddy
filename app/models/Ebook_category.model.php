@@ -56,4 +56,20 @@ class Ebook_category extends Model
 
         return false;
     }
+
+    public function get_category_names($data){
+        $ids = implode(',', $data);
+        $query = "SELECT category_name FROM categories WHERE id IN ($ids)";
+        // echo $query;
+        // print_r( $ids);
+        // die;
+        $res = $this->query($query);
+    
+        if(is_array($res) && count($res) > 0){
+            $category_names = array_column($res, 'category_name');
+            return $category_names;
+        }
+    
+        return false;
+    }
 }

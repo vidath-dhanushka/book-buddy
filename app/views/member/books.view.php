@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <?php $this->view('includes/navbar') ?>
+    <?php $this->view('includes/navbar', $data) ?>
     <?php $this->view('includes/sidenav', $data) ?>
 
     <?php if ($action == 'add') : ?>

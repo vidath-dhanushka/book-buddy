@@ -52,7 +52,7 @@
   
   .upgrade-cancel {
     margin-top: 0.5rem;
-    background-color: rgba(249, 250, 251, 1);
+    background-color: #ddd;
     color: rgba(107, 114, 128, 1);
     transition: all .15s ease;
   }

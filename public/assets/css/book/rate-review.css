@@ -440,6 +440,10 @@ width: 30%;
   justify-content: space-between; 
 }
 
+.arrivals-icon .gold-star{
+ font-size:15px ;
+}
+
 @keyframes animate {
 	0% {
 		opacity: 0;

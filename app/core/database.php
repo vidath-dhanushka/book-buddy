@@ -239,15 +239,14 @@ class Database
             `description` TEXT,
             `book_cover`  VARCHAR(1024) NOT NULL,
             `file`  VARCHAR(1024) NOT NULL,
-            license_type VARCHAR(50) NOT NULL,
+            `license_type` VARCHAR(50) NOT NULL,
+            `borrowing_time` INT NOT NULL,
             `librarian_id` INT, 
             `copyright_status` INT NOT NULL DEFAULT 0,
             `date_added` DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id),
             FOREIGN KEY (librarian_id) REFERENCES Users(id) ON DELETE SET NULL
-           
         );
-        
         ";
         $this->query($query);
 
@@ -317,11 +316,13 @@ class Database
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebook_id` int(11) NOT NULL,
             `user_id` int(11) NOT NULL,
-            `borrow_date` date DEFAULT current_timestamp(),
-            PRIMARY KEY (id),
+            `borrow_date` DATETIME DEFAULT current_timestamp(),
+            `active` TINYINT(1) DEFAULT 1,
+            PRIMARY KEY (`id`),
             FOREIGN KEY (`ebook_id`) REFERENCES `ebooks`(`id`) ON DELETE CASCADE,
             FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
-          );
+        );
+        
         ";
         $this->query($query);
 
@@ -514,7 +515,26 @@ class Database
         );";
 
         $this->query($query);
-        
+
+        $query = "CREATE TABLE IF NOT EXISTS `notifications` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `userid` int(11) NOT NULL,
+            `status` varchar(255) NOT NULL,
+            `date` datetime NOT NULL DEFAULT current_timestamp(),
+            `type` varchar(255) NOT NULL,
+            `url` varchar(1000) NOT NULL,
+            `table` varchar(255) NOT NULL,
+            `seen` tinyint(1) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`userid`) REFERENCES `users`(`id`) ON DELETE CASCADE
+            
+          );
+          
+          ";
+
+        $this->query($query);
+
+       
 
         
         

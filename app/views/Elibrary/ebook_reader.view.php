@@ -1,11 +1,22 @@
 <?php $this->view('includes/header') ?>
 <?php $this->view('Elibrary/includes/elib_nav') ?>
-<script src="<?=ROOT?>/Elibrary/ebook_url/<?=$row->id ?>"></script>
+<script src="<?=ROOT?>/Elibrary/ebook_url/<?=$ebook->id ?>"></script>
 <link rel="stylesheet" href="<?=ROOT?>/assets/css/ebook-reader.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js" integrity="sha512-ml/QKfG3+Yes6TwOzQb7aCNtJF4PUyha6R3w8pSTo/VJSywl7ZreYvvtUso7fKevpsI+pYVVwnu82YO0q3V6eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <main>
+ 
     <div class="book-reader">
+        <div class="pdfNavigation">
+            <div class="left"></div>
+            <div class="middle">
+                <a href="<?=ROOT?>/Elibrary/view_ebook/<?=$ebook->id?>/return">
+                    <div class="return-btn">Return now</div>
+                </a>
+                <div class="return-time">Borrow ends on <?=$due_date ?></div>
+            </div>
+            <div class="right"></div>
+        </div>
         <div id="pdf-container" class="pdf-area">
             <canvas id="the-canvas"></canvas>
         </div>

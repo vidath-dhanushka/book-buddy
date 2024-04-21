@@ -1,8 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    color: #fff;
-}
+
 @media print {
     /* Hide the PDF area when printing */
     .pdf-area {
@@ -74,3 +70,23 @@ width: 50px;
 padding: 5px;
 color: #000;
 }
+
+.pdfNavigation .middle .return-btn {
+    color: #fff;
+    background-color: #f00;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+.pdfNavigation .middle .return-time {
+    color: #fff;
+    padding: 10px;
+}
+.pdfNavigation .middle .return-btn:hover {
+    /* Your hover CSS rules here */
+    color: #f00;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.7);
+}
+

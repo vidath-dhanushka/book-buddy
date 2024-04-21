@@ -1,0 +1,74 @@
+<?php
+
+class Borrowed_ebook extends Model
+{
+    protected $table = "borrowed_ebooks";
+    public $errors = [];
+
+    protected $allowedColumns = [
+        "ebook_id", 
+        "user_id", 
+        "borrow_date",
+        "active"
+
+    ];
+
+    public function countBorrowedCopies($data){
+        $query = "SELECT COUNT(*) as borrowed_copies FROM {$this->table} WHERE `ebook_id` = :ebook_id;";
+        $res = $this->query($query, $data);
+        
+
+        if(empty($res)){
+            return false;
+        }
+    
+        return $res[0];
+    }
+
+    public function countUserBorrowedBooks($data){
+        $query = "SELECT COUNT(*) as user_borrowed_books FROM {$this->table} WHERE `user_id` = :user_id;";
+        $res = $this->query($query, $data);
+        if(empty($res)){
+            return false;
+        }
+    
+        return $res[0];
+    }
+    
+
+    public function hasUserBorrowed($data){
+        $query = "SELECT `active` FROM {$this->table} WHERE `user_id` = :user_id AND `ebook_id` = :ebook_id AND `active` = 1 LIMIT 1;";
+        $res = $this->query($query, $data);
+        return (!empty($res[0]) && $res[0]->active == 1);
+    }
+    
+    
+
+    public function borrowedEbookDetails($data){
+        $query = "SELECT * FROM {$this->table} WHERE `user_id` = :user_id AND `ebook_id` = :ebook_id AND `active` = 1;";
+        $res = $this->query($query, $data);
+       
+        if(empty($res)){
+            return false;
+        }
+    
+        return $res[0];
+    }
+    
+    public function returnBorrowedEbook($data){
+        $query = "UPDATE {$this->table} SET `active` = 0 WHERE `id` = :id;";
+        $res = $this->query($query, $data);
+    
+        if($res === false){
+            return false;
+        }
+    
+        return true;
+    }
+    
+    
+    
+    
+
+    
+}

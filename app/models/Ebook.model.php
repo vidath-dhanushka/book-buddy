@@ -20,40 +20,43 @@ class Ebook extends Model
         'author_id',
         'librarian_id',
         'license_type',
-        'copyright_status'
+        'copyright_status',
+        'borrowing_time'
     ];
 
     private function isValidISBN($isbn) {
         $isbn = str_replace('-', '', $isbn);
-    
-        if(strlen($isbn) == 10) {
-            // Validate ISBN-10
-            $sum = 0;
-            for($i = 0; $i < 10; $i++) {
-                if($isbn[$i] == "X") {
-                    $sum += 10 * (10 - $i);
-                } else if(is_numeric($isbn[$i])) {
-                    $sum += $isbn[$i] * (10 - $i);
-                } else {
-                    return false;
-                }
-            }
-            
-            return $sum % 11 == 0;
-        } else if(strlen($isbn) == 13) {
-            // Validate ISBN-13
-            $sum = 0;
-            for($i = 0; $i < 13; $i++) {
-                if($i % 2 == 0) {
-                    $sum += $isbn[$i];
-                } else {
-                    $sum += 3 * $isbn[$i];
-                }
-            }
-            return $sum % 10 == 0;
-        } else {
-            // Not a valid ISBN
+
+        // Check if the ISBN is either 10 or 13 digits
+        if (strlen($isbn) !== 10 && strlen($isbn) !== 13) {
             return false;
+        }
+    
+        // For ISBN-10
+        if (strlen($isbn) === 10) {
+            if (!ctype_digit(substr($isbn, 0, -1))) {
+                return false;
+            }
+            $checksum = 0;
+            for ($i = 0; $i < 9; $i++) {
+                $checksum += (int)$isbn[$i] * (10 - $i);
+            }
+            $checksum %= 11;
+            $checksum = ($checksum == 10) ? 'X' : $checksum;
+            return $checksum == $isbn[9];
+        }
+    
+        // For ISBN-13
+        if (strlen($isbn) === 13) {
+            if (!ctype_digit(substr($isbn, 0, -1))) {
+                return false;
+            }
+            $sum = 0;
+            for ($i = 0; $i < 12; $i++) {
+                $sum += (int)$isbn[$i] * (($i % 2 === 0) ? 1 : 3);
+            }
+            $checksum = (10 - ($sum % 10)) % 10;
+            return $checksum == $isbn[12];
         }
     }
 

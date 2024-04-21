@@ -143,6 +143,18 @@
           </div>
          
         </div>
+        <div class="column">
+          <div class="input-box">
+            <label>Borrowing Time (in days): *</label>
+            <input type="number"  placeholder="Enter borrowing time in days" value="<?= set_value('borrowing_time') ?>" name="borrowing_time"/>
+            <?php if (!empty($errors['borrowing_time'])) : ?>
+             <small class="err-msg"><?= $errors['borrowing_time'] ?></small>
+            <?php endif; ?>
+          </div>
+          <div class="input-box">
+            
+          </div>
+        </div>
         <br>
         <?php ?> 
         <label for="category">Category *</label>
@@ -338,6 +350,18 @@ foreach ($data['categories'] as $category) : ?>
                             <?php endif; ?>
                         </div>
                     </div>
+                    <div class="column">
+          <div class="input-box">
+            <label>Borrowing Time (in days): *</label>
+            <input type="number"  placeholder="Enter borrowing time in days" value="<?= $data['book_details']->borrowing_time; ?>" name="borrowing_time"/>
+            <?php if (!empty($errors['borrowing_time'])) : ?>
+             <small class="err-msg"><?= $errors['borrowing_time'] ?></small>
+            <?php endif; ?>
+          </div>
+          <div class="input-box">
+            
+          </div>
+        </div>
                     <br>
                     <label for="category">Category</label>
                     <br>

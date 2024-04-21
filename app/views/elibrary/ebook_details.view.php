@@ -50,7 +50,7 @@
         </tr>
         
     </table>
-    <!-- <?= show($ebook) ?> -->
+ 
     <p class="description"> <span>Description:</span><br><?= $ebook->description; ?></p>
     <?php if (!empty($ebook->cats)) : ?>
         <div class="tags">
@@ -59,13 +59,17 @@
             <?php endfor; ?>
         </div>
     <?php endif; ?>
-    
+
     <?php if ($user_subscription->price >= $book_subscription->price ): ?>
-        <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Borrow Now</button>
+        <?php if ($isborrowed): ?>
+            <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Read</button>
+        <?php else: ?>
+            <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Borrow Now</button>
+        <?php endif; ?>
     <?php else: ?>
-        <!-- <?= show($book_subscription) ?> -->
         <button id="borrow-btn">Borrow Now</button>
     <?php endif; ?>
+
     <button>Add to Cart</button>
 </section>
 
@@ -303,7 +307,7 @@ if (document.getElementById('borrow-btn')) {
     });
 }
 
-
+<?php $this->view('includes/footer') ?>
 
 
 

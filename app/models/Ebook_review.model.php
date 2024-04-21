@@ -50,6 +50,21 @@ class Ebook_review extends Model
         return false;
     }
 
+    public function get_ebooks_average_rating(){
+        $query = "SELECT ebookID, AVG(rating) as average_rating
+                  FROM {$this->table}
+                  GROUP BY ebookID";
+        
+        $res = $this->query($query);
+        
+        if (is_array($res) && count($res) > 0) {
+            return $res;
+        }
+        
+        return false;
+    }
+    
+
     public function get_review_count($data){
         $query = "SELECT COUNT(*) as review_count
                   FROM {$this->table}

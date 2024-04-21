@@ -17,8 +17,7 @@
       
         <div class="upgrade-action">
           
-      
-          <a class="upgrade-cancel" href="">
+          <a class="upgrade-cancel" href="<?= ROOT ?>/Elibrary/view_ebook/<?= $ebook->id ?>">
             Do this later
           </a><br>
           <a class="upgrade-submit" href="<?= ROOT ?>/Elibrary/subscription">

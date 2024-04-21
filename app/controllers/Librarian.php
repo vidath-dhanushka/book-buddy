@@ -304,11 +304,9 @@ class Librarian extends Controller
                     if(isset($_POST['license_type']) && $_POST['license_type']=="Public Domain"){
                         $_POST['copyright_status'] = 1;
                     }
-                    else{
-                        $_POST['copyright_status'] = 0;
-                    }
+                   
                     if(!empty($_POST)){
-                        
+                        // show($_POST);
                         $book->update($book_res, $_POST);
                     }
                     if ($author_verify && $book_res) {
@@ -417,7 +415,7 @@ class Librarian extends Controller
             
         }else if($action == 'edit'){
             $data['copyright'] = $copyright->getCopyright(['ebook_id' => $id]);
-            $data['subscription'] = $subscription->getSubscriptionName(["id" => $data['copyright']->subscription]);
+            $data['subscription'] = $subscription->getSubscription(["id" => $data['copyright']->subscription]);
             if(empty($id)){
                 $this->view("librarians/ebooks");
             }

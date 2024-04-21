@@ -5,12 +5,13 @@
   <div class="current-plan">
     <div class="wrapper" id="subscription">
       <div class="card-area">
+        <!-- <?= show($data) ?> -->
         <div class="title">Current Plan</div>
-        <div class="current cards">
+          <div class="current cards">
        
-          <div class="current price-details">
-            <span class="price"><?= $user_subscription->price?></span>
-          </div>
+            <div class="current price-details">
+              <span class="price"><?= $user_subscription->price?></span>
+            </div>
           <div class="current name"><p><?= $user_subscription->name?></p></div>
           <?php
            $user_subscription->features = unserialize($user_subscription->features); 
@@ -31,7 +32,7 @@
     <div class="title">Upgrade Your Subscription Plan</div>
     <div class="content">
     <?php foreach($subscriptions as $index => $subscription): ?>
-        <input type="radio" name="slider" id="tab-<?= $index+1 ?>" <?php if ($subscription->id === $user_subscription->subscription_id) echo 'checked'; ?>>
+        <input type="radio" name="slider" id="tab-<?= $index+1 ?>" <?php if ($subscription->id === $user_subscription->id) echo 'checked'; ?>>
         <label for="tab-<?= $index+1 ?>" class="box" style="border: 2px solid #D9D9D9;" data-index="<?= $index+1 ?>">
             <div class="plan">
                 <span class="circle"></span>

@@ -27,6 +27,9 @@ class Borrowed_ebook extends Model
 
     public function countUserBorrowedBooks($data){
         $query = "SELECT COUNT(*) as user_borrowed_books FROM {$this->table} WHERE `user_id` = :user_id;";
+        // show($query);
+        // show($data);
+        // die;
         $res = $this->query($query, $data);
         if(empty($res)){
             return false;

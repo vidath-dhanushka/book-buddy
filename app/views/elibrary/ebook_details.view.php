@@ -59,7 +59,7 @@
             <?php endfor; ?>
         </div>
     <?php endif; ?>
-
+         
     <?php if ($user_subscription->price >= $book_subscription->price ): ?>
         <?php if ($isborrowed): ?>
             <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Read</button>
@@ -112,6 +112,7 @@
             <div class="rating-progress">
                 <?php
                 $rating_counts = $reviews['rating_count']; 
+               
 
                 for ($i = 5; $i >= 1; $i--) {
                     $count = 0;
@@ -135,9 +136,9 @@
             <div class="add-review">
                 
                 <?php 
-            $user_review = $reviews['user_review']; 
-            if (!empty($user_review)) : ?>
             
+            if (!empty($reviews['user_review'])) : ?>
+                <?php $user_review = $reviews['user_review'];  ?>
                 <div class="box">
                     <div class="box-header">
                         <h2>My Review</h2>
@@ -306,7 +307,7 @@ if (document.getElementById('borrow-btn')) {
         document.getElementById('myModal-3').classList.add('animate');
     });
 }
-
+</script>
 <?php $this->view('includes/footer') ?>
 
 
@@ -315,5 +316,5 @@ if (document.getElementById('borrow-btn')) {
 
 
     
-</script>
+
 

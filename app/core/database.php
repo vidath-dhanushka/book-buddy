@@ -265,6 +265,14 @@ class Database
 
         $this->query($query);
 
+        $features = serialize(['Access to 1 book at a time']);
+        $query = "INSERT IGNORE INTO subscriptions (`id`,`name`, `price`, `numberOfBooks`, `features`) VALUES (1, 'Free Plan', 0.00, 1, '$features')";
+
+
+        $this->query($query);
+
+
+
         $query = "CREATE TABLE IF NOT EXISTS copyrights (
             id INT AUTO_INCREMENT,
             ebook_id INT NOT NULL,

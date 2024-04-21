@@ -89,8 +89,15 @@ class Ebook_review extends Model
             return $res;
         }
     
-        return false;
+        // If no ratings are found, return an array with a count of 0 for each rating
+        $res = [];
+        for ($i = 5; $i >= 1; $i--) {
+            $res[] = (object) ['rating' => $i, 'count' => 0];
+        }
+    
+        return $res;
     }
+    
 
     public function get_user_review($data){
         $query = "SELECT *

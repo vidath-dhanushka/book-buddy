@@ -12,13 +12,13 @@
 </head>
 <body>
 
-<?php if(!empty($row)):?>
+
  
 <?php $this->view('includes/navbar') ?>
 <?php $this->view('includes/sidenav', $data) ?>
 
 <section class="home-section">
-
+<?php if(!empty($row)):?>
 <section class="container">
 <?php 
   $message = message('', true);

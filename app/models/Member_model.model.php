@@ -299,6 +299,20 @@ public function edit_validate($data, $id){
         return false;
     }
 
+    public function addMemberRecord($userID) {
+        // Check if the user has a record in the 'members' table
+        $query = "SELECT * FROM members WHERE userID = {$userID}";
+        $member = $this->query($query);
+    
+        // If the user doesn't have a record in the 'members' table, add one
+        if (empty($member)) {
+            $query = "INSERT INTO members (userID) VALUES ({$userID})";
+            $this->query($query);
+        }
+    }
+    
+    
+
 
    
 

@@ -5,7 +5,7 @@
         <span class="close">×</span>
         <div class="add_review">
             <section class="review-form">
-                <form action=<?php echo ROOT."/member/add_ebook_review/".$ebook->id ?>  method="post">
+                <form action=<?php echo ROOT."/member/add_book_review/".$row->id ?>  method="post">
                     <h3>Post your review </h3>
                     <p>Rate this book</p>
                     <div name="rating" class="rating" required>

@@ -1,12 +1,12 @@
 <?php
 
-class Ebook_review extends Model
+class Book_review extends Model
 {
-    protected $table = "ebook_reviews";
+    protected $table = "book_reviews";
     public $errors = [];
 
     protected $allowedColumns = [
-        'ebookID',
+        'bookID',
         'userID',
         'rating',
         'description',
@@ -19,7 +19,7 @@ class Ebook_review extends Model
         $query = "SELECT {$this->table}.*, users.username, users.user_image
           FROM `{$this->table}`
           INNER JOIN `users` ON {$this->table}.userID = users.id
-          WHERE {$this->table}.ebookID = :ebook_id";
+          WHERE {$this->table}.bookID = :book_id";
        
         // echo $query;
         // print_r($data);
@@ -40,7 +40,7 @@ class Ebook_review extends Model
     public function get_average_rating($data){
         $query = "SELECT AVG(rating) as average_rating
                   FROM {$this->table}
-                  WHERE ebookID = :ebook_id";
+                  WHERE bookID = :book_id";
         // print_r($data);
         // echo $query;
         // die;
@@ -54,9 +54,9 @@ class Ebook_review extends Model
     }
 
     public function get_ebooks_average_rating(){
-        $query = "SELECT ebookID, AVG(rating) as average_rating
+        $query = "SELECT bookID, AVG(rating) as average_rating
         FROM {$this->table}
-        GROUP BY ebookID
+        GROUP BY bookID
         ORDER BY average_rating DESC
         ";
         
@@ -73,7 +73,7 @@ class Ebook_review extends Model
     public function get_review_count($data){
         $query = "SELECT COUNT(*) as review_count
                   FROM {$this->table}
-                  WHERE ebookID = :ebook_id";
+                  WHERE bookID = :book_id";
         $res = $this->query($query, $data);
     
         if (is_array($res) && count($res) > 0) {
@@ -86,7 +86,7 @@ class Ebook_review extends Model
     public function get_rating_counts($data){
         $query = "SELECT rating, COUNT(*) as count
                   FROM {$this->table}
-                  WHERE ebookID = :ebook_id
+                  WHERE bookID = :book_id
                   GROUP BY rating ORDER BY rating DESC";
         $res = $this->query($query, $data);
     
@@ -107,7 +107,7 @@ class Ebook_review extends Model
     public function get_user_review($data){
         $query = "SELECT *
                   FROM {$this->table}
-                  WHERE ebookID = :ebook_id AND userID = :user_id";
+                  WHERE bookID = :book_id AND userID = :user_id";
         $res = $this->query($query, $data);
     
         if (is_array($res) && count($res) > 0) {
@@ -132,13 +132,13 @@ class Ebook_review extends Model
         $query = "SELECT e.*, a.author_name, AVG(r.rating) as average_rating, c.categories
         FROM ebooks e
         LEFT JOIN authors a ON e.author_id = a.id
-        LEFT JOIN {$this->table} r ON e.id = r.ebookID
+        LEFT JOIN {$this->table} r ON e.id = r.bookID
         LEFT JOIN (
-            SELECT ebook_id, GROUP_CONCAT(DISTINCT category_name) as categories
+            SELECT book_id, GROUP_CONCAT(DISTINCT category_name) as categories
             FROM ebook_category ec
             LEFT JOIN categories c ON ec.category_id = c.id
-            GROUP BY ebook_id
-        ) c ON e.id = c.ebook_id
+            GROUP BY book_id
+        ) c ON e.id = c.book_id
         WHERE e.copyright_status = 1
         GROUP BY e.id
         ORDER BY average_rating DESC

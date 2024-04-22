@@ -14,7 +14,7 @@ class Borrowed_ebook extends Model
     ];
 
     public function countBorrowedCopies($data){
-        $query = "SELECT COUNT(*) as borrowed_copies FROM {$this->table} WHERE `ebook_id` = :ebook_id;";
+        $query = "SELECT COUNT(*) as borrowed_copies FROM {$this->table} WHERE `ebook_id` = :ebook_id AND `active` = 1 ";
         $res = $this->query($query, $data);
         
 
@@ -37,6 +37,21 @@ class Borrowed_ebook extends Model
     
         return $res[0];
     }
+    public function getUserEbookDetails($data){
+        $query = "SELECT u.*, e.*, a.author_name FROM {$this->table} as u 
+                  JOIN ebooks as e ON u.ebook_id = e.id 
+                  JOIN authors as a ON e.author_id = a.id
+                  WHERE u.user_id = :user_id;";
+        $res = $this->query($query, $data);
+        if(empty($res)){
+            return false;
+        }
+    
+        return $res;
+    }
+    
+    
+    
     
 
     public function hasUserBorrowed($data){

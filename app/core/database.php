@@ -313,8 +313,24 @@ class Database
             `date` timestamp NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (`id`),
             FOREIGN KEY (`ebookID`) REFERENCES `ebooks`(`id`) ON DELETE CASCADE,
-            FOREIGN KEY (`userID`) REFERENCES `users`(`id`)
+            FOREIGN KEY (`userID`) REFERENCES `users`(`id`) ON DELETE CASCADE
         );
+
+        ";
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `book_reviews` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `bookID` int(11) DEFAULT NULL,
+            `userID` int(11) DEFAULT NULL,
+            `rating` int(11) DEFAULT NULL,
+            `description` text DEFAULT NULL,
+            `date` timestamp NOT NULL DEFAULT current_timestamp(),
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`bookID`) REFERENCES `books`(`id`) ON DELETE CASCADE,
+            FOREIGN KEY (`userID`) REFERENCES `users`(`id`) ON DELETE CASCADE
+        );
+        
 
         ";
         $this->query($query);

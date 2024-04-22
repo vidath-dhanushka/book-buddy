@@ -8,7 +8,16 @@ class Elibrary extends Controller
         // $db->create_tables();
         // $users = new user();
         // $users->insert($data);
+        // $ebook = new Ebook;
+        // $data['ebooks'] = $ebooks = $ebook->get_all_ebooks();
 
+        // show($ebooks);
+        // die;
+        $review = new Ebook_review();
+        $ebook = new Ebook;
+        $data['top_ebooks']=$ebooks = $review->getTopRatedEbooks();
+        $data['new_ebooks'] = $ebook->getNewlyAddedEbooks();
+        
         $data['title'] = 'Elibrary';
         $this->view('Elibrary/home', $data);
     }
@@ -87,6 +96,7 @@ class Elibrary extends Controller
         $data['reviews']['average_rating'] = number_format($review->get_average_rating(["ebook_id"=>$id]), 1);
         $data['reviews']['count'] = $review->get_review_count(["ebook_id"=>$id]);
         $data['reviews']['rating_count'] = $review->get_rating_counts(["ebook_id"=>$id]);
+        
         $data['ebook']->cats = $category->get_category_names($data['ebook']->cats);
         $data['copyright'] = $copyright->getCopyright(["ebook_id"=>$id]);
         $data['book_subscription']=$sub =  $subscription->getSubscription(["id"=>$data['copyright']->subscription]);
@@ -123,7 +133,7 @@ class Elibrary extends Controller
             $interval =  new DateInterval('P' . $numDays . 'D');
             $due_date = $date->add($interval);
             $today = new DateTime();
-            show($today <= $due_date);
+            // show($today <= $due_date);
             if($today >= $due_date){
                 $borrowed_ebook->returnBorrowedEbook(['id'=> $borrowing->id]);
             }

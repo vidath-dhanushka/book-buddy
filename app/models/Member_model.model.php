@@ -40,6 +40,20 @@ class Member_model extends Model{
     
         return false;
     }
+    public function addBookReview($data, $table = 'book_reviews'){
+        $query = "INSERT INTO " . $table . " (bookID, userID, rating, description) VALUES (:book_id, :user_id, :rating, :description)";
+        // echo $query;
+        // print_r($data);
+        // die;
+        $res = $this->query($query, $data);
+    
+        if ($res) {
+            return true;
+        }
+    
+        return false;
+    }
+    
 
     public function update_by_column($columnValue, $data, $columnName = null, $secondTable = null, $firstTableJoinColumn = null, $secondTableJoinColumn = null)
     {
@@ -217,7 +231,30 @@ public function vertify_review($data){
     $this->errors = [];
     $query = "SELECT ebookID, userID FROM `ebook_reviews` WHERE ebookID=:ebook_id AND userID=:user_id";
     $res = $this->query($query, $data);
+    // show($res);
+    // die;
+    if (is_array($res) && count($res) > 0) {
+        $this->errors['title'] = "Your review already added.";
+    }
+
+    if(empty($this->errors)){
+        // print_r($this->errors);
+        // die;
+        return true;
+    }
+    else{
         
+        return false;
+    }
+}
+
+public function vertify_book_review($data){
+        
+    $this->errors = [];
+    $query = "SELECT bookID, userID FROM `book_reviews` WHERE bookID=:book_id AND userID=:user_id";
+    $res = $this->query($query, $data);
+    // show($res);
+    // die;
     if (is_array($res) && count($res) > 0) {
         $this->errors['title'] = "Your review already added.";
     }
@@ -310,6 +347,9 @@ public function edit_validate($data, $id){
             $this->query($query);
         }
     }
+
+    
+    
     
     
 

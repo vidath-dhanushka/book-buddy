@@ -32,11 +32,27 @@ class Books extends Controller
     public function view_book($id)
     {
         $book = new Book;
-
+        $user = new User();
+        $category = new Book_category;
+        $review = new Book_review();
         $data['title'] = 'book details';
-
+        if (Auth::logged_in()) {
+            $data['user'] =  $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        }
         $data['row'] = $book->view_book_details(['b.id' => $id]);
+        $data['reviews']['all'] =$review->get_review(["book_id"=>$id]);
+        $data['reviews']['average_rating'] = number_format($review->get_average_rating(["book_id"=>$id]), 1);
+        $data['reviews']['count'] = $review->get_review_count(["book_id"=>$id]);
+        $data['reviews']['rating_count'] = $review->get_rating_counts(["book_id"=>$id]);
+        $data['reviews']['user_review'] = $review->get_user_review(["book_id"=>$id, "user_id"=>$_SESSION['USER_DATA']->id]);
 
+        $data['row']->cats = $category->get_category_names($data['row']->cats);
+       
+      
+       
+
+        // show($data);
+        // die;
 
         $this->view('book_details', $data);
     }

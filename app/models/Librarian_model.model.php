@@ -27,19 +27,7 @@ class Librarian_model extends Model{
         'postalCode'
     ];
 
-    public function addReview($data, $table = 'ebook_reviews'){
-        $query = "INSERT INTO " . $table . " (ebookID, userID, rating, title, description) VALUES (:ebook_id, :user_id, :rating, :title, :description)";
-        // echo $query;
-        // print_r($data);
-        // die;
-        $res = $this->query($query, $data);
-    
-        if ($res) {
-            return true;
-        }
-    
-        return false;
-    }
+   
     
 
     public function update_by_column($columnValue, $data, $columnName = null, $secondTable = null, $firstTableJoinColumn = null, $secondTableJoinColumn = null)

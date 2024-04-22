@@ -75,7 +75,7 @@
       </li>
       <li>
         <div class="iocn-link">
-          <a href="<?= ROOT ?>/member/change_subscription">
+          <a href="<?= ROOT ?>/Elibrary/subscription">
             <div class="icon">
               <img
                 src="<?= ROOT ?>/assets/images/sidenav/subscription.png"
@@ -93,11 +93,7 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="<?= ROOT ?>/member/books/add">Subscription</a></li>
-          <li>
-            <a href="<?= ROOT ?>/member/change_subscription"
-              >Change Subscription</a
-            >
-          </li>
+          
         </ul>
       </li>
     

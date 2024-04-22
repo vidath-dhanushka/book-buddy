@@ -257,4 +257,34 @@ class Ebook extends Model
             return false;
         }
     }
+
+
+    public function getNewlyAddedEbooks(){
+        $query = "SELECT e.*, a.author_name, c.categories
+        FROM ebooks e
+        LEFT JOIN authors a ON e.author_id = a.id
+        LEFT JOIN (
+            SELECT ebook_id, GROUP_CONCAT(DISTINCT category_name) as categories
+            FROM ebook_category ec
+            LEFT JOIN categories c ON ec.category_id = c.id
+            GROUP BY ebook_id
+        ) c ON e.id = c.ebook_id
+        WHERE e.copyright_status = 1
+        ORDER BY e.date_added DESC
+        LIMIT 10
+        ";
+        
+        $res = $this->query($query);
+        
+        if (is_array($res) && count($res) > 0) {
+            return $res;
+        }
+        
+        return false;
+    }
+    
+    
+
 }
+
+

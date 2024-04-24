@@ -15,8 +15,13 @@ class Member extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
+        $borrowing = new Borrowed_ebook;
+        
         $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        $data['ebook_borrowing'] = $borrowing->getUserEbookDetails(['user_id'=>$data['row']->id]);
         $data['title'] = 'Dashboard';
+        
+        
         $this->view('member/dashboard', $data);
     }
     
@@ -70,10 +75,10 @@ class Member extends Controller
     //     $data['title'] = 'Change Subscription';
     //     $this->view('member/change_subscription', $data);
     // }
-
+    
     
 
-    public function add_ebook_review($id=null)
+    public function add_ebook_review($id=null, $action=null)
     {
         // echo "yes";
         // die;
@@ -81,13 +86,20 @@ class Member extends Controller
         $id = $id ?? Auth::getId();
         $member = new Member_model();
         $ebook = new EBook;
+        $borrowed_ebook = new Borrowed_ebook;
+        $review = new Ebook_review();
         // $data['ebooks'] = $ebook->view_ebook_details(['b.id' => $id]);
       
         
         // $data['ebook'] = $ebook->first_by_column(['ebookID' => ]);
-        // $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
+        $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
         // print_r($_POST);
         // die;
+        if(!empty($action) && $action="delete"){
+            $review->deleteUserReview(["ebook_id"=>$id,"user_id"=>$row->userID]);
+            message("Review deleted.");
+            redirect("elibrary/view_ebook/" . $id);
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST["ebook_id"] = $id;
             $_POST["user_id"] =  $_SESSION['USER_DATA']->id;
@@ -103,11 +115,21 @@ class Member extends Controller
                 if(isset($_POST["submit"])) {
                     unset($_POST["submit"]);
                 }
+                $isborrowed = $borrowed_ebook->hasUserEverBorrowed(["user_id"=>$row->userID, "ebook_id"=>$id ]);
                 
-                $member->addReview($_POST);
-                $_SESSION['message_class'] = 'alert-success';
-                message("Review added.");
-                redirect("elibrary/view_ebook/" . $id);
+                if($isborrowed){
+                    $member->addReview($_POST);
+                    $_SESSION['message_class'] = 'alert-success';
+                    message("Review added.");
+                    redirect("elibrary/view_ebook/" . $id);
+                }
+                else{
+                    $_SESSION['message_class'] = 'alert';
+                    message("You must have borrowed the ebook at least once before you can add a review.");
+                    redirect("elibrary/view_ebook/" . $id);
+                }
+
+                
                 
                 
             }

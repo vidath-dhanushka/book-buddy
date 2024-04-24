@@ -161,7 +161,12 @@ class Elibrary extends Controller
         $copyright = new Copyright();
   
         if (Auth::logged_in()) {
+            
             $data['row']= $row =$member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
+            if($row->role !== 'member'){
+                message("To access all the features and benefits, please sign in as a member.");
+                redirect('elibrary/view_ebook/'.$id);
+            }
             $data['ebook']  = $ebook->view_ebook_details(['b.id' => $id]);
             $data['copyright'] = $copyright->getCopyright(["ebook_id"=>$id]);
             $data['book_subscription']=$sub = $subscription->getSubscription(["id"=>$data['copyright']->subscription]);
@@ -181,6 +186,7 @@ class Elibrary extends Controller
 
                 if($licensed_copies > $borrowing_count && $user_sub->numberOfBooks > $user_borrowing){
                     if(!$isborrowed){
+                        // show($row);
                         $borrowed_ebook->insert(["user_id"=>$row->userID, "ebook_id"=>$id]);
                     }
                     $borrowing = $borrowed_ebook->borrowedEbookDetails(["user_id"=>$row->userID,"ebook_id"=>$id ]);

@@ -37,6 +37,20 @@ class Ebook_review extends Model
         return false;
        
     }
+
+    public function deleteUserReview($data){
+        $query = "DELETE FROM {$this->table} WHERE `userID` = :user_id AND `ebookID` = :ebook_id";
+        // show($query);
+        // show($data);
+        $res = $this->query($query, $data);
+    
+        if($res){
+            return true;
+        }
+    
+        return false;
+    }
+    
     public function get_average_rating($data){
         $query = "SELECT AVG(rating) as average_rating
                   FROM {$this->table}

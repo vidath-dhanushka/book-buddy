@@ -159,9 +159,9 @@ class Member_model extends Model{
         ORDER BY t2.id DESC LIMIT 1;
         ";
         
-        // echo "<br>".$query."<br>";
-        // print_r($data);
-        // echo "<br>";
+        echo "<br>".$query."<br>";
+        print_r($data);
+        echo "<br>";
         // die;
         $res = $this->query($query, $data);
     

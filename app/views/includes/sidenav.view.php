@@ -19,7 +19,7 @@
   <?php if($row->role === "member"):?>
     <ul class="nav-links">
       <li>
-        <a href="<?= ROOT ?>/member/dashboard">
+        <a href="<?= ROOT ?>/member">
           <div class="icon">
             <img src="<?= ROOT ?>/assets/images/sidenav/dashboard.png" alt="icon" />
           </div>

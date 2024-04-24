@@ -143,10 +143,7 @@
                     <div class="box-header">
                         <h2>My Review</h2>
                         <div>
-                        <a href="">
-                            <i class="fa-regular fa-pen-to-square" style="color:blue"></i>
-                        </a>
-                        <a href="" style="margin-left:5px">
+                        <a href="<?=ROOT?>/member/add_ebook_review/<?=$ebook->id?>/delete" style="margin-left:5px">
                             <i class="fa-solid fa-trash" style="color:red;"></i>
                         </a>
                         </div>
@@ -187,7 +184,7 @@
         </div>
       <div class="review-header">
    
-      <!-- <?= !empty($is_borrowed) ?  '<img src="'. ROOT .'/assets/images/review.png" alt="add" id="myBtn" >' : '' ?> -->
+    
  
 
       <button class="cart-btn" id="more-btn">see more</button>

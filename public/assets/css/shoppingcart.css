@@ -1,13 +1,10 @@
-
-
-
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
 }
 .c1ontainer {
+    margin-top: 20px;
     display: flex;
 }
 .c1art {
@@ -16,12 +13,14 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 20px;
+    margin-top: 20px;
 }
 .c1heckout {
     flex: 0 0 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-top: 20px;
 }
 .b1ook {
     display: flex;

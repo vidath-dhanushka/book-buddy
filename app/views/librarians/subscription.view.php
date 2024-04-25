@@ -42,7 +42,7 @@
                             <?php endif;?>
                         </div>
                         <div class="input-box">
-                            <label for="numberOfBooks">Max Books per User *</label><br>
+                            <label for="numberOfBooks">Max Books (at a time) *</label><br>
                             <input type="number" id="numberOfBooks" name="numberOfBooks" min="0" value="<?= isset($subscription['numberOfBooks']) ? $subscription['numberOfBooks'] : '' ?>">
                             <?php if(!empty($errors['numberOfBooks'])):?>
                                 <small class="err-msg"><?=$errors['numberOfBooks']?></small>

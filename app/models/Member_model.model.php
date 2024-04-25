@@ -153,15 +153,20 @@ class Member_model extends Model{
     
         $keys = array_keys($data);
      
-        $query = "SELECT * FROM users AS t1
+        $query = "SELECT t1.*, t2.*, t3.cityName, t4.provinceName 
+        FROM users AS t1
         LEFT JOIN members AS t2 ON t1.id = t2.userID
+        LEFT JOIN cities AS t3 ON t2.city = t3.id
+        LEFT JOIN provinces AS t4 ON t2.province = t4.id
         WHERE t1.id = :id
         ORDER BY t2.id DESC LIMIT 1;
+        
+        
         ";
         
-        echo "<br>".$query."<br>";
-        print_r($data);
-        echo "<br>";
+        // echo "<br>".$query."<br>";
+        // print_r($data);
+        // echo "<br>";
         // die;
         $res = $this->query($query, $data);
     

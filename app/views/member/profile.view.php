@@ -121,11 +121,11 @@
                                 </tr>
                                 <tr>
                                     <td> Province </td>
-                                    <td><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : '' ?></td>
+                                    <td><?= isset($row->provinceName) ? set_value('Province', $row->provinceName) : '' ?></td>
                                 </tr>
                                 <tr>
                                     <td> City </td>
-                                    <td> <?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : '' ?></td>
+                                    <td> <?= isset($row->cityName) ? set_value('City', $row->cityName) : '' ?></td>
                                 </tr>
                                 
                                 <tr>

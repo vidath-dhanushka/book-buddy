@@ -33,8 +33,8 @@ class Member extends Controller
         // $data['row'] = $user->first(['id' => $id]);
         // echo $id;
         $member = new Member_model();
-        $data['provinces'] = $member->getProvinces();
-        $data['cities'] = $member->getCities();
+        // $data['provinces'] = $member->getProvinces();
+        // $data['cities'] = $member->getCities();
         $data['row'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
         if($row->role !== "member"){
             message('Please login to view the member section');
@@ -338,15 +338,16 @@ class Member extends Controller
         $borrowed_ebook = new Borrowed_ebook();
         $data['ebook_borrowing']= $borrowing = $borrowed_ebook->getUserEbookDetails(['user_id'=>$row->id]);
         
-        foreach ($borrowing as $book) {
-            $date = new DateTime($book->borrow_date);
-            $numDays = $book->borrowing_time;
-            $interval =  new DateInterval('P' . $numDays . 'D');
-            $return_date = $date->add($interval);
-            $return_date = $date->format('Y-m-d');
-            $book->return_date = $return_date;
-            $book->borrow_date = (new DateTime($book->borrow_date))->format('Y-m-d');
-
+        if (!empty($borrowing)) {
+            foreach ($borrowing as $book) {
+                $date = new DateTime($book->borrow_date);
+                $numDays = $book->borrowing_time;
+                $interval =  new DateInterval('P' . $numDays . 'D');
+                $return_date = $date->add($interval);
+                $return_date = $date->format('Y-m-d');
+                $book->return_date = $return_date;
+                $book->borrow_date = (new DateTime($book->borrow_date))->format('Y-m-d');
+            }
         }
         // show($borrowing);
         // die;

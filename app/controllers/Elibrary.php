@@ -25,15 +25,16 @@ class Elibrary extends Controller
     {
         $member_subscription = new Member_subscription();
         $member = new Member_model();
-        $user_id = $_SESSION['USER_DATA']->id;
-        $member->addMemberRecord($user_id);
+        
         $subscription = new Subscription();
         if (Auth::logged_in() ) {
+            $user_id = $_SESSION['USER_DATA']->id;
+            $member->addMemberRecord($user_id);
             $data['row'] =$member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
             $data['user_subscription'] = $member_subscription->getSubscription(["id"=>$data['row']->id]);
-            $data['subscriptions'] = $subscription->getSubscriptions();
+            
         }
-
+        $data['subscriptions'] = $subscription->getSubscriptions();
         $data['title'] = 'subscription';
         $this->view('Elibrary/subscription', $data);
     }

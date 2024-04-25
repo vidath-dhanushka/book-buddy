@@ -31,16 +31,21 @@
   <div class="card">
     <div class="title">Upgrade Your Subscription Plan</div>
     <div class="content">
-    <?php foreach($subscriptions as $index => $subscription): ?>
-        <input type="radio" name="slider" id="tab-<?= $index+1 ?>" <?php if ($subscription->id === $user_subscription->id) echo 'checked'; ?>>
-        <label for="tab-<?= $index+1 ?>" class="box" style="border: 2px solid #D9D9D9;" data-index="<?= $index+1 ?>">
-            <div class="plan">
-                <span class="circle"></span>
-                <span class="yearly"><?= $subscription->name ?></span>
-            </div>
-            <span class="price"><?= $subscription->price ?> Rs/month</span>
-        </label>
-    <?php endforeach; ?>
+    <?php 
+$firstChecked = !isset($user_subscription);
+foreach($subscriptions as $index => $subscription): ?>
+    <input type="radio" name="slider" id="tab-<?= $index+1 ?>" <?php if ($firstChecked || $subscription->id === $user_subscription->id) echo 'checked'; ?>>
+    <label for="tab-<?= $index+1 ?>" class="box" style="border: 2px solid #D9D9D9;" data-index="<?= $index+1 ?>">
+        <div class="plan">
+            <span class="circle"></span>
+            <span class="yearly"><?= $subscription->name ?></span>
+        </div>
+        <span class="price"><?= $subscription->price ?> Rs/month</span>
+    </label>
+<?php 
+$firstChecked = false;
+endforeach; ?>
+
 
     </div>
   </div> 

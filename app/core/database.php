@@ -534,8 +534,8 @@ class Database
             `start_date` DATETIME NOT NULL DEFAULT current_timestamp(),
             `end_date` DATETIME,
             PRIMARY KEY (`id`),
-            FOREIGN KEY (`member_id`) REFERENCES `members`(`id`),
-            FOREIGN KEY (`subscription_id`) REFERENCES `subscriptions`(`id`)
+            FOREIGN KEY (`member_id`) REFERENCES `members`(`id`) ON DELETE CASCADE,
+            FOREIGN KEY (`subscription_id`) REFERENCES `subscriptions`(`id`) ON DELETE CASCADE
         );";
 
         $this->query($query);

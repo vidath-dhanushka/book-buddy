@@ -26,7 +26,7 @@
                         <p></p>
                     </div>
                     <div>
-                        <a href="<?= ROOT ?>/cart/remove/<?= $cartItem->id ?>"><button class="r1emove-button">Remove</button></a>
+                        <a href="<?= ROOT ?>/cart/remove/<?= $cartItem->book_id ?>"><button class="r1emove-button">Remove</button></a>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -41,9 +41,23 @@
             <hr>
             <p>Total Items: 2</p>
             <p>Total Price: $25.00</p>
-            <button>Proceed to Checkout</button>
+            <button id="checkoutButton">Proceed to Checkout</button>
+        </div>
+
+        <div id="checkoutModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!-- Content to display items in the cart -->
+                <h2>Cart Items</h2>
+                <ul id="cartItemsList">
+                    <!-- List of cart items will be populated dynamically using JavaScript -->
+                </ul>
+                <button id="confirmCheckout">Confirm</button>
+            </div>
         </div>
     </div>
+
+    <script src="<?= ROOT ?>/assets/js/modalpopup.js"></script>
 
 
 </body>

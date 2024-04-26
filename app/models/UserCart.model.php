@@ -66,8 +66,14 @@ class UserCart extends Model
         if ($res && count($res) > 0) {
             return $res[0]; // Assuming it's a single row result
         }
-
         return false;
+    }
+
+    public function getCartItemCount($userId)
+    {
+        $query = "SELECT COUNT(*) AS cartCount FROM {$this->table} WHERE user_id = :user_id";
+        $result = $this->query($query, ['user_id' => $userId]);
+        return $result[0]['cartCount'];
     }
 }
 

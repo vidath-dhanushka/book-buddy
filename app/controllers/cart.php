@@ -29,12 +29,15 @@ class Cart extends Controller
             $existingItem = $userCart->getUserCartItem($user_id, $book_id);
 
             if($existingItem) {
+                //message("The book is already in your cart");
                 // Update quantity if item exists
                 //$userCart->updateCartItemQuantity($user_id, $book_id, $existingItem->quantity + 1);
             } else {
                 // Add new item to cart
                 $userCart->insertCartItem($user_id, $book_id);
+                //message("Success! The book is added to your cart");
             }
+            redirect('books/view_book/'.$book_id);
         }         
     }
 
@@ -52,5 +55,18 @@ class Cart extends Controller
 
         redirect("cart");
     }
+
+    public function get_cart_count()
+    {
+        if (isset($_SESSION['USER_DATA']) && is_object($_SESSION['USER_DATA']) && isset($_SESSION['USER_DATA']->id)) {
+            $userCart = new UserCart();
+            $cartCount = $userCart->getCartItemCount($_SESSION['USER_DATA']->id);
+            echo json_encode(['cartCount' => $cartCount]);
+        } else {
+            echo json_encode(['cartCount' => 0]);
+        }
+    }
+
+    
 
 }

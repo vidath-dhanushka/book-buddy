@@ -51,7 +51,7 @@
    
             
         
-      <div class="numbers">2</div>
+      <div class="numbers"></div>
       <h1>TOTAL</h1>
       <div class="cardName">Revenue</div>
     </div> 

@@ -22,24 +22,33 @@ class Librarian extends Controller
         $data['ebooks_count'] = $ebooks= $ebook->fetchEbookCountByType();
         $data['subscriptions'] = $m_subscription->getCountBySubscription();
         $total_count = 0;
-        foreach ($ebooks as $e) {
-            $total_count += $e->book_count;
+        if(!empty($ebooks)){
+            foreach ($ebooks as $e) {
+                $total_count += $e->book_count;
+            }
         }
+        
 
         $total_members = 0;
-        foreach ($data['subscriptions'] as $m) {
-            $total_members += $m->member_count;
+        if(!empty($data['subscriptions'])){
+            foreach ($data['subscriptions'] as $m) {
+                $total_members += $m->member_count;
+            }
         }
+       
         $data['ebook_total'] = $total_count;
         $data['member_total'] = $total_members;
         $data['ebook_new'] = $ebook->getNewlyAddedEbooks();
         $data['Subscribers']= $subscribers = $m_subscription->getSubscriptions();
      
-        foreach ($subscribers as $sub) {
-            $temp= ($member->where(['id'=>$sub->member_id]))[0]->userID;
-            $sub->member_name = ($member->where(['id'=>$temp], 'users'))[0]->username;
-         
+        if(!empty($subscribers)){
+            foreach ($subscribers as $sub) {
+                $temp= ($member->where(['id'=>$sub->member_id]))[0]->userID;
+                $sub->member_name = ($member->where(['id'=>$temp], 'users'))[0]->username;
+             
+            }
         }
+        
         $data['title'] = 'Dashboard';
         $this->view('librarians/dashboard', $data);
     }

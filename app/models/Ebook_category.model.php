@@ -31,29 +31,39 @@ class Ebook_category extends Model
    
 
     public function get_ebook_data($data = [])
-    {
-        $keys = array_keys($data);
-        $query = "SELECT b.*, a.author_name, b.id bid FROM ebooks AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id ";
+{
+    $keys = array_keys($data);
+    $query = "SELECT b.*, a.author_name, b.id bid FROM ebooks AS b LEFT JOIN authors AS a ON b.author_id = a.id LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id WHERE b.copyright_status = 1";
 
-        if ($data) {
-            $query .= "where c.category_id =:ccategory_id";
-        }
+    if ($data) {
+        $query .= " AND c.category_id = :ccategory_id";
+    }
 
-        $query .= " group by b.id order by id desc";
-        // show($query);
+    $query .= " GROUP BY b.id ORDER BY b.id DESC";
+
+    $res = $this->query($query, $data);
+
+    if (is_array($res)) {
+        return $res;
+    }
+
+    return false;
+}
+
+
+    public function get_category_names($data){
+        $ids = implode(',', $data);
+        $query = "SELECT category_name FROM categories WHERE id IN ($ids)";
+        // echo $query;
+        // print_r( $ids);
         // die;
-
-        $res = $this->query($query, $data);
-        // show($res);
-        // die;
-        // $res[0]->cats = explode(',', $res[0]->cats);
-        // // show($res[0]->cats);
-        if (is_array($res)) {
-            // show($res);
-            // die;
-            return $res;
+        $res = $this->query($query);
+    
+        if(is_array($res) && count($res) > 0){
+            $category_names = array_column($res, 'category_name');
+            return $category_names;
         }
-
+    
         return false;
     }
 }

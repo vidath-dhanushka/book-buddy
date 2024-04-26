@@ -239,15 +239,14 @@ class Database
             `description` TEXT,
             `book_cover`  VARCHAR(1024) NOT NULL,
             `file`  VARCHAR(1024) NOT NULL,
-            license_type VARCHAR(50) NOT NULL,
+            `license_type` VARCHAR(50) NOT NULL,
+            `borrowing_time` INT NOT NULL,
             `librarian_id` INT, 
             `copyright_status` INT NOT NULL DEFAULT 0,
             `date_added` DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id),
             FOREIGN KEY (librarian_id) REFERENCES Users(id) ON DELETE SET NULL
-           
         );
-        
         ";
         $this->query($query);
 
@@ -258,13 +257,21 @@ class Database
             `name` VARCHAR(255) NOT NULL,
             `price` DECIMAL(10,2) NOT NULL,
             `numberOfBooks` INT NOT NULL,
-            `description` TEXT,
+            `features` TEXT NOT NULL,
             `date_added` DATETIME NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (id)
         );        
         ";
 
         $this->query($query);
+
+        $features = serialize(['Access to 1 book at a time']);
+        $query = "INSERT IGNORE INTO subscriptions (`id`,`name`, `price`, `numberOfBooks`, `features`) VALUES (1, 'Free Plan', 0.00, 1, '$features')";
+
+
+        $this->query($query);
+
+
 
         $query = "CREATE TABLE IF NOT EXISTS copyrights (
             id INT AUTO_INCREMENT,
@@ -297,7 +304,7 @@ class Database
 
         $this->query($query);
 
-        $query = "CREATE TABLE IF NOT EXISTS `reviews` (
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_reviews` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebookID` int(11) DEFAULT NULL,
             `userID` int(11) DEFAULT NULL,
@@ -306,8 +313,24 @@ class Database
             `date` timestamp NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (`id`),
             FOREIGN KEY (`ebookID`) REFERENCES `ebooks`(`id`) ON DELETE CASCADE,
-            FOREIGN KEY (`userID`) REFERENCES `users`(`id`)
+            FOREIGN KEY (`userID`) REFERENCES `users`(`id`) ON DELETE CASCADE
         );
+
+        ";
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `book_reviews` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `bookID` int(11) DEFAULT NULL,
+            `userID` int(11) DEFAULT NULL,
+            `rating` int(11) DEFAULT NULL,
+            `description` text DEFAULT NULL,
+            `date` timestamp NOT NULL DEFAULT current_timestamp(),
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`bookID`) REFERENCES `books`(`id`) ON DELETE CASCADE,
+            FOREIGN KEY (`userID`) REFERENCES `users`(`id`) ON DELETE CASCADE
+        );
+        
 
         ";
         $this->query($query);
@@ -317,11 +340,13 @@ class Database
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `ebook_id` int(11) NOT NULL,
             `user_id` int(11) NOT NULL,
-            `borrow_date` date DEFAULT current_timestamp(),
-            PRIMARY KEY (id),
+            `borrow_date` DATETIME DEFAULT current_timestamp(),
+            `active` TINYINT(1) DEFAULT 1,
+            PRIMARY KEY (`id`),
             FOREIGN KEY (`ebook_id`) REFERENCES `ebooks`(`id`) ON DELETE CASCADE,
             FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
-          );
+        );
+        
         ";
         $this->query($query);
 
@@ -501,16 +526,41 @@ class Database
 
         $this->query($query);
 
-        // CREATE TABLE subscription(
-        //     id INT PRIMARY KEY AUTO_INCREMENT,
-        //     name VARCHAR(50) NOT NULL,
-        //     price DECIMAL(10, 2) NOT NULL,
-        //     copyrightCost DECIMAL(10, 2),
-        //     maxBooksAllowed INT NOT NULL,
-        //     description TEXT,
-        //     isActive BOOLEAN DEFAULT FALSE,
-        //     dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        // );
+
+        $query = "CREATE TABLE IF NOT EXISTS `member_subscriptions` (
+            `id` INT AUTO_INCREMENT,
+            `member_id` INT(11),
+            `subscription_id` INT,
+            `start_date` DATETIME NOT NULL DEFAULT current_timestamp(),
+            `end_date` DATETIME,
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`member_id`) REFERENCES `members`(`id`) ON DELETE CASCADE,
+            FOREIGN KEY (`subscription_id`) REFERENCES `subscriptions`(`id`) ON DELETE CASCADE
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `notifications` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `userid` int(11) NOT NULL,
+            `status` varchar(255) NOT NULL,
+            `date` datetime NOT NULL DEFAULT current_timestamp(),
+            `type` varchar(255) NOT NULL,
+            `url` varchar(1000) NOT NULL,
+            `table` varchar(255) NOT NULL,
+            `seen` tinyint(1) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`userid`) REFERENCES `users`(`id`) ON DELETE CASCADE
+            
+          );
+          
+          ";
+
+        $this->query($query);
+
+       
+
+        
         
         
     }

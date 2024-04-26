@@ -15,8 +15,17 @@ class Member extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
+        $member = new Member_model;
+        $subscription = new Member_subscription;
+        $borrowing = new Borrowed_ebook;
+        
         $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        $member_id = $member->addMemberRecord($data['row']->id);
+        $subscription->assignDefaultSubscription($member_id);
+        $data['ebook_borrowing'] = $borrowing->getUserEbookDetails(['user_id'=>$data['row']->id]);
         $data['title'] = 'Dashboard';
+        
+        
         $this->view('member/dashboard', $data);
     }
     
@@ -28,8 +37,8 @@ class Member extends Controller
         // $data['row'] = $user->first(['id' => $id]);
         // echo $id;
         $member = new Member_model();
-        $data['provinces'] = $member->getProvinces();
-        $data['cities'] = $member->getCities();
+        // $data['provinces'] = $member->getProvinces();
+        // $data['cities'] = $member->getCities();
         $data['row'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
         if($row->role !== "member"){
             message('Please login to view the member section');
@@ -56,24 +65,24 @@ class Member extends Controller
        
     }
 
-    public function change_subscription($id = null)
-    {
-        $this->check_auth();
-        $id = $id ?? Auth::getId();
-        // $user = new User();
-        // $data['row'] = $user->first(['id' => $id]);
-        // echo $id;
-        $member = new Member_model();
-        $data['row'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
-        // print_r($data);
-        // die;
-        $data['title'] = 'Change Subscription';
-        $this->view('member/change_subscription', $data);
-    }
-
+    // public function change_subscription($id = null)
+    // {
+    //     $this->check_auth();
+    //     $id = $id ?? Auth::getId();
+    //     // $user = new User();
+    //     // $data['row'] = $user->first(['id' => $id]);
+    //     // echo $id;
+    //     $member = new Member_model();
+    //     $data['row'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
+    //     // print_r($data);
+    //     // die;
+    //     $data['title'] = 'Change Subscription';
+    //     $this->view('member/change_subscription', $data);
+    // }
+    
     
 
-    public function add_review($id=null)
+    public function add_ebook_review($id=null, $action=null)
     {
         // echo "yes";
         // die;
@@ -81,20 +90,26 @@ class Member extends Controller
         $id = $id ?? Auth::getId();
         $member = new Member_model();
         $ebook = new EBook;
-        $data['row'] =$row= $ebook->view_ebook_details(['b.id' => $id]);
-        // print_r($data);
-        // die;
+        $borrowed_ebook = new Borrowed_ebook;
+        $review = new Ebook_review();
+        // $data['ebooks'] = $ebook->view_ebook_details(['b.id' => $id]);
+      
         
         // $data['ebook'] = $ebook->first_by_column(['ebookID' => ]);
-        // $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
+        $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
         // print_r($_POST);
         // die;
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $row) {
+        if(!empty($action) && $action="delete"){
+            $review->deleteUserReview(["ebook_id"=>$id,"user_id"=>$row->userID]);
+            message("Review deleted.");
+            redirect("elibrary/view_ebook/" . $id);
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST["ebook_id"] = $id;
             $_POST["user_id"] =  $_SESSION['USER_DATA']->id;
             // print_r($_POST);
             // die;
-            $title = $_POST['title'];
+            $title = $_POST['description'];
             $title = filter_var($title, FILTER_SANITIZE_STRING);
             $description = filter_var($title, FILTER_SANITIZE_STRING);
             $description = $_POST['description'];
@@ -104,10 +119,21 @@ class Member extends Controller
                 if(isset($_POST["submit"])) {
                     unset($_POST["submit"]);
                 }
+                $isborrowed = $borrowed_ebook->hasUserEverBorrowed(["user_id"=>$row->userID, "ebook_id"=>$id ]);
                 
-                $member->addReview($_POST);
-                message("Review added.");
-                redirect("elibrary/view_ebook/" . $id);
+                if($isborrowed){
+                    $member->addReview($_POST);
+                    $_SESSION['message_class'] = 'alert-success';
+                    message("Review added.");
+                    redirect("elibrary/view_ebook/" . $id);
+                }
+                else{
+                    $_SESSION['message_class'] = 'alert';
+                    message("You must have borrowed the ebook at least once before you can add a review.");
+                    redirect("elibrary/view_ebook/" . $id);
+                }
+
+                
                 
                 
             }
@@ -116,8 +142,57 @@ class Member extends Controller
         $data['errors'] = $member->errors;
         // print_r($data['errors']);
         // die;
+        $_SESSION['message_class'] = 'alert';
         message("Your review already added.");
         redirect("elibrary/view_ebook/" . $id);
+    }
+
+    public function add_book_review($id=null)
+    {
+        // echo "yes";
+        // die;
+        $this->check_auth();
+        $id = $id ?? Auth::getId();
+        $member = new Member_model();
+        $ebook = new Book;
+        // $data['ebooks'] = $ebook->view_ebook_details(['b.id' => $id]);
+      
+        
+        // $data['ebook'] = $ebook->first_by_column(['ebookID' => ]);
+        // $data['row'] = $row = $member->first_by_column(['id' => $_SESSION['USER_DATA']->id]);
+        // print_r($_POST);
+        // die;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST["book_id"] = $id;
+            $_POST["user_id"] =  $_SESSION['USER_DATA']->id;
+            // print_r($_POST);
+            // die;
+            $title = $_POST['description'];
+            $title = filter_var($title, FILTER_SANITIZE_STRING);
+            $description = filter_var($title, FILTER_SANITIZE_STRING);
+            $description = $_POST['description'];
+            $rating = $_POST['rating'];
+            $rating = filter_var($title, FILTER_SANITIZE_STRING);
+            if($member->vertify_book_review(["book_id"=>$_POST["book_id"],"user_id"=>$_POST["user_id"]])){
+                if(isset($_POST["submit"])) {
+                    unset($_POST["submit"]);
+                }
+                
+                $member->addBookReview($_POST);
+                $_SESSION['message_class'] = 'alert-success';
+                message("Review added.");
+                redirect("books/view_book/" . $id);
+                
+                
+            }
+        }
+        $data['title'] = 'Add review';
+        $data['errors'] = $member->errors;
+        // print_r($data['errors']);
+        // die;
+        $_SESSION['message_class'] = 'alert';
+        message("Your review already added.");
+        redirect("books/view_book/" . $id);
     }
 
    
@@ -130,13 +205,18 @@ class Member extends Controller
         
         $data['provinces'] = $member->getProvinces();
         $data['cities'] = $member->getCities();
-        // print_r($data['provinces']);
-        // die;
         $data['row'] = $row = $member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
-        // print_r($row);
-        // die;
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $row) {
-            
+            if(isset($_POST['city']) && $_POST['city'] == 'City'){
+                unset($_POST['city']);
+            }
+            $dataToUpdate = [];
+            foreach ($_POST as $key => $value) {
+                if ($data['row']->$key != $value) {
+                    $dataToUpdate[$key] = $value;
+                }
+            }
+           
             $folder = "uploads/images/";
             if (!file_exists($folder)) {
                 mkdir($folder, 0777, true);
@@ -145,7 +225,7 @@ class Member extends Controller
             }
             // print_r($_POST);
             // die;
-            if ($member->edit_validate($_POST, $id)) {
+            if ($member->edit_validate($dataToUpdate, $id)) {
                 
                 if (!is_numeric($_POST['province'])) {
                     unset($_POST['province']);
@@ -179,7 +259,11 @@ class Member extends Controller
                     $_POST['userID'] = $id;
                     // print_r($row);
                     $member->update_by_column($row->userID, $_POST);
-                    
+                 
+                    foreach($dataToUpdate as $key => $value) {
+                        $_SESSION['USER_DATA']->$key = $value;
+                    }
+                    print_r($_SESSION);
                     message("Profile saved successfully");
                     redirect("member/edit/" . $id);
                 }
@@ -252,7 +336,28 @@ class Member extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
-        $data['row'] = $user->first(['id' => $id]);
+        $data['row']= $row = $user->first(['id' => $id]);
+
+        // ebook borrowing
+        $borrowed_ebook = new Borrowed_ebook();
+        $data['ebook_borrowing']= $borrowing = $borrowed_ebook->getUserEbookDetails(['user_id'=>$row->id]);
+        
+        if (!empty($borrowing)) {
+            foreach ($borrowing as $book) {
+                $date = new DateTime($book->borrow_date);
+                $numDays = $book->borrowing_time;
+                $interval =  new DateInterval('P' . $numDays . 'D');
+                $return_date = $date->add($interval);
+                $return_date = $date->format('Y-m-d');
+                $book->return_date = $return_date;
+                $book->borrow_date = (new DateTime($book->borrow_date))->format('Y-m-d');
+            }
+        }
+        // show($borrowing);
+        // die;
+        // show($data['ebook_borrowing']);
+        // die;
+
         $data['title'] = 'My Borrowing';
         $this->view('member/borrowing', $data);
     }

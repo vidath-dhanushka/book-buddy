@@ -15,11 +15,40 @@ class Librarian extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
+        $ebook = new Ebook;
+        $member = new Member_model;
+        $m_subscription = new Member_subscription;
         $data['row'] = $row =  $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        $data['ebooks_count'] = $ebooks= $ebook->fetchEbookCountByType();
+        $data['subscriptions'] = $m_subscription->getCountBySubscription();
+        $total_count = 0;
+        if(!empty($ebooks)){
+            foreach ($ebooks as $e) {
+                $total_count += $e->book_count;
+            }
+        }
+        
 
+        $total_members = 0;
+        if(!empty($data['subscriptions'])){
+            foreach ($data['subscriptions'] as $m) {
+                $total_members += $m->member_count;
+            }
+        }
        
-        // print_r($row->role);
-        // die;
+        $data['ebook_total'] = $total_count;
+        $data['member_total'] = $total_members;
+        $data['ebook_new'] = $ebook->getNewlyAddedEbooks();
+        $data['Subscribers']= $subscribers = $m_subscription->getSubscriptions();
+     
+        if(!empty($subscribers)){
+            foreach ($subscribers as $sub) {
+                $temp= ($member->where(['id'=>$sub->member_id]))[0]->userID;
+                $sub->member_name = ($member->where(['id'=>$temp], 'users'))[0]->username;
+             
+            }
+        }
+        
         $data['title'] = 'Dashboard';
         $this->view('librarians/dashboard', $data);
     }
@@ -42,7 +71,6 @@ class Librarian extends Controller
         $data['categories'] = $book->categories();
         $author_verify = 0;
         $book_verify = 0;
-
         if ($action == 'add') {
             if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 if (empty($_POST['isbn'])) {
@@ -68,8 +96,6 @@ class Librarian extends Controller
                     $allowed = [
                         'application/epub+zip', // EPUB format
                         'application/pdf', // PDF format
-                        'application/x-mobipocket-ebook', // MOBI format
-                        'application/vnd.amazon.ebook' // AZW format
                       ];
                       $folder = "uploads/ebooks/file/";
                     if (!file_exists($folder)) {
@@ -155,7 +181,12 @@ class Librarian extends Controller
                     }
                     
                     if(empty($book->errors)){
-                       
+                        if($_POST['license_type']=="Public Domain"){
+                            $_POST['copyright_status'] = 1;
+                        }
+                        else{
+                            $_POST['copyright_status'] = 0;
+                        }
                         $book_res = $book->insert($_POST);
                         $book_verify = 1;
 
@@ -193,10 +224,9 @@ class Librarian extends Controller
 
         elseif ($action == 'edit') {
             $data['book_details'] = $bookDetails= $book->view_ebook_details(['b.id' => $id]);
-            // print_r($data['book_details']);
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // print_r($_POST);
+                
                 // Check if the author exists or insert a new one
                 $auth_data = $author->like(['author_name' => $_POST['author_name']]);
                 if ($auth_data) {
@@ -211,8 +241,8 @@ class Librarian extends Controller
                         $_POST['author_id'] = $auth_res;
                     }
                 }
-        
-                // unset($_POST['author_name']);
+                
+                unset($_POST['author_name']);
         
                 // Handle book image upload
                 $folder = "uploads/books/";
@@ -300,7 +330,12 @@ class Librarian extends Controller
 
                         unset($_POST["category"]);
                     }
+                    if(isset($_POST['license_type']) && $_POST['license_type']=="Public Domain"){
+                        $_POST['copyright_status'] = 1;
+                    }
+                   
                     if(!empty($_POST)){
+                        // show($_POST);
                         $book->update($book_res, $_POST);
                     }
                     if ($author_verify && $book_res) {
@@ -398,7 +433,7 @@ class Librarian extends Controller
                         $book->update($id, ["copyright_status"=>1]);
                         unset($_SESSION['agreement']);
                         message("copyright added successfully");
-                        redirect('librarian/ebooks');
+                        redirect('librarian/copyright');
                     }
 
                    
@@ -409,7 +444,7 @@ class Librarian extends Controller
             
         }else if($action == 'edit'){
             $data['copyright'] = $copyright->getCopyright(['ebook_id' => $id]);
-            $data['subscription'] = $subscription->getSubscriptionName(["id" => $data['copyright']->subscription]);
+            $data['subscription'] = $subscription->getSubscription(["id" => $data['copyright']->subscription]);
             if(empty($id)){
                 $this->view("librarians/ebooks");
             }
@@ -617,79 +652,80 @@ class Librarian extends Controller
 
 
 
-    public function dashboard()
-    {
-        $this->check_auth();
-        $id = $id ?? Auth::getId();
-        $user = new User();
-        $data['row'] = $user->first(['id' => $id]);
-        $data['title'] = 'Dashboard';
-        $this->view('librarians/dashboard', $data);
-    }
+    // public function dashboard()
+    // {
+    //     $this->check_auth();
+    //     $id = $id ?? Auth::getId();
+    //     $user = new User();
+    //     $data['row'] = $user->first(['id' => $id]);
+    //     $data['title'] = 'Dashboard';
+    //     $this->view('librarians/dashboard', $data);
+    // }
 
    
 
     public function subscription($action = null, $id = null)
-    {
-        $data = [];
+{
+    $data = [];
 
-        if (!Auth::logged_in()) {
-            message('please login to view the books');
-            redirect('login');
-        }
-
-        $user = new User();
-        $librarian = new Librarian_model();
-        $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
-        // show($data['row']);
-        // die;
-
-        $data['action'] = $action;
-        $data['id'] = $id;
-
-        $user_id = $_SESSION['USER_DATA']->id;
-
-        if ($action == 'add') {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                print_r($_POST);
-                die;
-                if ($librarian->subscription_validate($_POST, $id)) {
-                    $message = $_POST["description"];
-                    echo nl2br(htmlspecialchars($message));
-                    die;
-                   
-                }
-                
-                
-            }
-        // } elseif ($action == 'edit') {
-
-          
-            //     if ($book->validate($_POST)) {
-
-
-            //        
-        //     }
-        // } elseif ($action == 'delete') {
-        //   
-        // } else {
-        //    
-        // }
-
-
-
-
-        $data['errors'] = $librarian->errors;
-
-    
-
-        
+    if (!Auth::logged_in()) {
+        message('please login to view the books');
+        redirect('login');
     }
+
+    $user = new User();
+    $librarian = new Librarian_model();
+    $subLevel = new Subscription();
+    $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
+
+    $data['action'] = $action;
+    $data['id'] = $id;
+
+    $user_id = $_SESSION['USER_DATA']->id;
+
+    if ($action == 'add') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data['subscription'] = $_POST;
+            if (isset($_POST['features'])) {
+                $_POST['features'] = is_array($_POST['features']) ? $_POST['features'] : unserialize($_POST['features']);
+            }
+
+            if ($librarian->subscription_validate($_POST, $id)) {
+                $_POST['features'] = serialize($_POST['features']);
+                $sub_res = $subLevel->insert($_POST);
+                message("Subscription level added successfully");
+                redirect('librarian/subscription');  
+            } 
+        }
+       
+        
+    }elseif($action == 'edit'){
+        $data['subscription'] = $subLevel->getSubscriptionById(['id'=>$id]);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data['subscription'] = $_POST;
+            if (isset($_POST['features'])) {
+                $_POST['features'] = is_array($_POST['features']) ? $_POST['features'] : unserialize($_POST['features']);
+            }
+
+            if ($librarian->subscription_validate($_POST, $id)) {
+                $_POST['features'] = serialize($_POST['features']);
+                $sub_res = $subLevel->update($id, $_POST);
+                message("Subscription level updated successfully");
+                redirect('librarian/subscription');  
+            } 
+        }
+    }elseif($action == 'delete'){
+        $subLevel->delete($id);
+        message("Subscription level deleted successfully");
+        redirect('librarian/subscription');
+    }
+    else{
+        $data['subscriptions'] = $subLevel->subscriptions();
+    }
+    $data['errors'] = $librarian->errors;
     $this->view('librarians/subscription', $data);
-
-
-    
 }
+
 
     
 

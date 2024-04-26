@@ -8,10 +8,11 @@
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/sidenav.css">
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/borrowing.css">
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/dashboard.css">
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/notification.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
-<?php $this->view('includes/navbar') ?>
+<?php $this->view('includes/navbar', $data) ?>
 <?php $this->view('includes/sidenav', $data) ?>
 <section class="home-section">
 
@@ -161,7 +162,7 @@
             <div class="cardHeader">
               
               <h3>E-Books</h3>
-              
+              <?= show($data) ?>
             </div>
             <table>
               <thead>
@@ -210,111 +211,9 @@
           </div>
           
 
-          <!-- <div class="history">
-          <h2>My Sharing</h2>
-          <div class="cardHeader">
-              
-              <h3>Books</h3>
-              <a href="#" class="btn">View All</a>
-            </div>
-
-            <table>
-              <thead>
-              <tr>
-                <th> Id </th>
-                <th> Title </th>
-                <th> Author</th>
-                <th> Shared Date</th>
-                <th> Due Date</th>
-                <th> Return Date</th>
-                <th> Status</th>
-                </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>1</td>
-                <td>The Great Gatsby</td>
-                <td>F. Scott Fitzgerald</td>
-              
-                <td>2024-01-01</td>
-                <td>2024-01-15</td>
-                <td>2024-01-14</td>
-                <td><p class="status returned">Returned</p></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>1984</td>
-                <td>George Orwell</td>
-              
-                <td>2024-01-05</td>
-                <td>2024-01-19</td>
-                <td></td>
-                <td><p class="status borrowed">Borrowed</p></td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Pride and Prejudice</td>
-                <td>Jane Austen</td>
-                
-                <td>2024-01-09</td>
-                <td>2024-01-23</td>
-                <td></td>
-                <td><p class="status overdue">Overdue</p></td>
-              </tr>
-              </tbody>
-            </table>
-
-            <div class="cardHeader">
-              
-              <h3>E-Books</h3>
-              <a href="#" class="btn">View All</a>
-            </div>
-            <table>
-              <thead>
-              <tr>
-                <th> Id </th>
-                <th> Title </th>
-                <th> Author</th>
-               
-                <th> Borrow Date</th>
-                <th> Return Date </th>
-                <th> Status</th>
-                </tr>
-              </thead>
-
-              <tbody>
-              <tr>
-                <td>1</td>
-                <td>The Great Gatsby</td>
-                <td>F. Scott Fitzgerald</td>
-              
-                <td>2024-01-01</td>
-                <td>2024-01-15</td>
-                <td><p class="status returned">Returned</p></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>To Kill a Mockingbird</td>
-                <td>Harper Lee</td>
-               
-                <td>2024-01-03</td>
-                <td>2024-01-17</td>
-                <td><p class="status returned">Returned</p></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>1984</td>
-                <td>George Orwell</td>
-                
-                <td>2024-01-05</td>
-                <td>2024-01-19</td>
-                <td><p class="status borrowed">Borrowed</p></td>
-              </tr>
-
-            </tbody>
-            </table>
-    </div> -->
+       
 </div>
 </section>
+<script src="<?=ROOT?>/assets/js/notification.js"></script>
 </body>
 </html>

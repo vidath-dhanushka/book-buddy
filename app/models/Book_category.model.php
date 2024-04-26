@@ -14,8 +14,8 @@ class Book_category extends Model
     {
         $query = "SELECT * FROM book_category";
         $res =  $this->query($query);
-        show($res);
-        die;
+        // show($res);
+        // die;
         return $res;
     }
 
@@ -36,6 +36,7 @@ class Book_category extends Model
 
         $query .= " group by b.id order by id desc";
         // show($query);
+        // show($data);
         // die;
 
         $res = $this->query($query, $data);
@@ -76,6 +77,22 @@ class Book_category extends Model
             return $res;
         }
 
+        return false;
+    }
+
+    public function get_category_names($data){
+        $ids = implode(',', $data);
+        $query = "SELECT category_name FROM categories WHERE id IN ($ids)";
+        // echo $query;
+        // print_r( $ids);
+        // die;
+        $res = $this->query($query);
+    
+        if(is_array($res) && count($res) > 0){
+            $category_names = array_column($res, 'category_name');
+            return $category_names;
+        }
+    
         return false;
     }
 }

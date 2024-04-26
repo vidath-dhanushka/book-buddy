@@ -9,12 +9,13 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/edit-form.css">
    <link rel="stylesheet" href="<?=ROOT?>/assets/css/member/profile-pic.css">
+   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/notification.css">
 </head>
-<body>
+<body style="background-color:#D9D9D9;">
 
 <?php if(!empty($row)):?>
  
-<?php $this->view('includes/navbar') ?>
+<?php $this->view('includes/navbar', $data) ?>
 <?php $this->view('includes/sidenav', $data) ?>
 
 <section class="home-section">
@@ -130,7 +131,7 @@
     <div class="select-box">
       
       <select id="province" name="province">
-        <option hidden><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : 'Province' ?></option>
+        <option hidden value=""><?= isset($selectedProvince->provinceName) ? set_value('Province', $selectedProvince->provinceName) : 'Province' ?></option>
         <?php if(!empty($provinces)):?>
           <?php foreach($provinces as $province): ?>
             <option  value="<?=$province->id?>"><?=esc($province->provinceName)?></option>
@@ -146,7 +147,7 @@
     
       <select id="city" name="city" disabled>
       
-        <option hidden><?= isset($selectedCity->cityName) ? set_value('City', $selectedCity->cityName) : 'City' ?></option>
+        <option hidden><?= isset($selectedCity->cityName) ? set_value('City',$selectedCity->cityName): 'City' ?></option>
         
         <?php if(!empty($cities)):?>
           <?php foreach($cities as $city): ?>
@@ -257,5 +258,5 @@ document.getElementById("province").onchange();
 
 
 </script>
-
+<script src="<?=ROOT?>/assets/js/notification.js"></script>
 <?php $this->view('includes/footer') ?>

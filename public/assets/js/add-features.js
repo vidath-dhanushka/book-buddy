@@ -2,17 +2,21 @@ const featureInput = document.getElementById("feature-input");
 const featuresList = document.getElementById("features-list");
 const addFeaturesForm = document.getElementById("subscription-form");
 
-function addFeature() {
-    if (featureInput.value !== '') {
+
+
+function addFeature(featureText) {
+    let text = featureText || featureInput.value;
+    let existingFeature = Array.from(featuresList.children).some(li => li.textContent.trim() === text);
+    if (text !== '' && !existingFeature) {
         let li = document.createElement("li");
-        li.innerHTML = featureInput.value;
+        li.innerHTML = text;
         featuresList.appendChild(li);
 
         // Create hidden input field dynamically
         let hiddenInput = document.createElement("input");
         hiddenInput.type = "hidden";
         hiddenInput.name = "features[]";
-        hiddenInput.value = featureInput.value;
+        hiddenInput.value = text;
         addFeaturesForm.appendChild(hiddenInput);
 
         let span = document.createElement("span");
@@ -21,6 +25,9 @@ function addFeature() {
     }
     featureInput.value = "";
 }
+
+
+
 
 featuresList.addEventListener("click", function(e) {
     if (e.target.tagName === "LI") {

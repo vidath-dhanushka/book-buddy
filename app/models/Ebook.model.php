@@ -20,40 +20,43 @@ class Ebook extends Model
         'author_id',
         'librarian_id',
         'license_type',
-        'copyright_status'
+        'copyright_status',
+        'borrowing_time'
     ];
 
     private function isValidISBN($isbn) {
         $isbn = str_replace('-', '', $isbn);
-    
-        if(strlen($isbn) == 10) {
-            // Validate ISBN-10
-            $sum = 0;
-            for($i = 0; $i < 10; $i++) {
-                if($isbn[$i] == "X") {
-                    $sum += 10 * (10 - $i);
-                } else if(is_numeric($isbn[$i])) {
-                    $sum += $isbn[$i] * (10 - $i);
-                } else {
-                    return false;
-                }
-            }
-            
-            return $sum % 11 == 0;
-        } else if(strlen($isbn) == 13) {
-            // Validate ISBN-13
-            $sum = 0;
-            for($i = 0; $i < 13; $i++) {
-                if($i % 2 == 0) {
-                    $sum += $isbn[$i];
-                } else {
-                    $sum += 3 * $isbn[$i];
-                }
-            }
-            return $sum % 10 == 0;
-        } else {
-            // Not a valid ISBN
+
+        // Check if the ISBN is either 10 or 13 digits
+        if (strlen($isbn) !== 10 && strlen($isbn) !== 13) {
             return false;
+        }
+    
+        // For ISBN-10
+        if (strlen($isbn) === 10) {
+            if (!ctype_digit(substr($isbn, 0, -1))) {
+                return false;
+            }
+            $checksum = 0;
+            for ($i = 0; $i < 9; $i++) {
+                $checksum += (int)$isbn[$i] * (10 - $i);
+            }
+            $checksum %= 11;
+            $checksum = ($checksum == 10) ? 'X' : $checksum;
+            return $checksum == $isbn[9];
+        }
+    
+        // For ISBN-13
+        if (strlen($isbn) === 13) {
+            if (!ctype_digit(substr($isbn, 0, -1))) {
+                return false;
+            }
+            $sum = 0;
+            for ($i = 0; $i < 12; $i++) {
+                $sum += (int)$isbn[$i] * (($i % 2 === 0) ? 1 : 3);
+            }
+            $checksum = (10 - ($sum % 10)) % 10;
+            return $checksum == $isbn[12];
         }
     }
 
@@ -66,10 +69,6 @@ class Ebook extends Model
         }
     }
     
-    
-    
-   
-
     public function ebook_info_validate($data)
 {
     
@@ -85,9 +84,6 @@ class Ebook extends Model
         $this->errors['title'] =  "Error: Title cannot exceed " . $maxLength . " characters.";
     }
 
-    if (empty($data['author_name'])) {
-        $this->errors['author_name'] = "Error: Author cannot be empty.";
-    }else
     if (isset($data['author_name'])) {
         if (!preg_match("/^[a-zA-Z-' .]*$/", $data["author_name"])) {
             $this->errors['author_name'] = "Error: Only letters, white space, hyphen, period, and apostrophe are allowed in author name";
@@ -207,30 +203,7 @@ class Ebook extends Model
         return false;
     }
 
-    public function get_review($data){
-        
-        
-        $query =  "SELECT reviews.*, users.username, users.user_image
-        FROM `reviews`
-        INNER JOIN `users` ON reviews.userID = users.id
-        WHERE reviews.ebookID = :ebook_id;
-        ";
-        // echo $query;
-        // print_r($data);
-        // die;
-        $res = $this->query($query, $data);
-        
-            
-        if (is_array($res) && count($res) > 0) {
-            // print_r($res);
-            // die;
-            return $res;
-        }
-    
-        
-        return false;
-       
-    }
+  
 
     public function is_borrowed($data){
         // print_r($data);
@@ -274,4 +247,62 @@ class Ebook extends Model
        
        
     }
+
+    public function get_file($data){
+        $query =  "SELECT `file` FROM `ebooks` WHERE `id` = :book_id;";
+        $res = $this->query($query, $data);
+        if (is_array($res)) {
+            return $res[0];
+        }else{
+            return false;
+        }
+    }
+
+
+    public function getNewlyAddedEbooks(){
+        $query = "SELECT e.*, a.author_name, c.categories
+        FROM ebooks e
+        LEFT JOIN authors a ON e.author_id = a.id
+        LEFT JOIN (
+            SELECT ebook_id, GROUP_CONCAT(DISTINCT category_name) as categories
+            FROM ebook_category ec
+            LEFT JOIN categories c ON ec.category_id = c.id
+            GROUP BY ebook_id
+        ) c ON e.id = c.ebook_id
+        WHERE e.copyright_status = 1
+        ORDER BY e.date_added DESC
+        LIMIT 10
+        ";
+        
+        $res = $this->query($query);
+        
+        if (is_array($res) && count($res) > 0) {
+            return $res;
+        }
+        
+        return false;
+    }
+
+    public function fetchEbookCountByType()
+    {
+        $query = "SELECT b.license_type, COUNT(b.id) as book_count 
+                  FROM ebooks AS b 
+                  LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id 
+                  GROUP BY b.license_type ORDER BY book_count DESC";
+    
+        $res = $this->query($query);
+    
+        if (is_array($res)) {
+            return $res;
+        }
+    
+        return false;
+    }
+    
+
+    
+    
+
 }
+
+

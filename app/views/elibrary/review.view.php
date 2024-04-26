@@ -7,8 +7,8 @@
       </div>
       
       <div class="box-details-container" style="grid-template-columns: 1fr 1fr;">
-      <?php if(!empty($reviews)) : ?>
-        <?php foreach ($reviews as $review) : ?>
+      <?php if(!empty($reviews['all'])) : ?>
+        <?php foreach ($reviews['all'] as $review) : ?>
         <div class="box">
         <div class="box-top">
             <div class="profile">
@@ -51,6 +51,6 @@
 </div>
             
 </div>
-<script src="<?=ROOT?>/assets/js/rating.js"></script>
+<!-- <script src="<?=ROOT?>/assets/js/rating.js"></script> -->
 
 

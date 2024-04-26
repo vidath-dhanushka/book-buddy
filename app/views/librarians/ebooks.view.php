@@ -143,6 +143,18 @@
           </div>
          
         </div>
+        <div class="column">
+          <div class="input-box">
+            <label>Borrowing Time (in days): *</label>
+            <input type="number"  placeholder="Enter borrowing time in days" value="<?= set_value('borrowing_time') ?>" name="borrowing_time"/>
+            <?php if (!empty($errors['borrowing_time'])) : ?>
+             <small class="err-msg"><?= $errors['borrowing_time'] ?></small>
+            <?php endif; ?>
+          </div>
+          <div class="input-box">
+            
+          </div>
+        </div>
         <br>
         <?php ?> 
         <label for="category">Category *</label>
@@ -243,7 +255,7 @@ foreach ($data['categories'] as $category) : ?>
               </ul>
             </div>
             <div class="form_wrap">
-            <form action="<?=ROOT?>/librarian/ebooks" class="form" method="post" enctype="multipart/form-data">
+            <form id="myForm-2" class="form" method="post" enctype="multipart/form-data">
                 <div class="form_1 data_info">
                     <h2>E-Book Info</h2>
                     <div class="column">
@@ -338,6 +350,18 @@ foreach ($data['categories'] as $category) : ?>
                             <?php endif; ?>
                         </div>
                     </div>
+                    <div class="column">
+          <div class="input-box">
+            <label>Borrowing Time (in days): *</label>
+            <input type="number"  placeholder="Enter borrowing time in days" value="<?= $data['book_details']->borrowing_time; ?>" name="borrowing_time"/>
+            <?php if (!empty($errors['borrowing_time'])) : ?>
+             <small class="err-msg"><?= $errors['borrowing_time'] ?></small>
+            <?php endif; ?>
+          </div>
+          <div class="input-box">
+            
+          </div>
+        </div>
                     <br>
                     <label for="category">Category</label>
                     <br>
@@ -587,10 +611,13 @@ function setupUploader(id) {
     }
   }
 }
-
+let action = 'add'; // Set the default action to 'add'
+if (window.location.href.includes('/edit/')) {
+    action = 'edit';
+}
 function uploadFile(name, progressArea, uploadedArea){
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "<?=ROOT?>/librarian/ebooks");
+  xhr.open("POST", `<?=ROOT?>/librarian/ebooks`);
   xhr.upload.addEventListener("progress", ({loaded, total}) =>{
     let fileLoaded = Math.floor((loaded / total) * 100);
     let fileTotal = Math.floor(total / 1000);
@@ -630,6 +657,7 @@ function uploadFile(name, progressArea, uploadedArea){
   });
 
   let data = new FormData(form);
+ 
   xhr.send(data);
 }
 

@@ -27,19 +27,7 @@ class Librarian_model extends Model{
         'postalCode'
     ];
 
-    public function addReview($data, $table = 'reviews'){
-        $query = "INSERT INTO " . $table . " (ebookID, userID, rating, title, description) VALUES (:ebook_id, :user_id, :rating, :title, :description)";
-        // echo $query;
-        // print_r($data);
-        // die;
-        $res = $this->query($query, $data);
-    
-        if ($res) {
-            return true;
-        }
-    
-        return false;
-    }
+   
     
 
     public function update_by_column($columnValue, $data, $columnName = null, $secondTable = null, $firstTableJoinColumn = null, $secondTableJoinColumn = null)
@@ -192,7 +180,7 @@ class Librarian_model extends Model{
 public function vertify_review($data){
         
     $this->errors = [];
-    $query = "SELECT ebookID, userID FROM `reviews` WHERE ebookID=:ebook_id AND userID=:user_id";
+    $query = "SELECT ebookID, userID FROM `ebook_reviews` WHERE ebookID=:ebook_id AND userID=:user_id";
     $res = $this->query($query, $data);
         
     if (is_array($res) && count($res) > 0) {
@@ -302,10 +290,18 @@ public function vertify_review($data){
       
         if(empty($data['name'])){
             $this->errors['name'] = "Please enter the name";
-        }else
-        if(!preg_match("/^[a-zA-Z ]+$/",$data['name'])){
+        } elseif(!preg_match("/^[a-zA-Z ]+$/",$data['name'])){
             $this->errors['name'] = "Name can only have letters";
+        } else {
+            // Check if name already exists in the database
+            $results = $this->where(['name' => $data['name']], 'subscriptions');
+            if($results){
+                foreach($results as $result){
+                    if($id != $result->id) $this->errors['name'] = "Name already exists. Please choose a different name.";
+                }
+            }
         }
+        
         if(empty($data['price'])){
             $this->errors['price'] = "Please enter subscription price";
         }
@@ -313,26 +309,15 @@ public function vertify_review($data){
         if(empty($data['numberOfBooks'])){
             $this->errors['numberOfBooks'] = "Please enter the number Of Books";
         }
-        if(empty($data['description'])){
-            $this->errors['description'] = "Please enter the description";
-        }else
-        if (strlen($description) < 10 || strlen($description) > 500) {
-            echo "Description must be between 10 and 500 characters.";
-            return;
+        if(empty($data['features'])){
+            $this->errors['features'] = "Please enter at least a feature.";
         }
-        if(empty($data['isActive'])){
-            $this->errors['isActive'] = "Please check the Is Active' box";
-        }
+        
+       
         
         if(empty($this->errors)){
-            // print_r($this->errors);
-            // die;
             return true;
         }
-        // echo "errors";
-        // print_r($this->errors);
-        // die;
-        
         return false;
     }
 

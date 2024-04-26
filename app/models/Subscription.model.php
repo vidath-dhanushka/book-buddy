@@ -41,15 +41,15 @@ class Subscription extends Model
     }
 
     public function getSubscriptions() {
-        $query = "SELECT id, name FROM subscriptions";
+        $query = "SELECT * FROM subscriptions";
         $res =  $this->query($query);
         // show($res);
         // die;
         return $res;
     }
 
-    public function getSubscriptionName($data) {
-        $query = "SELECT id, name FROM subscriptions WHERE id =:id";
+    public function getSubscription($data) {
+        $query = "SELECT * FROM subscriptions WHERE id =:id";
         
         // print_r($data);
         // echo $query;
@@ -57,6 +57,29 @@ class Subscription extends Model
         $res =  $this->query($query, $data);
         return $res[0];
     }
+
+    public function subscriptions() {
+        $query = "SELECT * FROM $this->table";
+        $res =  $this->query($query);
+        if (is_array($res)) {
+
+            return $res;
+        }
+
+        return false;
+
+    }
+
+    public function getSubscriptionById($data) {
+        $query = "SELECT * FROM $this->table WHERE id = :id";
+        $res = $this->query($query, $data);
+        if (is_array($res)) {
+            return $res[0]; 
+        }
+        return false;
+    }
+    
+    
     
 
 }

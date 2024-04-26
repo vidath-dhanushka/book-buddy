@@ -80,10 +80,7 @@
                                     <td> Email </td>
                                     <td> <?=esc($row->email)?></td>
                                 </tr>
-                                <tr>
-                                    <td> Address </td>
-                                    <td> <?=esc($row->address)?></td>
-                                </tr>
+                                
                                 
                             </tbody>
                             

@@ -51,5 +51,12 @@ class Courier extends Model
         if (!preg_match('/^\d{1,9}(?:,\d{3})*(?:\.\d{2})?$/', $data['rate_extra_kg'])) {
             $this->errors['rate_extra_kg'] = "rate should only include numbers with 2 decimals";
         }
-    }
+        if(empty($this->errors)){
+            return true;
+        }
+
+        return false;
+
+        
+}
 }

@@ -287,7 +287,7 @@
         </ul>
       </li>
 
-      <li>
+      <!--<li>
         <a href="<?= ROOT ?>/admin/courierAdd">
           <div class="icon">
             <img src="<?= ROOT ?>/assets/images/sidenav/borrowing.png" alt="icon" />
@@ -300,7 +300,7 @@
             <a class="link_name" href="<?= ROOT ?>/admin/courierAdd">Add Courier</a>
           </li>
         </ul>
-      </li>
+      </li>-->
 
       <li>
         <a href="<?= ROOT ?>/admin/courierDetails">
@@ -317,7 +317,7 @@
         </ul>
       </li>
 
-      <li>
+     <!-- <li>
         <a href="<?= ROOT ?>/admin/addLibrarian">
           <div class="icon">
             <img src="<?= ROOT ?>/assets/images/sidenav/borrowing.png" alt="icon" />
@@ -330,12 +330,12 @@
             <a class="link_name" href="<?= ROOT ?>/admin/addLibrarian">Add Librarian</a>
           </li>
         </ul>
-      </li>
+      </li>-->
 
       <li>
         <a href="<?= ROOT ?>/admin/librarianDetails">
           <div class="icon">
-            <img src="<?= ROOT ?>/assets/images/sidenav/white-book.svg" alt="icon" />
+            <img src="<?= ROOT ?>/assets/images/sidenav/borrowing.png" alt="icon" />
           </div>
 
           <span class="link_name">Librarian Details</span>

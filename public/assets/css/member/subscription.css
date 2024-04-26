@@ -203,7 +203,7 @@
     font-family: "Poppins", sans-serif;
   }
   .price-details .price::before{
-    content: "$";
+    content: "Rs";
     left: -13px;
     top: 17px;
     font-size: 20px;

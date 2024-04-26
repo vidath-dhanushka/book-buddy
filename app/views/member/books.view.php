@@ -12,10 +12,11 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/edit-form.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/profile-pic.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/member/borrowing.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/notification.css">
 </head>
 
 <body>
-    <?php $this->view('includes/navbar') ?>
+    <?php $this->view('includes/navbar', $data) ?>
     <?php $this->view('includes/sidenav', $data) ?>
 
     <?php if ($action == 'add') : ?>
@@ -207,3 +208,4 @@
             }
         }
     </script>
+    <script src="<?=ROOT?>/assets/js/notification.js"></script>

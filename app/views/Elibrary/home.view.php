@@ -8,251 +8,47 @@
     <section class="top-rated-books">
         <h1>Top Rated Books</h1>
         <div class="top-rated-book-box">
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
+        
+        <?php if (!empty($top_ebooks)) : ?>
+            <?php foreach ($top_ebooks as $ebook) : ?>
+                <div class="top-rated-book-card">
+                    <div class="top-rated-book-img">
+                        <img src="<?= $ebook->book_cover ?>">
+                    </div>
+                    <div class="top-rated-book-tag">
+                        <h2>Featured Books</h2>
+                        <p class="writer"><?= $ebook->author_name ?></p>
+                        <div class="categories"><?= $ebook->categories ?></div>
+                        <p class="book-price"></p>
+                        <a href="<?= ROOT ?>/elibrary/view_ebook/<?= $ebook->id ?>" class="f-btn">Learn More</a>
+                    </div>
                 </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_1.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+           
         </div>
     </section>
     <section class="top-rated-books">
         <h1>Newly Added</h1>
         <div class="top-rated-book-box">
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
+        <?php if (!empty($new_ebooks)) : ?>
+            <?php foreach ($new_ebooks as $ebook) : ?>
+                <div class="top-rated-book-card">
+                    <div class="top-rated-book-img">
+                        <img src="<?= $ebook->book_cover ?>">
+                    </div>
+                    <div class="top-rated-book-tag">
+                        <h2>Featured Books</h2>
+                        <p class="writer"><?= $ebook->author_name ?></p>
+                        <div class="categories"><?= $ebook->categories ?></div>
+                        <p class="book-price"></p>
+                        <a href="<?= ROOT ?>/elibrary/view_ebook/<?= $ebook->id ?>" class="f-btn">Learn More</a>
+                    </div>
                 </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
-            <div class="top-rated-book-card">
-                <div class="top-rated-book-img">
-                    <img src="<?= ROOT ?>/assets/images/books/book_3.jpg">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2>Featured Books</h2>
-                    <p class="writer">John Deo</p>
-                    <div class="categories">Thriller, Horror, Romance</div>
-                    <p class="book-price">$25.50</p>
-                    <a href="#" class="f-btn">Learn More</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
         </div>
     </section>
 </main>

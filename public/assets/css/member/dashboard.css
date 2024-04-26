@@ -4,12 +4,12 @@ body {
 }
 
 .sidebar.close~.home-section {
-  left: 0px;
+  /* left: 0px; */
   width: 100%;
 }
 
 .home-section {
-  left: 190px;
+  left: 70px;
   width: calc(100% - 175px);
 
 }
@@ -65,12 +65,21 @@ body {
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 20px;
 }
-
 .cardBox.col-3 {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
+  width: 80vw;
 }
+.sidebar.close~.home-section .cardBox.col-3{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 100%;
+}
+
 .cardBox.col-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

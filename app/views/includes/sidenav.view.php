@@ -19,7 +19,7 @@
   <?php if($row->role === "member"):?>
     <ul class="nav-links">
       <li>
-        <a href="<?= ROOT ?>/member/dashboard">
+        <a href="<?= ROOT ?>/member">
           <div class="icon">
             <img src="<?= ROOT ?>/assets/images/sidenav/dashboard.png" alt="icon" />
           </div>
@@ -75,7 +75,7 @@
       </li>
       <li>
         <div class="iocn-link">
-          <a href="<?= ROOT ?>/member/change_subscription">
+          <a href="<?= ROOT ?>/Elibrary/subscription">
             <div class="icon">
               <img
                 src="<?= ROOT ?>/assets/images/sidenav/subscription.png"
@@ -93,11 +93,7 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="<?= ROOT ?>/member/books/add">Subscription</a></li>
-          <li>
-            <a href="<?= ROOT ?>/member/change_subscription"
-              >Change Subscription</a
-            >
-          </li>
+          
         </ul>
       </li>
     
@@ -156,7 +152,7 @@
         </a>
         <ul class="sub-menu blank">
           <li>
-            <a class="link_name" href="<?= ROOT ?>/librarian/dashboard">Dashboard</a>
+            <a class="link_name" href="<?= ROOT ?>/librarian">Dashboard</a>
           </li>
         </ul>
       </li>

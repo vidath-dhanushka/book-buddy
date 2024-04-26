@@ -18,7 +18,8 @@ class Copyright extends Model
 
     public function validate($data)
 {
-    // print_r($data);
+    // print_r(empty($data['copyright_fee']));
+    // die;
     // Validate agreement
    
     if (empty($data['agreement']) && empty($_SESSION['agreement'])) {
@@ -31,7 +32,7 @@ class Copyright extends Model
     }
 
     // Validate copyright_fee
-    if (empty($data['copyright_fee'])) {
+    if (empty($data['copyright_fee']) && !is_numeric($data['copyright_fee'])) {
         $this->errors['copyright_fee'] = "Copyright fee is required.";
     }
 

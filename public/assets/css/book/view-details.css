@@ -29,10 +29,13 @@
     font-size: 1.5rem;
 }
 
-
+.container-right p {
+    font-size: 1.2rem;
+}
 .container-right .book-title {
     font-size: 3rem;
 }
+
 
 .container-right h2 {
     font-size: 1.5rem;
@@ -93,3 +96,56 @@
     animation-delay: .5s; 
     animation-fill-mode: forwards; 
   }
+
+  #book-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+#book-details table th,
+#book-details table td {
+   
+    padding: 8px;
+}
+
+#book-details table th {
+   
+    text-align: left;
+}
+#book-details .description{
+    font-size: 1rem;
+    padding: 8px;
+    color: #000;
+    line-height: 19px;
+    margin-bottom: 8px;
+  
+   
+    
+}
+#book-details .description span{
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: bold;
+}
+#book-details{
+    width: 50%;
+    margin: 10px;
+}
+#book-details-l img{
+    width: 80%;
+}
+#book-details-l{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#book-details .sub-tags span {
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    background-color: #FFC470;
+}

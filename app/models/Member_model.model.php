@@ -345,13 +345,22 @@ public function edit_validate($data, $id){
         // Check if the user has a record in the 'members' table
         $query = "SELECT * FROM members WHERE userID = {$userID}";
         $member = $this->query($query);
-    
+        // show($member);
+        // die;
         // If the user doesn't have a record in the 'members' table, add one
         if (empty($member)) {
             $query = "INSERT INTO members (userID) VALUES ({$userID})";
-            $this->query($query);
+            $memberID = $this->query($query);
+            // Get the ID of the newly inserted record
+           
+        } else {
+            // If the user already has a record, get the ID from the existing record
+            $memberID = $member[0]->id;
         }
+    
+        return $memberID;
     }
+    
 
     
     

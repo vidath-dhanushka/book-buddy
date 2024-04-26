@@ -15,6 +15,10 @@ class Elibrary extends Controller
         // die;
         $review = new Ebook_review();
         $ebook = new Ebook;
+        $member_sub = new Member_subscription;
+       
+        $now = date('Y-m-d H:i:s');
+        $member_sub->updateExpiredSubscriptions(['now'=>$now]);
         $data['top_ebooks']=$ebooks = $review->getTopRatedEbooks();
         $data['new_ebooks'] = $ebook->getNewlyAddedEbooks();
         
@@ -101,6 +105,7 @@ class Elibrary extends Controller
         $data['ebook']->cats = $category->get_category_names($data['ebook']->cats);
         $data['copyright'] = $copyright->getCopyright(["ebook_id"=>$id]);
         $data['book_subscription']=$sub =  $subscription->getSubscription(["id"=>$data['copyright']->subscription]);
+        $data['isborrowed'] = 0;
         if (Auth::logged_in()) {
             $user_id = $_SESSION['USER_DATA']->id;
             $data['row']= $row =$member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);

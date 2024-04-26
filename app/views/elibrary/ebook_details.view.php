@@ -59,12 +59,14 @@
             <?php endfor; ?>
         </div>
     <?php endif; ?>
-         
+    
     <?php if ($user_subscription->price >= $book_subscription->price ): ?>
         <?php if ($isborrowed): ?>
             <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Read</button>
-        <?php else: ?>
+        <?php elseif(isset($_SESSION['USER_DATA']->id)): ?>
             <button onclick="location.href='<?=ROOT?>/Elibrary/borrow_ebook/<?=$ebook->id?>'">Borrow Now</button>
+        <?php else: ?>
+            <button id="borrow-btn">Borrow Now</button>
         <?php endif; ?>
     <?php else: ?>
         <button id="borrow-btn">Borrow Now</button>

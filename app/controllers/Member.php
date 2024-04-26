@@ -15,9 +15,13 @@ class Member extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
+        $member = new Member_model;
+        $subscription = new Member_subscription;
         $borrowing = new Borrowed_ebook;
         
         $data['row'] = $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        $member_id = $member->addMemberRecord($data['row']->id);
+        $subscription->assignDefaultSubscription($member_id);
         $data['ebook_borrowing'] = $borrowing->getUserEbookDetails(['user_id'=>$data['row']->id]);
         $data['title'] = 'Dashboard';
         

@@ -282,6 +282,24 @@ class Ebook extends Model
         
         return false;
     }
+
+    public function fetchEbookCountByType()
+    {
+        $query = "SELECT b.license_type, COUNT(b.id) as book_count 
+                  FROM ebooks AS b 
+                  LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id 
+                  GROUP BY b.license_type ORDER BY book_count DESC";
+    
+        $res = $this->query($query);
+    
+        if (is_array($res)) {
+            return $res;
+        }
+    
+        return false;
+    }
+    
+
     
     
 

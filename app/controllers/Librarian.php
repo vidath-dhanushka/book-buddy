@@ -15,11 +15,31 @@ class Librarian extends Controller
         $this->check_auth();
         $id = $id ?? Auth::getId();
         $user = new User();
+        $ebook = new Ebook;
+        $member = new Member_model;
+        $m_subscription = new Member_subscription;
         $data['row'] = $row =  $user->first(['id' => $_SESSION['USER_DATA']->id]);
+        $data['ebooks_count'] = $ebooks= $ebook->fetchEbookCountByType();
+        $data['subscriptions'] = $m_subscription->getCountBySubscription();
+        $total_count = 0;
+        foreach ($ebooks as $e) {
+            $total_count += $e->book_count;
+        }
 
-       
-        // print_r($row->role);
-        // die;
+        $total_members = 0;
+        foreach ($data['subscriptions'] as $m) {
+            $total_members += $m->member_count;
+        }
+        $data['ebook_total'] = $total_count;
+        $data['member_total'] = $total_members;
+        $data['ebook_new'] = $ebook->getNewlyAddedEbooks();
+        $data['Subscribers']= $subscribers = $m_subscription->getSubscriptions();
+     
+        foreach ($subscribers as $sub) {
+            $temp= ($member->where(['id'=>$sub->member_id]))[0]->userID;
+            $sub->member_name = ($member->where(['id'=>$temp], 'users'))[0]->username;
+         
+        }
         $data['title'] = 'Dashboard';
         $this->view('librarians/dashboard', $data);
     }
@@ -623,15 +643,15 @@ class Librarian extends Controller
 
 
 
-    public function dashboard()
-    {
-        $this->check_auth();
-        $id = $id ?? Auth::getId();
-        $user = new User();
-        $data['row'] = $user->first(['id' => $id]);
-        $data['title'] = 'Dashboard';
-        $this->view('librarians/dashboard', $data);
-    }
+    // public function dashboard()
+    // {
+    //     $this->check_auth();
+    //     $id = $id ?? Auth::getId();
+    //     $user = new User();
+    //     $data['row'] = $user->first(['id' => $id]);
+    //     $data['title'] = 'Dashboard';
+    //     $this->view('librarians/dashboard', $data);
+    // }
 
    
 

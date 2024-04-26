@@ -152,7 +152,7 @@
         </a>
         <ul class="sub-menu blank">
           <li>
-            <a class="link_name" href="<?= ROOT ?>/librarian/dashboard">Dashboard</a>
+            <a class="link_name" href="<?= ROOT ?>/librarian">Dashboard</a>
           </li>
         </ul>
       </li>

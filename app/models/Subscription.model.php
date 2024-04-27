@@ -49,14 +49,21 @@ class Subscription extends Model
     }
 
     public function getSubscription($data) {
-        $query = "SELECT * FROM subscriptions WHERE id =:id";
-        
-        // print_r($data);
-        // echo $query;
+        $query = "SELECT * FROM subscriptions WHERE id = :id";
+        $res = $this->query($query, $data);
+    
+        // If $res is empty, query for the default subscription with id=1
+        if(empty($res)) {
+            $data['id'] = 1;
+            $query = "SELECT * FROM subscriptions WHERE id = :id";
+            $res = $this->query($query, $data);
+        }
+        // show($res);
         // die;
-        $res =  $this->query($query, $data);
+    
         return $res[0];
     }
+    
 
     public function subscriptions() {
         $query = "SELECT * FROM $this->table";

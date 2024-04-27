@@ -101,7 +101,26 @@ public function view_all($data){
 }
 
 
+public function addPublicDomainData($id){
+        $data = array(
+            'ebook_id' => $id,
+            'agreement' => "Standard Public Domain Agreement",
+            'license_type' => "Public Domain",
+            'subscription' => 1,
+            'licensed_copies' => 100,
+            'copyright_fee' => 0,
+            'license_start_date' => date("Y-m-d"), // Today's date
+            'license_end_date' => "N/A" // No end date for Public Domain books
+        );
 
-
-
+        $query = "INSERT INTO copyrights (ebook_id, agreement, license_type, subscription, licensed_copies, copyright_fee, license_start_date, license_end_date) VALUES (:ebook_id, :agreement, :license_type, :subscription, :licensed_copies, :copyright_fee, :license_start_date, :license_end_date)";
+        $res = $this->query($query, $data);
+        return $res;
+    }
 }
+
+
+
+
+
+

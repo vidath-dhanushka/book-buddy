@@ -1,5 +1,9 @@
 <?php $this->view('includes/header') ?>
-<?php $this->view('includes/nav') ?>
+<?php if($data['type'] == 'book'): ?>
+    <?php $this->view('includes/nav') ?>
+<?php else: ?>
+    <?php $this->view('Elibrary/includes/elib_nav') ?>
+<?php endif; ?>
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +12,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/navbar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/shoppingcart.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/modalpopup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
@@ -22,12 +27,26 @@
                     <div class="b1ook-details">
                         <h3><?= $cartItem->title ?></h3>
                         <!-- Display other details like author, price, etc. -->
-                        <p>Author:  ?></p>
+                        <p><?= $cartItem->author_name ?></p>
                         <p></p>
                     </div>
+                <?php if($data['type'] == 'ebook'): ?>
+                    <div>
+                        <a href="<?= ROOT ?>/elibrary/view_ebook/<?= $cartItem->book_id ?>"><button class="details-button">view details</button></a>
+                    </div>
+                <?php else: ?>
+        
+                <?php endif; ?> 
+                
+                <?php if($data['type'] == 'book'): ?>
                     <div>
                         <a href="<?= ROOT ?>/cart/remove/<?= $cartItem->book_id ?>"><button class="r1emove-button">Remove</button></a>
                     </div>
+                <?php else: ?>
+                    <div>
+                        <a href="<?= ROOT ?>/ebookcart/remove/<?= $cartItem->book_id ?>"><button class="r1emove-button">Remove</button></a>
+                    </div>
+                <?php endif; ?> 
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
@@ -35,7 +54,8 @@
             <p>Add items to your cart to continue shopping.</p>
         <?php endif; ?>
         </div>
-
+    
+    <?php if($data['type'] == 'book'): ?>
         <div class="c1heckout">
             <h2>Checkout</h2>
             <hr>
@@ -43,8 +63,12 @@
             <p>Total Price: $25.00</p>
             <button id="checkoutButton">Proceed to Checkout</button>
         </div>
+    <?php else: ?>
+        
+    <?php endif; ?>    
 
-        <div id="checkoutModal" class="modal">
+
+        <div id="checkoutModal" class="cart-modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <!-- Content to display items in the cart -->
@@ -57,7 +81,7 @@
         </div>
     </div>
 
-    <script src="<?= ROOT ?>/assets/js/modalpopup.js"></script>
+    <script src="<?= ROOT ?>/assets/js/modalpop.js"></script>
 
 
 </body>

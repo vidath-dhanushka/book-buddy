@@ -58,6 +58,16 @@ class UserCart extends Model
         return $res;
     }
 
+    public function getUserCartItems1($userId)
+    {
+        $query = "SELECT c.*, b.title, b.book_image, a.author_name FROM {$this->table} c JOIN books b ON c.book_id = b.id JOIN authors a ON b.author_id = a.id WHERE c.user_id = :user_id";
+        $res = $this->query($query, ['user_id' => $userId]);
+        return $res;
+    }
+
+
+    
+
     public function getUserCartItem($userId, $bookId)
     {
         $query = "SELECT * FROM {$this->table} WHERE user_id = :user_id AND book_id = :book_id";

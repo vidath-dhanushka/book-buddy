@@ -7,13 +7,14 @@ class Cart extends Controller
         // Check if the user is logged in
         if(isset($_SESSION['USER_DATA']) && is_object($_SESSION['USER_DATA']) && isset($_SESSION['USER_DATA']->id)) {
             $userCart = new UserCart();
-            $data['cart_items'] = $userCart->getUserCartItems($_SESSION['USER_DATA']->id);
+            $data['cart_items'] = $userCart->getUserCartItems1($_SESSION['USER_DATA']->id);
         } else {
             $data['cart_items'] = []; // Empty cart for guests or users not logged in
         }
 
         // Load other data for the view
         $data['title'] = 'View Cart';
+        $data['type'] = 'book';
         $this->view('shoppingcart', $data);
     }
 
@@ -66,7 +67,5 @@ class Cart extends Controller
             echo json_encode(['cartCount' => 0]);
         }
     }
-
-    
 
 }

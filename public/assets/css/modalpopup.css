@@ -1,5 +1,5 @@
 /* Styles for the modal */
-.modal {
+.cart-modal {
     display: none;
     position: fixed;
     z-index: 1;

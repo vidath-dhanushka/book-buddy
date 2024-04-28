@@ -79,6 +79,18 @@ class Database
 
         $this->query($query);
 
+        $query = "CREATE TABLE IF NOT EXISTS ebook_user_carts (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            user_id INT(11),
+            book_id INT(11),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            FOREIGN KEY (book_id) REFERENCES books(id)
+        )";
+
+        $this->query($query);
+
 
         $query = "CREATE TABLE IF NOT EXISTS `books` (
             `id` INT(11) NOT NULL AUTO_INCREMENT,

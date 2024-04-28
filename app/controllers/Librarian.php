@@ -116,7 +116,7 @@ class Librarian extends Controller
                         if (in_array($_FILES['book_cover']['type'], $allowed)) {
                             $destination = $folder . time() . $_FILES['book_cover']['name'];
                             move_uploaded_file($_FILES['book_cover']['tmp_name'], $destination);
-                            resize_image($destination);
+                            //resize_image($destination);
                             // echo $destination;
                             // die;
                             $_POST['book_cover'] = $destination;

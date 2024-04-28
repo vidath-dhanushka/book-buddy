@@ -67,7 +67,7 @@ class Librarian extends Controller
         $book = new Ebook;
         $author = new Author;
         $book_categ = new Ebook_category;
-        
+        $copyright = new copyright;
         $data['categories'] = $book->categories();
         $author_verify = 0;
         $book_verify = 0;
@@ -181,14 +181,18 @@ class Librarian extends Controller
                     }
                     
                     if(empty($book->errors)){
+                        
+                        $book_res = $book->insert($_POST);
+                        $book_verify = 1;
+
                         if($_POST['license_type']=="Public Domain"){
                             $_POST['copyright_status'] = 1;
+                            $copyright->addPublicDomainData($book_res);
+
                         }
                         else{
                             $_POST['copyright_status'] = 0;
                         }
-                        $book_res = $book->insert($_POST);
-                        $book_verify = 1;
 
                          
                     $category = $_POST['category'];

@@ -31,7 +31,7 @@
             </nav>
             <div class="icons">
                 <div id="menu-btn" class="fas fa-bars"></div>
-                <a href="cart.php"><i class="fas fa-shopping-cart"></i> <span>(00)</span></a>
+                <a href="<?= ROOT ?>/ebookcart"><i class="fas fa-shopping-cart"></i> <span>(00)</span></a>
             </div>
         </div>
     </div>

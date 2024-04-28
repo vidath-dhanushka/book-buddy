@@ -30,7 +30,28 @@
             </nav>
             <div class="icons">
                 <div id="menu-btn" class="fas fa-bars"></div>
-                <a href="<?= ROOT ?>/cart"><i class="fas fa-shopping-cart"></i> <span>(00)</span></a>
+                <a href="<?= ROOT ?>/cart"><i class="fas fa-shopping-cart"></i> <span id = "cart_count">(00)</span></a>
+
+                <script>
+                    function updateCartCount() {
+                        fetch('<?= ROOT ?>/cart/get_cart_count', {
+                            method: 'GET',
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Update the cart count element in the HTML
+                            document.getElementById('cart_count').textContent = data.cartCount;
+                        })
+                        .catch(error => console.error('Error fetching cart count:', error));
+                    }
+
+                    // Call updateCartCount() when the page loads
+                    document.addEventListener('DOMContentLoaded', () => {
+                        updateCartCount();
+                    });
+                </script>
+
+                
             </div>
         </div>
     </div>

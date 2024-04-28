@@ -1,0 +1,183 @@
+body {
+    background: rgb(99, 9, 121);
+    background: linear-gradient(135deg, rgba(122, 58, 175, 1) 0%, rgb(116, 158, 224, 1) 100%);
+    /* font-family: 'Lato', sans-serif; */
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.flex-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-container {
+    background-color: rgba(249, 255, 255, 0.7);
+    width: 60%;
+    height: 600px;
+    margin: 200px auto;
+    padding: 5px;
+    border-radius: 0.5em;
+    display: flex;
+
+}
+
+.subcontainer-left {
+    background-color: white;
+    position: relative;
+    /* background-color: yellow; */
+    width: 50%;
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+
+}
+
+.subcontainer-right {
+
+    position: relative;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+
+    width: 50%;
+
+}
+
+.inner-subcontainer {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    /* border: 1px solid black; */
+    width: 100%;
+    margin: auto;
+}
+
+/* form {
+    text-align: center;
+} */
+
+h2 {
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.details {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-left: 3px;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+/* .details div {
+    width: fit-content;
+} */
+
+.details input {
+    position: relative;
+    width: 95%;
+    padding: 8px 20px;
+    border-radius: 0.3em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.logo {
+    padding-top: 30px;
+    position: relative;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#logoPic {
+    position: relative;
+    width: 50%;
+}
+
+.title {
+    padding-top: 25px;
+    text-align: center;
+}
+
+.title a {
+    text-decoration: none;
+    color: #818af9;
+}
+
+.signup-img img {
+    position: relative;
+    height: 300px;
+    max-width: 80%;
+}
+
+.signup-img {
+    display: flex;
+    justify-content: center;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+.submit {
+    position: relative;
+}
+
+button {
+    background-color: #616adf;
+    color: white;
+    justify-content: center;
+    /* width: 50%; */
+    margin: 5px;
+    border: 2px solid #5860d8;
+    border-radius: 0.3em;
+    /* margin-right: 5px; */
+    padding: 5px 5px;
+}
+
+button:hover {
+    background-color: #818af9;
+}
+
+.err-msg {
+    color: red;
+}
+
+.err-border {
+    border: 1px solid red;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    text-align: center;
+}
+
+/* .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+} */
+
+.subcontainer-right .inner-subcontainer div {
+    /* padding-right: 10px; */
+    padding-left: 15px;
+}
+
+form {
+    padding-top: 100px;
+    /* margin-top: 50px; */
+}

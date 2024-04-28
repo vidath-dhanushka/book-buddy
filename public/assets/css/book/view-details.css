@@ -1,0 +1,151 @@
+.main-container {
+    display: flex;
+    margin: 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #3333;
+}
+
+.container-left {
+    width: 50%;
+    background-color: #ddd;
+    border-radius: 15px 0 0 15px;
+    padding: 20px;
+}
+
+.container-right {
+    padding: 10px 20px;
+}
+
+.container-left img {
+    width: 300px;
+    height: 400px;
+    margin: 10px 50px;
+    object-fit: cover;
+    background-color: #707070;
+}
+
+.container-right p i {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+.container-right p {
+    font-size: 1.2rem;
+}
+.container-right .book-title {
+    font-size: 3rem;
+}
+
+
+.container-right h2 {
+    font-size: 1.5rem;
+    color: rgb(77, 74, 74);
+}
+
+.description {
+    font-size: 1.4rem;
+    color: #0009;
+    /* line-break: anywhere; */
+}
+
+.container-right h3 {
+    font-size: 1.3rem;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.container-right .tags span {
+    border-radius: 15px;
+    padding: 7px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    background-color: rgba(133, 251, 255, 0.596);
+}
+
+.container-right button {
+    height: 55px;
+    width: 300px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgb(130, 106, 251);
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.container-right button:hover {
+    background-color: #fff;
+    border: 1px solid #818AF9;
+    color: #818AF9;
+}
+.error {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    text-align: center;
+    animation-name: fadeOut;
+    animation-duration: 1.5s;
+    animation-delay: .5s; 
+    animation-fill-mode: forwards; 
+  }
+
+  #book-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+#book-details table th,
+#book-details table td {
+   
+    padding: 8px;
+}
+
+#book-details table th {
+   
+    text-align: left;
+}
+#book-details .description{
+    font-size: 1rem;
+    padding: 8px;
+    color: #000;
+    line-height: 19px;
+    margin-bottom: 8px;
+  
+   
+    
+}
+#book-details .description span{
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: bold;
+}
+#book-details{
+    width: 50%;
+    margin: 10px;
+}
+#book-details-l img{
+    width: 80%;
+}
+#book-details-l{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#book-details .sub-tags span {
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    background-color: #FFC470;
+}

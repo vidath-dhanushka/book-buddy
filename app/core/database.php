@@ -65,6 +65,30 @@ class Database
                 ) 
             ";
 
+        $this ->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS user_carts (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            user_id INT(11),
+            book_id INT(11),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            FOREIGN KEY (book_id) REFERENCES books(id)
+        )";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS ebook_user_carts (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            user_id INT(11),
+            book_id INT(11),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            FOREIGN KEY (book_id) REFERENCES books(id)
+        )";
+
         $this->query($query);
 
 
@@ -80,9 +104,9 @@ class Database
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
             KEY title (title)
             )
-        ";
-
+        ";     
         $this->query($query);
+        
         $query = "CREATE TABLE IF NOT EXISTS `categories` (
             `id` INT(11) NOT NULL AUTO_INCREMENT,
             `category_name` VARCHAR(255) NOT NULL, 

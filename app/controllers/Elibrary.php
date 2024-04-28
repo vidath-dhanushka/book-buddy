@@ -106,6 +106,13 @@ class Elibrary extends Controller
         $data['copyright'] = $copyright->getCopyright(["ebook_id"=>$id]);
         $data['book_subscription']=$sub =  $subscription->getSubscription(["id"=>$data['copyright']->subscription]);
         $data['isborrowed'] = 0;
+
+        $userCart = new Ebook_usercart();
+    
+    
+
+        // Check if the item already exists in the user's cart
+       
         if (Auth::logged_in()) {
             $user_id = $_SESSION['USER_DATA']->id;
             $data['row']= $row =$member->view_member_details(['id' => $_SESSION['USER_DATA']->id]);
@@ -114,6 +121,13 @@ class Elibrary extends Controller
             $data['user_subscription'] = $user_sub = $member_subscription->getSubscription(["id"=>$data['row']->id]);
             $data['subscription'] = ($user_sub->price > $sub->price) ? $user_sub : $sub;
             $data['isborrowed'] = $borrowed_ebook->hasUserBorrowed(["user_id"=>$row->userID, "ebook_id"=>$id ]);
+            $existingItem = $userCart->getUserCartItem($user_id, $id);
+            if($existingItem){
+                $data['favourite'] = 1;
+            }
+            else{
+                $data['favourite'] = 0;
+            }
            
         }
         
@@ -189,8 +203,9 @@ class Elibrary extends Controller
                 $user_borrowing = ($borrowed_ebook->countUserBorrowedBooks(["user_id"=>$row->id]))->user_borrowed_books;
                 
                 $isborrowed = $borrowed_ebook->hasUserBorrowed(["user_id"=>$row->userID, "ebook_id"=>$id ]);
-
-                if($licensed_copies > $borrowing_count && $user_sub->numberOfBooks > $user_borrowing){
+                // show( $user_borrowing);
+                // die;
+                if($licensed_copies > $borrowing_count && $user_sub->numberOfBooks >= $user_borrowing){
                     if(!$isborrowed){
                         // show($row);
                         $borrowed_ebook->insert(["user_id"=>$row->userID, "ebook_id"=>$id]);

@@ -31,7 +31,11 @@
        
         <div>
             <a href="<?= ROOT ?>/payment"><button>Borrow Now</button></a>
-            <a href="<?= ROOT ?>/cart/add_to_cart"><button>Add to Cart</button></a>
+            <a href="<?= ROOT ?>/cart/add_to_cart/<?=$data['row']->id?>"><button>Add to Cart</button></a>
+            <!-- Check for success message and display it -->
+            <?php if ($msg = message()) : ?>
+                <div class="alert"><?= $msg ?></div>
+            <?php endif; ?>
         </div>
     </section>
 </div>

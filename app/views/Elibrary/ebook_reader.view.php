@@ -1,5 +1,5 @@
 <?php $this->view('includes/header') ?>
-<?php $this->view('Elibrary/includes/elib_nav') ?>
+<?php $this->view('Elibrary/includes/elib_nav', $data) ?>
 <script src="<?=ROOT?>/Elibrary/ebook_url/<?=$ebook->id ?>"></script>
 <link rel="stylesheet" href="<?=ROOT?>/assets/css/ebook-reader.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

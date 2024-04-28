@@ -58,7 +58,6 @@ class Book extends Model
         if (is_array($res)) {
             return $res[0];
         }
-
         return false;
     }
 

@@ -80,7 +80,8 @@ class Ebook_usercart extends Model
     {
         $query = "SELECT COUNT(*) AS cartCount FROM {$this->table} WHERE user_id = :user_id";
         $result = $this->query($query, ['user_id' => $userId]);
-        return $result[0]['cartCount'];
+     
+        return $result[0]->cartCount;
     }
 }
 

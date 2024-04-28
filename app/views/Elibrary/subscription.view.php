@@ -1,5 +1,5 @@
 <?php $this->view('includes/header') ?>
-<?php $this->view('Elibrary/includes/elib_nav') ?>
+<?php $this->view('Elibrary/includes/elib_nav', $data) ?>
 <?php if(Auth::logged_in()):?>
   <main class="subscription" >
   <div class="current-plan">

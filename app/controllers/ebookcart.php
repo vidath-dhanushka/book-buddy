@@ -25,15 +25,17 @@ class Ebookcart extends Controller
             $userCart = new Ebook_usercart();
             $user_id = $_SESSION['USER_DATA']->id;
             $book_id = esc($id);
-
+            
             // Check if the item already exists in the user's cart
             $existingItem = $userCart->getUserCartItem($user_id, $book_id);
 
             if($existingItem) {
+                
                 //message("The book is already in your cart");
                 // Update quantity if item exists
                 //$userCart->updateCartItemQuantity($user_id, $book_id, $existingItem->quantity + 1);
             } else {
+                
                 // Add new item to cart
                 $userCart->insertCartItem($user_id, $book_id);
                 //message("Success! The book is added to your cart");
@@ -42,7 +44,7 @@ class Ebookcart extends Controller
         }         
     }
 
-    public function remove($id='')
+    public function remove($id='', $ebook_view=0)
     {
         // Check if user is logged in
         if(isset($_SESSION['USER_DATA']) && is_object($_SESSION['USER_DATA']) && isset($_SESSION['USER_DATA']->id)) {
@@ -52,6 +54,9 @@ class Ebookcart extends Controller
 
             // Remove item from user's cart
             $userCart->removeCartItem($user_id, $book_id);
+        }
+        if($ebook_view){
+            redirect('elibrary/view_ebook/'.$book_id);
         }
 
         redirect("ebookcart");

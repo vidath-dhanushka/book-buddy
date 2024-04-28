@@ -31,8 +31,42 @@
             </nav>
             <div class="icons">
                 <div id="menu-btn" class="fas fa-bars"></div>
-                <a href="<?= ROOT ?>/ebookcart"><i class="fas fa-shopping-cart"></i> <span>(00)</span></a>
+                <a href="<?= ROOT ?>/ebookcart">
+                <i class="fa-solid fa-heart" style="color:rgb(130, 106, 251)"></i>
+                    <span class="favourite-count">(00)</span>
+                </a>
             </div>
         </div>
     </div>
 </header>
+
+<script>
+    // Function to fetch the count
+    function fetchCount() {
+    console.log('Fetching count...'); // Log when the function is called
+    fetch('<?= ROOT ?>/ebookcart/get_cart_count', {
+        method: 'GET',
+        // Add any necessary headers here
+    })
+    .then(response => {
+        console.log('Response:', response); // Log the response
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data:', data); // Log the data
+        // Update the count on the page
+        document.querySelector('.favourite-count').textContent = data.cartCount;
+    })
+    .catch(error => {
+        console.error('Error:', error); // Log any errors
+    });
+}
+
+// Fetch the count when the page loads
+fetchCount();
+
+// Fetch the count every 5 seconds
+setInterval(fetchCount, 5000);
+
+
+</script>

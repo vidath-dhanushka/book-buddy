@@ -1,5 +1,5 @@
 <?php $this->view('includes/header') ?>
-<?php $this->view('Elibrary/includes/elib_nav') ?>
+<?php $this->view('Elibrary/includes/elib_nav', $data) ?>
 
 <?php 
     $class = isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'alert'; 
@@ -18,6 +18,11 @@
 <section class="container-right" id="book-details">
     <div class="sub-tags">
         <span><?= $subscription->name ?></span>
+        <?php if(isset($favourite) && $favourite): ?>
+            <a href="<?= ROOT ?>/ebookcart/remove/<?=$ebook->id?>/1"><i class="fa-solid fa-heart my-icon" ></i></a>
+        <?php else: ?>
+            <a href="<?= ROOT ?>/ebookcart/add_to_cart/<?=$ebook->id?>"><i class="fa-regular fa-heart my-icon"></i></i></a>
+        <?php endif; ?>
     </div>
     <br>
     <p class="book-title"><?= $ebook->title; ?></p>
@@ -72,7 +77,7 @@
         <button id="borrow-btn">Borrow Now</button>
     <?php endif; ?>
 
-    <button>Add to Cart</button>
+    
 </section>
 
 </div>
@@ -306,7 +311,11 @@ if (document.getElementById('borrow-btn')) {
         document.getElementById('myModal-3').classList.add('animate');
     });
 }
+
+
+
 </script>
+
 <?php $this->view('includes/footer') ?>
 
 

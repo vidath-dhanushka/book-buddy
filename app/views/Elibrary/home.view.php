@@ -1,5 +1,5 @@
 <?php $this->view('includes/header') ?>
-<?php $this->view('Elibrary/includes/elib_nav') ?>
+<?php $this->view('Elibrary/includes/elib_nav', $data) ?>
 <main>
     <section class="banner">
         <div class="banner-content">Unlock the power <br> of knowledge with <br> <span>Bookbuddy</span></div>

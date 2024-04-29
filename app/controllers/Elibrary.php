@@ -77,6 +77,7 @@ class Elibrary extends Controller
             if (isset($_POST["search"])) {
                 
                 $data['ebooks'] = $ebook->search(['search'=> $_POST["search"]]);
+              
                
             }
         }

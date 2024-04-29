@@ -76,7 +76,7 @@
 
 
     <?php else : ?>
-        <h2 style="text-align: center; font-size:15px; margin-top:20px;">No books found for this category!</h2 style="text-align: center;">
+        <h2 style="text-align: center; font-size:15px; margin-top:20px;">No books found!</h2 style="text-align: center;">
     <?php endif; ?>
 
     </section>

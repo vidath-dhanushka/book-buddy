@@ -47,7 +47,10 @@ class Ebookcart extends Controller
                 //message("Success! The book is added to your cart");
             }
             redirect('elibrary/view_ebook/'.$book_id);
-        }         
+        } else{
+            message('To add items to your favorites, please register and become a member. Enjoy exploring our collection!');
+            redirect('elibrary/view_ebook/'.$id);
+        }       
     }
 
     public function remove($id='', $ebook_view=0)

@@ -60,9 +60,9 @@ body {
   padding-top: 15px;
 }
 
-.cardBox.col-6 {
+.cardBox.col-5 {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 20px;
 }
 .cardBox.col-3 {

@@ -20,30 +20,37 @@
 <body>   
     <div class="c1ontainer">
         <div class="c1art">
-            <div class="b1ook">
-                <img src="book1.jpg" alt="Book 1">
-                <div class="b1ook-details">
-                    <h3>Book Title 1</h3>
-                    <p>Author: Author Name</p>
-                    <p>Price: $10.00</p>
-                </div>
-                <button class="r1emove-button">Remove</button>
-            </div>
-            <div class="b1ook">
-                <img src="book2.jpg" alt="Book 2">
-                <div class="b1ook-details">
-                    <h3>Book Title 2</h3>
-                    <p>Author: Author Name</p>
-                    <p>Price: $15.00</p>
-                </div>
-                <button class="r1emove-button">Remove</button>
-            </div>
-            <div class="b1ook">
-                <img src="book2.jpg" alt="Book 2">
-                <div class="b1ook-details">
-                    <h3>Book Title 2</h3>
-                    <p>Author: Author Name</p>
-                    <p>Price: $15.00</p>
+        <?php if($data['cart_items']): ?>
+            <?php foreach($data['cart_items'] as $cartItem): ?>
+                <div class="b1ook">
+                    <?php if($data['type'] == 'ebook'): ?>
+                        <img src="<?= ROOT ?>/<?= $cartItem->book_cover ?>" alt="Book Image">
+                    <?php else: ?>    
+                        <img src="<?= ROOT ?>/assets/images/books/<?= $cartItem->book_image ?>" alt="Book Image">
+                    <?php endif; ?> 
+                    <div class="b1ook-details">
+                        <h3><?= $cartItem->title ?></h3>
+                        <!-- Display other details like author, price, etc. -->
+                        <p><?= $cartItem->author_name ?></p>
+                        <p></p>
+                    </div>
+                <?php if($data['type'] == 'ebook'): ?>
+                    <div>
+                        <a href="<?= ROOT ?>/elibrary/view_ebook/<?= $cartItem->book_id ?>"><button class="details-button">view details</button></a>
+                    </div>
+                <?php else: ?>
+        
+                <?php endif; ?> 
+                
+                <?php if($data['type'] == 'book'): ?>
+                    <div>
+                        <a href="<?= ROOT ?>/cart/remove/<?= $cartItem->book_id ?>"><button class="r1emove-button">Remove</button></a>
+                    </div>
+                <?php else: ?>
+                    <div>
+                        <a href="<?= ROOT ?>/ebookcart/remove/<?= $cartItem->book_id ?>"><button class="r1emove-button">Remove</button></a>
+                    </div>
+                <?php endif; ?> 
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

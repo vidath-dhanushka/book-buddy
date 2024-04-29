@@ -54,8 +54,15 @@
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <h2>Your Cart is Empty</h2>
-            <p>Add items to your cart to continue shopping.</p>
+            <?php if($data['type'] == 'book'): ?>
+                <h2>Your Cart is Empty</h2>
+                <p>Add items to your cart to continue shopping.</p>
+            <?php else: ?> 
+                <h2>Your Favorites List is Empty</h2>
+                <p>Add items to your favorites to easily find them later.</p>
+
+            <?php endif; ?> 
+            
         <?php endif; ?>
         </div>
     

@@ -20,8 +20,14 @@ class Ebookcart extends Controller
 
     public function add_to_cart($id=null)
     {
+
         // Check if user is logged in
         if(isset($_SESSION['USER_DATA']) && is_object($_SESSION['USER_DATA']) && isset($_SESSION['USER_DATA']->id)) {
+            if($_SESSION['USER_DATA']->role != 'member'){
+            
+                message('To add items to your favorites, please register and become a member. Enjoy exploring our collection!');
+                redirect('elibrary/view_ebook/'.$id);
+            }
             $userCart = new Ebook_usercart();
             $user_id = $_SESSION['USER_DATA']->id;
             $book_id = esc($id);

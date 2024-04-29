@@ -43,17 +43,17 @@
 <script>
     // Function to fetch the count
     function fetchCount() {
-    console.log('Fetching count...'); // Log when the function is called
+    
     fetch('<?= ROOT ?>/ebookcart/get_cart_count', {
         method: 'GET',
         // Add any necessary headers here
     })
     .then(response => {
-        console.log('Response:', response); // Log the response
+        
         return response.json();
     })
     .then(data => {
-        console.log('Data:', data); // Log the data
+      
         // Update the count on the page
         document.querySelector('.favourite-count').textContent = data.cartCount;
     })

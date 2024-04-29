@@ -132,9 +132,7 @@
     width: 50%;
     margin: 10px;
 }
-#book-details-l img{
-    width: 80%;
-}
+
 #book-details-l{
     display: flex;
     justify-content: center;

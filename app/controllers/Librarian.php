@@ -40,11 +40,14 @@ class Librarian extends Controller
         $data['member_total'] = $total_members;
         $data['ebook_new'] = $ebook->getNewlyAddedEbooks();
         $data['Subscribers']= $subscribers = $m_subscription->getSubscriptions();
-     
+   
         if(!empty($subscribers)){
             foreach ($subscribers as $sub) {
-                $temp= ($member->where(['id'=>$sub->member_id]))[0]->userID;
-                $sub->member_name = ($member->where(['id'=>$temp], 'users'))[0]->username;
+                if(!empty($member->where(['id'=>$sub->member_id]))){
+                    $temp= ($member->where(['id'=>$sub->member_id]))[0]->userID;
+                    $sub->member_name = ($member->where(['id'=>$temp], 'users'))[0]->username;
+                }
+               
              
             }
         }
@@ -181,18 +184,21 @@ class Librarian extends Controller
                     }
                     
                     if(empty($book->errors)){
-                        
-                        $book_res = $book->insert($_POST);
-                        $book_verify = 1;
-
                         if($_POST['license_type']=="Public Domain"){
                             $_POST['copyright_status'] = 1;
+                            $book_res = $book->insert($_POST);
                             $copyright->addPublicDomainData($book_res);
 
                         }
                         else{
                             $_POST['copyright_status'] = 0;
+                            $book_res = $book->insert($_POST);
                         }
+                        
+                       
+                        $book_verify = 1;
+
+                        
 
                          
                     $category = $_POST['category'];

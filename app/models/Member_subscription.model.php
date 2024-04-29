@@ -34,17 +34,14 @@ class Member_subscription extends Model
     public function getSubscriptions() {
         $query = "SELECT {$this->table}.*, subscriptions.*
                   FROM {$this->table} 
-                  INNER JOIN subscriptions ON {$this->table}.subscription_id = subscriptions.id
+                  LEFT JOIN subscriptions ON {$this->table}.subscription_id = subscriptions.id
                  ";
 
        
         $res =  $this->query($query);
         
         // If a user subscription is not found, return the default subscription
-        if (empty($res)) {
-            $query = "SELECT * FROM subscriptions WHERE id = 1";
-            $res = $this->query($query);
-        }
+        
         
         return $res;
     }

@@ -2,7 +2,7 @@
 <?php $this->view('Elibrary/includes/elib_nav', $data) ?>
 <main>
     <section class="searchbar">
-        <form action="">
+        <form method="post">
             <input type="text" name="search" id="search" placeholder="search book....">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </section>

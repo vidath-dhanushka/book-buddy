@@ -48,6 +48,7 @@ class Elibrary extends Controller
     {
         $cats = new Category;
         $book_categ = new EBook_category;
+        $ebook = new EBook;
         $review = new Ebook_review;
         $data['title'] = 'E - Books';
         $data['categories'] = $cats->getCategs();
@@ -72,14 +73,15 @@ class Elibrary extends Controller
             // show($data['ebooks']);
             // die;
         }
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if (isset($_POST["search"])) {
+                
+                $data['ebooks'] = $ebook->search(['search'=> $_POST["search"]]);
+               
+            }
+        }
 
-
-        // show($data['ebooks']);
-        // die;
-
-        // $data['ebooks'] = array_filter($data['ebooks'], function($book) {
-        //     return $book->copyright_status == 1;
-        // });
+       
         
 
         $this->view('elibrary/ebooks', $data);

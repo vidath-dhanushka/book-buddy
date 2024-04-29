@@ -209,11 +209,15 @@ class Ebook extends Model
         FROM ebooks AS b 
         LEFT JOIN authors AS a ON b.author_id = a.id 
         LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id 
-        WHERE (b.title LIKE :search OR b.isbn LIKE :search OR a.author_name LIKE :search) 
+        WHERE (LOWER(b.title) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(b.isbn) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(a.author_name) LIKE LOWER(CONCAT('%', :search, '%'))) 
         GROUP BY b.id 
         ORDER BY id DESC
+        
+        
         ";
-    
+        // show($query);
+        // show($data);
+        // die;
         $res = $this->query($query, $data);
     
         if (is_array($res)) {

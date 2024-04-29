@@ -23,6 +23,24 @@ class Member extends Controller
         $member_id = $member->addMemberRecord($data['row']->id);
         $subscription->assignDefaultSubscription($member_id);
         $data['ebook_borrowing'] = $borrowing->getUserEbookDetails(['user_id'=>$data['row']->id]);
+        $data['ebook_borrowing'] = array_filter($data['ebook_borrowing'], function($book) {
+            return $book->active == 1;
+        });
+        $data['ebook_borrowing'] = array_slice($data['ebook_borrowing'], 0, 5);
+
+        foreach ($data['ebook_borrowing'] as $book) {
+            $date = new DateTime($book->borrow_date);
+            $book->borrow_date = $date->format('Y-m-d');
+            $numDays = $book->borrowing_time;
+            $interval = new DateInterval('P' . $numDays . 'D');
+            $due_date = $date->add($interval);
+         
+
+            $book->due_date = $due_date->format('Y-m-d');
+        
+        }
+        
+        
         $data['title'] = 'Dashboard';
         
         

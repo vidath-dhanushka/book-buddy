@@ -203,6 +203,29 @@ class Ebook extends Model
         return false;
     }
 
+    public function search($data)
+    {
+        $query = "SELECT b.*, a.author_name, b.id bid 
+        FROM ebooks AS b 
+        LEFT JOIN authors AS a ON b.author_id = a.id 
+        LEFT OUTER JOIN ebook_category c ON c.ebook_id = b.id 
+        WHERE (b.title LIKE :search OR b.isbn LIKE :search OR a.author_name LIKE :search) 
+        GROUP BY b.id 
+        ORDER BY id DESC
+        ";
+    
+        $res = $this->query($query, $data);
+    
+        if (is_array($res)) {
+            return $res;
+     
+        }
+    
+        return false;
+    }
+    
+
+
   
 
     public function is_borrowed($data){
